@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Joaquin Herrera",
+        "year": "Junior",
+        "state": "IL",
+        "height": "5'8",
+        "major": "Computer Science",
+        "hometown": "Chicago, IL",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": "",
+        "events": []
+    },
+    {
+        "name": "Jake Kilander",
+        "year": "Senior",
+        "state": "MN",
+        "height": "6'0",
+        "major": "Journalism",
+        "hometown": "Robbinsdale, MN",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": "",
+        "events": []
+        },
+    {
+        "name": "Michael Chelney",
+        "year": "Junior",
+        "state": "NJ",
+        "height": "6'0",
+        "major": "Math + Statistics",
+        "hometown": "Montvale, NJ",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": "",
+        "events": []
+        },
+    {
+        "name": "Vojtech Cisar",
+        "year": "Senior",
+        "state": "IL",
+        "height": "6'3",
+        "major": "Business",
+        "hometown": "South Elgin, IL",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": "",
+        "events": []
+        },
+    {
+        "name": "Zachary Thao-Her",
+        "year": "Sophomore",
+        "state": "WI",
+        "height": "5'6",
+        "major": "Electrical Engineering",
+        "hometown": "Milwaukee, WI",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": "",
+        "events": []
+        },
+    {
+        "name": "Matthew Orlow",
+        "year": "Junior",
+        "state": "IL",
+        "height": "6'3",
+        "major": "Business",
+        "hometown": "Chicago, IL",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": "",
+        "events": []
+        }
+]

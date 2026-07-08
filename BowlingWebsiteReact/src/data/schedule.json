@@ -1,0 +1,17 @@
+[
+    {
+        "name": "string",
+        "time": "Date",
+        "host": "string",
+        "city": "string",
+        "center": "string",
+        "attendees": [
+            "string1",
+            "string2",
+            "string3"
+        ],
+        "teams": [
+            "m", "w"
+        ]
+    }
+]

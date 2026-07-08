@@ -1,0 +1,94 @@
+.rosterList {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #121212;
+}
+
+.rosterEntry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  width: 80%;
+  height: 140px;
+  border: 1px black solid;
+  aspect-ratio: 21/9;
+}
+
+.rosterEntry h2 {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.divForPositioning {
+  position: relative;
+}
+
+.playerName {
+  position: relative;
+  margin-left: 50px;
+}
+
+/* Will ensure every image has same dimensions */
+.playerIMG {
+  margin-left: 10px;
+  height: 120px;
+  width: 120px;
+  border: 1px solid black;
+}
+
+.stateIMG {
+  height: 75px;
+  position: absolute;
+  margin-bottom: -100px;
+  -webkit-transform: rotate(-20deg);
+}
+
+.leftHalfEntry {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px black solid; */
+  width: 40%;
+}
+
+.rightHalfEntry {
+  display: block;
+  flex-direction: row-reverse;
+  justify-content: left;
+  align-items: center;
+  /* border: 1px black solid; */
+  width: 40%;
+}
+
+.rosterEntry {
+  background-color: #d01840;
+  color: rgb(255, 255, 255);
+}
+
+.rosterList {
+  width: 90%;
+  background-color: #121212;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#mainLogo {
+  text-align: center;
+}
+
+.playerDetailed {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #121212;
+}
+
+/*# sourceMappingURL=roster.css.map */
