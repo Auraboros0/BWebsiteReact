@@ -1,5 +1,6 @@
 import HomeGallery from "./HomeGallery";
 import InstaFeed from "./InstaFeed";
+import { Modal } from "react-bootstrap";
 
 function HomePage() {
     return (

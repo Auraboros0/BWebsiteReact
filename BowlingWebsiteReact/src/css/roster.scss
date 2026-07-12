@@ -31,7 +31,7 @@
     //     drop-shadow(-2px 0px 0px #000000) 
     //     drop-shadow(0px 2px 0px #000000); 
     //     // drop-shadow(0px -2px 0px #d01840);
-    aspect-ratio: 21 / 9;
+    // aspect-ratio: 21 / 9;
     // z-index: -3;
 }
 
@@ -120,17 +120,124 @@
 }
 
 .playerDetailed {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    // width: 65vw;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
 }
 
 .playerList {
-    width: 30%;
+    width: 20vw;
+    min-width: 200px;
+    flex-shrink: 0;
+    // overflow-x: hidden;
+    // overflow-y: auto;
     border: 2px solid black;
 }
 
-@include media-breakpoint-down(sm) { // Mobile
+.rosterEntryMain {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0px;
+    border: 2px solid #d01840;
+    background-size: cover;
+    color: #FFFFFF;
+    // width: 70vw;
+    width: 100%;
+    height: 200px;
+    background-image: linear-gradient(to left, rgba(208,24,64,0.6)), url('/public/assets/Textures/redRough.png');
+}
+
+.rosterEntryMain .stateIMG {
+    // margin-bottom: -90px;
+    position: absolute;
+    height: 80px;
+    bottom:60px;
+    margin-bottom: -80px;
+}
+
+.rosterEntryMain .playerIMG {
+    position: absolute;
+    height: 160px;
+    width: 160px;
+    bottom: 0px;
+    border: 2px solid #d01840;
+}
+
+.REMdetails {
+    
+}
+
+.REMdetails h2 {
+    // border-top: 3px solid #d01840;
+    // font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 900;
+    border-bottom: 3px solid #FFFFFF;
+    color: #FFFFFF;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+}
+
+.bigPlayerImage{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    // width: 100%;
+    // max-width: 100%;
+    // min-width: 0;
+}
+
+.bigPlayerImage img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    // max-width: 100%;
+    // min-width: 0;
+}
+
+.nameAndStyle {
+    font-family:'Courier New', Courier, monospace;
+    font-weight: lighter;
+    position:absolute;
+    margin-left: 10px;
+    line-height: 0.8;
+    color: #FFFFFF;
+}
+
+.rosterEntrySmall {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: #d01840;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+    height: 120px;
+    word-spacing: 100vw;
+    word-break: break-word;
+    gap: 5px;
+}
+
+.rosterEntrySmall .playerIMG {
+    width: 12vw;
+    height: auto;
+    max-width: 100px;
+    max-height: 100px;
+    aspect-ratio: 1 / 1;
+}
+
+.rosterEntrySmall .stateIMG {
+    display: none;
+}
+
+.rosterEntrySmall h3 {
+    font-size: 1.3rem;
+    // font-weight: 900;
+}
+
+@include media-breakpoint-down(md) { // Mobile
 .rosterEntry {
     position: relative;
     display: flex;
@@ -214,6 +321,10 @@
 
 .mobileRosterIMG img{
     width: calc(100vw - 16px);
+}
+
+.rosterEntryMain {
+    height: auto;
 }
 
 }

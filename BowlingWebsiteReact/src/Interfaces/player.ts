@@ -7,5 +7,6 @@ export interface player {
     hometown: string;
     gamesPlayed: number;
     average: number;
-    favoriteXYZ: string;
+    favoriteXYZ: [string, string];
+    style: string;
 }

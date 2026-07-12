@@ -18,12 +18,12 @@ function NavigationBar() {
     <BackgroundStripe url={BGPath}/>
     <div className="navigationFlexbox">
         <div className="sideLogo" onClick={() => navigate('/')}>
-            <h2 className="d-none d-sm-block">BADGER BOWLING</h2>
-            <h2 className="d-sm-none">UW BOWLING</h2>
+            <h2 className="d-none d-md-block">BADGER BOWLING</h2>
+            <h2 className="d-md-none">UW BOWLING</h2>
         </div>
 
         <div className="innerFlexbox">
-            <div className="d-none d-sm-block">
+            <div className="d-none d-md-block">
                 <nav>
                     <Link to="/"><button><h2>Home</h2></button></Link>
                     {/* <Link to="/roster"><button><h2>Roster</h2></button></Link> */}
@@ -32,7 +32,7 @@ function NavigationBar() {
                     <RosterButton />
                 </nav>
             </div>
-            <div className="d-sm-none" style={{ position: "absolute", top: "0px"}}>
+            <div className="d-md-none" style={{ position: "absolute", top: "0px"}}>
                 <WholeMoreButton />
             </div>
         </div>

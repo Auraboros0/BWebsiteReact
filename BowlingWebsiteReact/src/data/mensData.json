@@ -8,7 +8,8 @@
         "hometown": "Chicago, IL",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": "",
+        "favoriteXYZ": ["Soundtrack", "Drakengard"],
+        "style": "RH / 2H",
         "events": []
     },
     {
@@ -20,7 +21,8 @@
         "hometown": "Robbinsdale, MN",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": "",
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "LH / 1H",
         "events": []
         },
     {
@@ -32,7 +34,8 @@
         "hometown": "Montvale, NJ",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": "",
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 2H",
         "events": []
         },
     {
@@ -44,7 +47,8 @@
         "hometown": "South Elgin, IL",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": "",
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1HNT",
         "events": []
         },
     {
@@ -56,7 +60,8 @@
         "hometown": "Milwaukee, WI",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": "",
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 2H",
         "events": []
         },
     {
@@ -68,7 +73,8 @@
         "hometown": "Chicago, IL",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": "",
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
         "events": []
         }
 ]

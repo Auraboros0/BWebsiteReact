@@ -25,6 +25,7 @@ $navBarMargin: 10px;
     flex-grow: 1;
     min-width: 0;
     z-index: 100;
+    border-radius: 20px 20px 20px 20px;
     // width:100vw;
     // overflow-x: hidden;
 }
@@ -36,6 +37,8 @@ $navBarMargin: 10px;
     z-index: 1;
     background-size: cover;
     position: absolute;
+    border-radius: 20px 20px 20px 20px;
+
 }
 
 .innerFlexbox {
@@ -62,6 +65,7 @@ $navBarMargin: 10px;
 }
 
 .sideLogo {
+    font-weight: 900;
     cursor: pointer;
     float: left;
     justify-content: flex-end;
@@ -79,13 +83,14 @@ $navBarMargin: 10px;
     border: 2px #d01840 solid;
     background-color: #FFFFFF;
     border-top: none;
+    border-radius: 0px 0px 20px 20px;
     // background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('/public/assets/Textures/grunge.jpg');
 
 }
 
 .linkButton {
     position: relative;
-    background-color: rgb(255, 255, 255);
+    background-color: #FFFFFF;
     z-index: 10;
 }
 
@@ -99,6 +104,11 @@ $navBarMargin: 10px;
     // position:absolute;
     height: inherit;
     width: 130px;
+    border-radius: 0px 20px 20px 0px;
+}
+
+#isActiveButton.moreButton  {
+    border-radius: 20px 20px 0px 0px;
 }
 
 #isActiveButton {
@@ -116,7 +126,20 @@ $navBarMargin: 10px;
     color: white;
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-up(md) {
+
+.genderButton {
+    background-color: transparent !important;
+    color: black !important;
+}
+
+.genderButton:hover {
+    background-color: #d01840 !important;
+    color: white !important;
+}
+}
+
+@include media-breakpoint-down(md) {
 
     .rosterOptions {
         display: flex;
@@ -130,5 +153,9 @@ $navBarMargin: 10px;
     #inactiveButton:hover {
         background-color: transparent;
         color: black;
+    }
+
+    .genderButton {
+    border-radius: 15px 15px 0 0;
     }
 }

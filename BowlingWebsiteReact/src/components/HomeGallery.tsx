@@ -2,8 +2,8 @@ function HomeGallery() {
     const modules = import.meta.glob('/public/assets/TestImages/*.{png,jpg,jpeg}', { eager: true });
     const fileNames = Object.keys(modules);
 
-    const class1: string = 'g-col-6 g-col-sm-4';
-    const class2: string = ' d-none d-sm-block';
+    const class1: string = 'g-col-6 g-col-md-4';
+    const class2: string = ' d-none d-md-block';
     let class4: string = class1;
 
     // WRITE AN IF TEST TO HIDE THE LATTER 3 IMAGES ON MOBILE, USING AN ITERATOR

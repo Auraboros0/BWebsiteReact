@@ -7,8 +7,8 @@ const urls: string[] = [
 ]
 
 function InstaFeed() {
-    const class1: string = 'g-col-12 g-col-sm-4';
-    const class2: string = ' d-none d-sm-block';
+    const class1: string = 'g-col-12 g-col-md-4';
+    const class2: string = ' d-none d-md-block';
     let class4: string = class1;
 
     return (

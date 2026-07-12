@@ -1,19 +1,40 @@
+// $basicFont: "Lato-Black";
 $basicFont: "Lato";
+
 $navBarMargin: 10px;
 @import "../../node_modules/bootstrap/scss/bootstrap-grid.scss";
 // @import "../../node_modules/bootstrap/scss/modal.scss";
 // @import 'bootstrap/dist/css/bootstrap.min.css';
-@import './accordion.css';
+// @import './accordion.css';
 
 @font-face {
     font-family: $basicFont;
+    src: url(../Fonts/Lato/Lato-Regular.ttf);
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: $basicFont;
     src: url(../Fonts/Lato/Lato-Black.ttf);
+    font-weight: 900;
+}
+@font-face {
+    font-family: $basicFont;
+    src: url(../Fonts/Lato/Lato-Light.ttf);
+    font-weight: 300;
+    font-display: swap;
+}
+@font-face {
+    font-family: $basicFont;
+    src: url(../Fonts/Lato/Lato-Thin.ttf);
+    font-weight: 200;
     font-display: swap;
 }
 
 html,
 body {
     font-family: $basicFont;
+    font-weight: bold;
     // margin: 8;
 }
 
@@ -59,7 +80,7 @@ br {
 //     background-color: #d01840;
 // }
 
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-up(md) {
     .photos {
         margin-left: auto;
         margin-right: auto;
@@ -81,7 +102,7 @@ br {
     }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
     // Mobile
     .triangle {
         display: none;

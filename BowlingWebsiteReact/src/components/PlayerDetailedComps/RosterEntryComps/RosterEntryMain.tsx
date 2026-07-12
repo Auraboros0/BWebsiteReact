@@ -1,0 +1,40 @@
+import type { player } from "../../../Interfaces/player";
+import REMdetails from "./REMdetails";
+import RosterLeftImg from "../../RosterComps/RosterLeftImg";
+import RosterRight from "../../RosterComps/RosterRight";
+function RosterEntryMain(props: player) {
+    return (
+        <div>
+        <div className="rosterEntryMain d-none d-md-flex">
+            <div style={{position:"relative", width: "250px"}}><RosterLeftImg {...props} />
+                <div className='nameAndStyle'>
+                    <h2>{props.name}</h2>
+                    <h3>{props.style}</h3>
+                </div></div>
+            <div style={{width: "100%"}}>
+                <div>
+                    <REMdetails {...props} />
+                </div>
+            </div>
+        </div>
+
+        <div className="rosterEntryMain d-md-none">
+            <div style={{position:"relative", width: "350px"}}><RosterLeftImg {...props} />
+                <div className='nameAndStyle'>
+                    <h2>{props.name}</h2>
+                    <h3>{props.style}</h3>
+                </div></div>
+            <div style={{width: "100%"}}>
+                <div>
+                    <h2>{props.year}</h2>
+                    <h2>{props.major}</h2>
+                    <h2>{props.hometown}</h2>
+                    <h2>Fav {props.favoriteXYZ[0]}: {props.favoriteXYZ[1]}</h2>
+                </div>
+            </div>
+        </div>
+        </div>
+    )
+}
+
+export default RosterEntryMain

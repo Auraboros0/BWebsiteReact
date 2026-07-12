@@ -8,8 +8,10 @@
         "hometown": "Madison, WI",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": ""
-    },
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
     {
         "name": "Juliana Bergman",
         "year": "Sophomore",
@@ -19,8 +21,10 @@
         "hometown": "Madison, WI",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": ""
-    },
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 2H",
+        "events": []
+        },
     {
         "name": "Beverly Bloch",
         "year": "Sophomore",
@@ -30,8 +34,10 @@
         "hometown": "Madison, WI",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": ""
-    },
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
     {
         "name": "Alondra Chavez",
         "year": "Sophomore",
@@ -41,8 +47,10 @@
         "hometown": "Madison, WI",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": ""
-    },
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
     {
         "name": "Nyla Duzon",
         "year": "Sophomore",
@@ -52,8 +60,10 @@
         "hometown": "Madison, WI",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": ""
-    },
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
     {
         "name": "Emily Dobberfuhl",
         "year": "Sophomore",
@@ -63,6 +73,8 @@
         "hometown": "Madison, WI",
         "gamesPlayed": 0,
         "average": 0,
-        "favoriteXYZ": ""
-    }
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        }
 ]

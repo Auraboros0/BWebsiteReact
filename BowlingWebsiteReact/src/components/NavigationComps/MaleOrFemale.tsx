@@ -15,9 +15,9 @@ function MaleOrFemale() {
     }
 
     return (
-        <div style={{border: "2px solid #d01840"}}>
-        <button id={gender === 'mens' ? 'isActiveButton' : ''} onClick={() => handleClick('mens')}><h2>Men's</h2></button>
-        <button id={gender === 'womens' ? 'isActiveButton' : ''} onClick={() => handleClick('womens')}><h2>Women's</h2></button>
+        <div style={{}}>
+        <button className='genderButton' id={gender === 'mens' ? 'isActiveButton' : ''} onClick={() => handleClick('mens')}><h2>Men's</h2></button>
+        <button className='genderButton' id={gender === 'womens' ? 'isActiveButton' : ''} onClick={() => handleClick('womens')}><h2>Women's</h2></button>
         </div>
     )
 }

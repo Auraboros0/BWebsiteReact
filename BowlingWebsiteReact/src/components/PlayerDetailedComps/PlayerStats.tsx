@@ -25,12 +25,12 @@ function PlayerStats({ name }) {
     // Will use map function to create list of events player has bowled in.
     const target = data.find(player => player.name === name);
     return (
-        <div style={{display: "inline-block"}}>
+        <div style={{}}>
             <h2>Average: {target?.average}</h2>
-            <h2>Participated in:</h2>
-            <li>
-                <ul>PLACEHOLDER EVENT</ul>
-            </li>
+            <h2>Participated in:
+                
+            </h2>
+            
         </div>
     )
 }
