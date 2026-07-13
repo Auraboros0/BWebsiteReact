@@ -14,7 +14,7 @@ function NavigationBar() {
     }
 
     return (
-    <div className = "d-relative d-sm-overflow-x hidden" style={{position: "relative"}}>
+    <div className = "d-relative d-sm-overflow-x hidden" style={{zIndex: "100"}}>
     <BackgroundStripe url={BGPath}/>
     <div className="navigationFlexbox">
         <div className="sideLogo" onClick={() => navigate('/')}>

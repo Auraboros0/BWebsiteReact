@@ -120,6 +120,7 @@
 }
 
 .playerDetailed {
+    
     // width: 65vw;
     // display: flex;
     // flex-direction: column;
@@ -127,12 +128,27 @@
 }
 
 .playerList {
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 20vw;
     min-width: 200px;
     flex-shrink: 0;
+    max-height: inherit;
+    // flex-grow: 1;
+    // overflow-y: hidden;
     // overflow-x: hidden;
     // overflow-y: auto;
     border: 2px solid black;
+    // animation: scroll-up 10s linear infinite;
+}
+
+// .autoScroller {
+//     animation: scroll-up 10s linear infinite;
+// }
+
+@keyframes scroll-up {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(-100%); } /* Halfway point maintains the loop */
 }
 
 .rosterEntryMain {
