@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -15,7 +15,8 @@
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.6",
     "react-router-dom": "^7.15.1",
-    "react-social-media-embed": "^2.5.18"
+    "react-social-media-embed": "^2.5.18",
+    "react-swipeable": "^7.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",

@@ -33,7 +33,7 @@ $navBarMargin: 10px;
 }
 
 .backgroundStripe {
-    width: calc(100vw - 32px);
+    width: inherit;
     height: 70px;
     position: sticky;
     z-index: 1;
@@ -149,6 +149,7 @@ $navBarMargin: 10px;
     }
     
     .backgroundStripe {
+        // margin-left: -4px;
         width: calc(100vw - 16px);
     }
 
@@ -159,5 +160,11 @@ $navBarMargin: 10px;
 
     .genderButton {
     border-radius: 15px 15px 0 0;
+    }
+
+    .navContainer {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

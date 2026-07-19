@@ -1,4 +1,5 @@
 export interface player {
+    playerID: number;
     name: string;
     year: string;
     state: string;
@@ -9,4 +10,5 @@ export interface player {
     average: number;
     favoriteXYZ: [string, string];
     style: string;
+    tournamentIDs: number[]
 }

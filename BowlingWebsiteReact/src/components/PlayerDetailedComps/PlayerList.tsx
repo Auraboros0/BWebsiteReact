@@ -1,6 +1,8 @@
 import { useParams } from "react-router";
 import { useRef, useEffect, Fragment, useState } from "react";
 import type { player } from "../../Interfaces/player";
+import type { ClickDragHandle } from "../../dataScripts/ClickAndDrag";
+import ClickAndDrag from "../../dataScripts/ClickAndDrag";
 import RosterEntrySmall from "./RosterEntryComps/RosterEntrySmall";
 import mData from '../../data/mensData.json'
 import wData from '../../data/womensData.json'
@@ -10,10 +12,13 @@ import wData from '../../data/womensData.json'
 /*
 I'm using scrollRef to control the scroll position of the list and
 itemRef to get the height of the div that I'll be duplicating.
+
+NEW IDEA: 
 */
 function PlayerList() {
     const { gender, id } = useParams();
     const scrollRef = useRef<HTMLDivElement>(null);
+    const dragRef = useRef<ClickDragHandle>(null);
     const itemRef = useRef<HTMLDivElement>(null)
 
     const topRef = useRef<HTMLDivElement>(null);
@@ -35,10 +40,13 @@ function PlayerList() {
     });
 
     function jump(position: number) {
-        scrollRef.current?.scrollTo({
-            top: position,
-            behavior: 'instant',
-        });
+        const element = scrollRef.current!
+        element.scrollTop = position;
+        // scrollRef.current?.scrollTo({
+        //     top: position,
+        //     behavior: 'instant',
+        // });
+        console.log('JUMP')
     }
 
 
@@ -68,17 +76,6 @@ function PlayerList() {
         return () => observer.disconnect();
     }, []);
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         const el = scrollRef.current;
-    //         if (!el) return;
-
-    //         el.scrollTop += 1; // Scroll down 1px
-    //     }, 16); // ~60 FPS
-
-    //     return () => clearInterval(interval);
-    // }, []);
-
 
     /*
     Explanation of jump value:
@@ -89,6 +86,7 @@ function PlayerList() {
         if (atTop) {
             // console.log(itemHeight);
             jump(itemHeight);
+            dragRef.current?.reactToJump(itemHeight, true);
         }
     }, [atTop]);
 
@@ -107,6 +105,7 @@ function PlayerList() {
         if (atBottom) {
             // console.log(12 + itemHeight - (scrollHeight - itemHeight))
             jump(12 + itemHeight - (scrollHeight - itemHeight));
+            dragRef.current?.reactToJump(itemHeight, false);
         }
     }, [atBottom]);
 
@@ -116,9 +115,9 @@ function PlayerList() {
     else { data = wData }
 
     return (
-        <div ref={scrollRef} className='detailedRosterView playerList scrollContainer'>
-            <div ref={topRef} style={{ height: '0px' }} />
-            {/* <div className='autoScroller'> */}
+        <ClickAndDrag scrollRef={scrollRef} ref={dragRef}>
+        {/* <div ref={scrollRef} className='detailedRosterView playerList scrollContainer'> */}
+            <div ref={topRef} style={{ height: '1px' }} />
             {Array.from({ length: count }).map((_, index) => (
                 <Fragment key={index}>
                     <div ref={itemRef}>
@@ -130,9 +129,9 @@ function PlayerList() {
                     </div>
                 </Fragment>
             ))}
-            {/* </div> */}
-            <div ref={bottomRef} style={{ height: '0px' }} />
-        </div>
+            <div ref={bottomRef} style={{ height: '1px' }} />
+        {/* </div> */}
+        </ClickAndDrag>
     )
 }
 

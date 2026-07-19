@@ -1,8 +1,23 @@
+import { useNavigate, useParams } from "react-router";
 import type { player } from "../../../Interfaces/player";
 import RosterLeftImg from "../../RosterComps/RosterLeftImg";
 function RosterEntrySmall(props: player) {
+    const navigate = useNavigate();
+    const { gender, id } = useParams();
+
+    function alreadyAtLink(name: string) {
+        if (id === name) { return true;}
+        return false;
+    }
+
+    const handleClick = () => {
+        if (!alreadyAtLink(props.name)) {
+            navigate(`/detailed/${gender}/${props.name}`, { replace: true })
+        }
+    }
+    
     return (
-        <div className='rosterEntrySmall'>
+        <div className='rosterEntrySmall' id={alreadyAtLink(props.name) ? 'inactiveButton' : 'isActiveButton' } onClick={handleClick}>
             <RosterLeftImg {...props}/>
             <h3>{props.name}</h3>
         </div>

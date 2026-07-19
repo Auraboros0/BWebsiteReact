@@ -31,8 +31,14 @@ $navBarMargin: 10px;
     font-display: swap;
 }
 
+.dragging {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 html,
 body {
+    position: relative;
     font-family: $basicFont;
     font-weight: bold;
     // margin: 8;
@@ -92,11 +98,17 @@ br {
         justify-content: center;
         align-items: center;
         align-self: center;
+        // aspect-ratio: 9 / 16;
+        // width: 100%;
+        // height: auto;
         // width: 30vw;
     }
 
     .gallerySquare img {
         // aspect-ratio: 1 / 1;
+        // aspect-ratio: 9 / 16;
+        // width: 100%;
+        // height: auto;
         border: 2px black solid;
         width: 30vw;
     }
@@ -104,6 +116,13 @@ br {
 
 @include media-breakpoint-down(md) {
     // Mobile
+    html,
+    body {
+        // margin-left: 0px;
+        // margin-right: 0px;
+        position: relative;
+        margin-top: 4px;
+    }
     .triangle {
         display: none;
     }

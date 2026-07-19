@@ -13,7 +13,7 @@ function RosterLeft(props: player) {
         <div className="rosterMobileText">
             {/* <div className="divForPositioning"> */}
                 <h2 className="playerInfo" style={{ width: "100%"}}>
-                    <div className="d-none d-sm-block">{props.height}</div>
+                    <div className="d-none d-md-block">{props.height}</div>
                     {props.name}</h2>
             {/* </div> */}
         </div>

@@ -14,9 +14,9 @@ function NavigationBar() {
     }
 
     return (
-    <div className = "d-relative d-sm-overflow-x hidden" style={{zIndex: "100"}}>
+    <div className = "navContainer d-relative d-md-overflow-x hidden" style={{zIndex: "100", width: '100%'}}>
     <BackgroundStripe url={BGPath}/>
-    <div className="navigationFlexbox">
+    <div className="navigationFlexbox" style={{}}>
         <div className="sideLogo" onClick={() => navigate('/')}>
             <h2 className="d-none d-md-block">BADGER BOWLING</h2>
             <h2 className="d-md-none">UW BOWLING</h2>
