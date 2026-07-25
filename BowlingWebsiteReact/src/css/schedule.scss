@@ -1,0 +1,48 @@
+.schedule {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.eventSimple {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px 15px 0px 0px;
+    background-color: #d01840;
+    width: 80%;
+    border: 2px solid #d01840;
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    overflow: hidden;
+}
+
+.bigState {
+    position: absolute;
+    width: 30%;
+    height: auto;
+    right: 0;
+    top: 0px;
+    z-index: 1;
+    filter: blur(0.5px);
+}
+
+.bigState img{
+    width: 100%;
+    height: auto;
+    -webkit-transform: rotate(15deg);
+    filter:
+        drop-shadow(2px 0px 0px #FFFFFF) 
+        drop-shadow(-2px 0px 0px #d01840) 
+        drop-shadow(0px 2px 0px #FFFFFF) 
+        drop-shadow(0px -2px 0px #d01840);
+}
+
+.hostLogo{
+    width: 20%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    background-color: white;
+    margin: 5px;
+}

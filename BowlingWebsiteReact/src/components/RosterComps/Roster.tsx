@@ -5,11 +5,13 @@ import womensData from '../../data/womensData.json';
 import MaleOrFemale from '../NavigationComps/MaleOrFemale';
 import RosterEntry from './RosterEntry';
 import RosterMobileIMG from './RosterMobileIMG';
+import DivisionTitle from '../DivisionTitle';
 import '../../css/roster.scss';
 
 export default function Roster() {
     const { gender } = useParams()
     let data;
+
     if (gender === 'mens') { data = mensData }
     else { data = womensData }
     return (
@@ -24,6 +26,7 @@ export default function Roster() {
                 <RosterMobileIMG gender={gender} />
             </div>
             <div className="rosterBG">
+                <DivisionTitle title={"ROSTER"} red={true}/>
                 {data.map((item: player) => {
                     return (
                         <div>

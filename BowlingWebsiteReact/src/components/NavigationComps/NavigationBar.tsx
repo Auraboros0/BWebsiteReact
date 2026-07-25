@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router';
 import WholeMoreButton from '../MoreButtonComps/WholeMoreButton';
 import BackgroundStripe from '../BackgroundStripe';
 import RosterButton from './RosterButton';
+import NavLogo from './NavLogo';
 import '../../css/navigation.scss'
 function NavigationBar() {
-    const BGPath = '/public/assets/Textures/steeltexture.jpg'
+    const BGPath = '/public/assets/Textures/badger.png'
     const navigate = useNavigate()
     const [rosterActive, setRosterActive] = useState(false);
     const collapse = () => {
@@ -20,6 +21,7 @@ function NavigationBar() {
         <div className="sideLogo" onClick={() => navigate('/')}>
             <h2 className="d-none d-md-block">BADGER BOWLING</h2>
             <h2 className="d-md-none">UW BOWLING</h2>
+            {/* <NavLogo /> */}
         </div>
 
         <div className="innerFlexbox">

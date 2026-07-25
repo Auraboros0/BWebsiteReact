@@ -117,7 +117,7 @@ function PlayerList() {
     return (
         <ClickAndDrag scrollRef={scrollRef} ref={dragRef}>
         {/* <div ref={scrollRef} className='detailedRosterView playerList scrollContainer'> */}
-            <div ref={topRef} style={{ height: '1px' }} />
+            <div ref={topRef} style={{ height: '0px' }} />
             {Array.from({ length: count }).map((_, index) => (
                 <Fragment key={index}>
                     <div ref={itemRef}>
@@ -129,7 +129,7 @@ function PlayerList() {
                     </div>
                 </Fragment>
             ))}
-            <div ref={bottomRef} style={{ height: '1px' }} />
+            <div ref={bottomRef} style={{ height: '0px' }} />
         {/* </div> */}
         </ClickAndDrag>
     )

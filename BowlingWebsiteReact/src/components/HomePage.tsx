@@ -1,14 +1,22 @@
 import HomeGallery from "./HomeGallery";
 import InstaFeed from "./InstaFeed";
 import { Modal } from "react-bootstrap";
+import DivisionTitle from "./DivisionTitle";
+import MainImage from "./HomePageComps/MainImage";
+import NextTourney from "./HomePageComps/NextTourney";
 
 function HomePage() {
     return (
         <div>
+            <div style={{position: 'absolute'}}>
+            {/* <DivisionTitle title={'Next Competition: Placeholder Tournament @ Place, WI on ##/##'} red={false}/> */}
+            <NextTourney />
+            </div>
+            <MainImage />
             <h3>Next Competition: Placeholder Tournament @ Place, WI on ##/##</h3>
-            <div className="headerDivision"><h2>EVENTS</h2></div>
+            <DivisionTitle title={"EVENTS"} red={true}/>
             <HomeGallery />
-            <div className="headerDivision"><h2>SOCIALS</h2></div>
+            <DivisionTitle title={"SOCIALS"} red={true}/>
             <InstaFeed />
         </div>
     );

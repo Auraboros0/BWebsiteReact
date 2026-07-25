@@ -37,11 +37,26 @@ $navBarMargin: 10px;
     height: 70px;
     position: sticky;
     z-index: 1;
-    background-size: cover;
+    background-size: 550px;
+    background-repeat: no-repeat;
+    background-position-y: -100px;
+    background-position-x: -70px;
     position: absolute;
     border-radius: 20px 20px 20px 20px;
-
 }
+
+
+.navLogo {
+    position: absolute;
+    width: 500px;
+    // background-image: url(/public/assets/Textures/test.png);
+}
+
+.navLogo img{
+    width: 500px;
+    // background-image: url(/public/assets/Textures/test.png);
+}
+
 
 .innerFlexbox {
     display: flex;
@@ -68,10 +83,12 @@ $navBarMargin: 10px;
 
 .sideLogo {
     font-weight: 900;
+    color: #FFFFFF;
     cursor: pointer;
     float: left;
     justify-content: flex-end;
     margin-left: 5px;
+     -webkit-text-stroke: 1px #d01840;
 }
 
 .dropDownNav {

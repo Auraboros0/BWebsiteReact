@@ -1,7 +1,17 @@
-function DivisionTitle({ title }) {
+interface props {
+    title: string;
+    red: boolean
+}
+
+function DivisionTitle( props: props ) {
+    let divName;
+    if (props.red) {divName = 'headerDivision'}
+    else {divName='headerDivisionWhite'}
     return (
-        <h2 className='headerDivision'>
-            {title}
-        </h2>
+        <div className={divName}>
+            <h2>{props.title}</h2>
+        </div>
     )
 }
+
+export default DivisionTitle

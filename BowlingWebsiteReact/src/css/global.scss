@@ -78,6 +78,41 @@ br {
     background-position-y: -5px;
     background-size: auto 100%;
     background-repeat: no-repeat;
+    color: #FFFFFF;
+}
+
+.headerDivisionWhite {
+    padding: 2px;
+    width: calc-size(auto, size + 32px);
+    max-width: calc(100vw - 32px);
+    background-image: url(/public/assets/Textures/whiteDash.png),
+    url(/public/assets/Textures/whiteDash.png);
+    background-position: 0 -5px,
+    128px -5px;
+    background-size: 50% 100%,
+    50% 100%;
+    background-repeat: repeat-x,
+    no-repeat;
+}
+
+.scrollingText {
+
+}
+
+.mainImage {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+}
+
+.mainImage img{
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
 }
 
 // .linkButton:hover {
