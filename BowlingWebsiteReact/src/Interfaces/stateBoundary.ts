@@ -4,4 +4,6 @@ export interface stateBoundary {
     east: number;
     south: number;
     west: number;
+    width: number;
+    height: number;
 }

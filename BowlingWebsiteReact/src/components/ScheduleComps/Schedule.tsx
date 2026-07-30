@@ -66,7 +66,9 @@ function scanSchedules() {
         }
     }
 
-    return combined;
+    const sortedCombined = combined.toSorted((a, b) => a.time[0].getTime() - b.time[0].getTime());
+
+    return sortedCombined;
 }
 
 function Schedule() {

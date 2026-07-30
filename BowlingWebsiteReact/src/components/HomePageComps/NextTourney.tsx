@@ -3,6 +3,7 @@ import type { tournament } from "../../Interfaces/tournament";
 import { scheduleM } from "../../data/scheduleM";
 import { scheduleW } from "../../data/scheduleW";
 import DivisionTitle from "../DivisionTitle";
+import useConditionalRender from "../../dataScripts/useConditionalRender";
 
 
 // Returns the current or nearest tournament from a schedule
@@ -40,24 +41,31 @@ function compareDates(tourney1: tournament, tourney2: tournament) {
 }
 
 function createText(tourney: tournament, tourney2?: tournament) {
-    const startMonth = tourney.time[0].getMonth();
+
+    if (tourney.time[1].getTime < new Date().getTime) { 
+        const tournamentString = '';
+        return {tournamentString}
+    }
+
+    const startMonth = tourney.time[0].getMonth() + 1;
     const startDay = tourney.time[0].getDate();
-    const endMonth = tourney.time[1].getMonth();
+    const endMonth = tourney.time[1].getMonth() + 1;
     const endDay = tourney.time[1].getDate();
     const liveString = 'HAPPENING NOW!'
     const upcomingString = 'Next Competition'
     const startString = live ? liveString : upcomingString
-    const tournamentString = `${startString}: ${tourney.name} @ ${tourney.center} in ${tourney.city} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
-    const tournamentStringAlt = `${startString}: ${tourney.name} ! Men @ ${tourney.center[0]} in ${tourney.city[0][0]}, ${tourney.city[0][1]} | Women @ ${tourney2?.center[0]} in ${tourney2?.city[0][0]}, ${tourney2?.city[0][1]} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
+    const tournamentString = `${startString}: ${tourney.name} @ ${tourney.center[0]} in ${tourney.city[0].city}, ${tourney.city[0].state} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
+    const tournamentStringAlt = `${startString}: ${tourney.name} ! Men @ ${tourney.center[0]} in ${tourney.city[0].city}, ${tourney.city[0].state} | Women @ ${tourney2?.center[0]} in ${tourney2?.city[0].city}, ${tourney2?.city[0].state} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
     if (tourney2) { return {tournamentString, tournamentStringAlt}}
     return {tournamentString}
 }
 
 function NextTourney() {
+    const { isMd } = useConditionalRender();
     let tourneyStrings: [string, string] = ['', ''];
     if (compareDates(nextM, nextW) || compareDates(nextW, nextM)) { // If the dates coincide
         if (nextM.name === nextW.name) { // If both tournaments are under the same title
-            if (nextM.center === nextW.center) { // And they're at the same center
+            if (nextM.center[0] === nextW.center[0]) { // And they're at the same center
                 tourneyStrings[0] = createText(nextM).tournamentString;
             } else { // If they're at separate centers, use the alt text
                 tourneyStrings[0] = createText(nextM, nextW).tournamentStringAlt ?? '';
@@ -74,7 +82,7 @@ function NextTourney() {
         <div>
             {tourneyStrings.filter(Boolean).map((item: string) => {
                 return (
-                    <DivisionTitle title={item} red={false} />
+                    <DivisionTitle title={item} red={false} isMobile={!isMd} />
                 )
             })}
         </div>

@@ -11,7 +11,7 @@ const links: destination[] = [
     // {url: "/", name: "Home"},
     {url: "/roster/mens", name: "Roster", style: {}},
     {url: "/", name: "Results", style: {}},
-    {url: "/", name: "Schedule", style: {borderRadius: "0px 0px 20px 20px"}}
+    {url: "/schedule", name: "Schedule", style: {borderRadius: "0px 0px 20px 20px"}}
 ]
 function LinkCollection() {
     return (

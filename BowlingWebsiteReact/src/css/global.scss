@@ -115,6 +115,19 @@ br {
     height: auto;
 }
 
+.socialsHeader {
+    background-image: linear-gradient(180deg, #FFFFFF 0% 45%, #d01840 45% 55%, #FFFFFF 55% 100%);
+}
+
+.socialLink h2 {
+    color: black;
+    background-color: #FFFFFF;
+}
+
+.socialsHeader a {
+    color: #FFFFFF;
+}
+
 // .linkButton:hover {
 //     position:relative;
 //     z-index: 10;
