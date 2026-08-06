@@ -1,7 +1,17 @@
+import type { resultsInterface } from "../Interfaces/resultsInterface";
+import { execFile } from "node:child_process";
+const { execFile } = require('child_process');
 // GET YOUR RESULTS FROM COLLEGEBOWLING.BOWL.COM's EXPORT AS CSV OPTION
 // ONLY GET THE PLAYER SHEET. TEAM STANDINGS CAN BE MANUALLY CALCULATED
 
 // YOU CAN REALLY JUST GET EVERYTHING FROM BOWL.COM
+
+/*
+Create a new Results Interface for every instance of a UW Player.
+*/
+function parseData(folder: string) {
+
+}
 
 function createAverages() {
     /*

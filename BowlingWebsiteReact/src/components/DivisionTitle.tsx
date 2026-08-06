@@ -4,6 +4,7 @@ interface props {
     isMobile?: boolean
 }
 
+/* The title of each section in the homepage, also used for tournament preview */
 function DivisionTitle( props: props ) {
     let divName;
     const isMobile:boolean = props.isMobile ?? false;

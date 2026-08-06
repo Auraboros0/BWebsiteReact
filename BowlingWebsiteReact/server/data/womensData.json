@@ -1,0 +1,80 @@
+[
+    {
+        "name": "Stephanie Lo",
+        "year": "Sophomore",
+        "state": "WI",
+        "height": "5'6",
+        "major": "Bowling",
+        "hometown": "Madison, WI",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
+    {
+        "name": "Juliana Bergman",
+        "year": "Sophomore",
+        "state": "WI",
+        "height": "5'6",
+        "major": "Bowling",
+        "hometown": "Madison, WI",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 2H",
+        "events": []
+        },
+    {
+        "name": "Beverly Bloch",
+        "year": "Sophomore",
+        "state": "WI",
+        "height": "5'6",
+        "major": "Bowling",
+        "hometown": "Madison, WI",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
+    {
+        "name": "Alondra Chavez",
+        "year": "Sophomore",
+        "state": "WI",
+        "height": "5'6",
+        "major": "Bowling",
+        "hometown": "Madison, WI",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
+    {
+        "name": "Nyla Duzon",
+        "year": "Sophomore",
+        "state": "WI",
+        "height": "5'6",
+        "major": "Bowling",
+        "hometown": "Madison, WI",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        },
+    {
+        "name": "Emily Dobberfuhl",
+        "year": "Sophomore",
+        "state": "WI",
+        "height": "5'6",
+        "major": "Bowling",
+        "hometown": "Madison, WI",
+        "gamesPlayed": 0,
+        "average": 0,
+        "favoriteXYZ": ["idk", "idk"],
+        "style": "RH / 1H",
+        "events": []
+        }
+]

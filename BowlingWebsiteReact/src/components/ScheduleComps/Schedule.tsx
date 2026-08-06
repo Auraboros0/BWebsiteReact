@@ -11,6 +11,8 @@ interface tourneyScanner {
     tourney: tournament;
     marked: boolean;
 }
+
+/* Function used to check if a tournament exists in both team's schedules */
 function scanSchedules() {
     const combined: tournament[] = []
     const mScanner: tourneyScanner[] = [];
@@ -52,6 +54,7 @@ function scanSchedules() {
         }
     }
 
+    /* Add tournaments that haven't been marked to the returned array */
     for (const mScanned of mScanner) {
         if (!mScanned.marked) {
             mScanned.marked = true;
@@ -71,6 +74,7 @@ function scanSchedules() {
     return sortedCombined;
 }
 
+/* The schedule page. Reads both men's and women's schedules and generates a list of EventSimple elements from them */
 function Schedule() {
     const combined = scanSchedules();
     return (

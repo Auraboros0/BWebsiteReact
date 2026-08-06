@@ -1,4 +1,5 @@
 import { InstagramEmbed } from "react-social-media-embed"
+/* An instagram embed, takes a URL */
 function InstaPost({ url }) {
     return (
     <div>

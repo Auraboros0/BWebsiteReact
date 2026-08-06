@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import WholeMoreButton from '../MoreButtonComps/WholeMoreButton';
+import WholeMoreButton from './MoreButtonComps/WholeMoreButton';
 import BackgroundStripe from '../BackgroundStripe';
 import RosterButton from './RosterButton';
 import NavLogo from './NavLogo';

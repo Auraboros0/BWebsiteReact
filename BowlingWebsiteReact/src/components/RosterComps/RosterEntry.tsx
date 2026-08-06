@@ -11,6 +11,7 @@ interface player {
     hometown: string;
 }
 
+/* Takes a player prop and creates an entry from it */
 export default function RosterEntry(props: player) {
     const navigate = useNavigate();
     const { gender, id } = useParams();

@@ -18,8 +18,8 @@ MAKE IT ACTIVATE ON SWIPE!!!
 
 function handleAnimation(anim1: string, anim2: string, animState: boolean) {
     let animString = '';
-    if (animState) {animString = anim1}
-    else {animString = anim2}
+    if (animState) { animString = anim1 }
+    else { animString = anim2 }
     return animString
 }
 
@@ -36,22 +36,22 @@ function MobileSelector() {
     }
 
     useEffect(() => {
-            document.body.addEventListener('click', (event) => {
-                if (isVisible && sideBarRef.current && !event.composedPath().includes(sideBarRef.current)) {
-                    toggle();
-                }
-            })
+        document.body.addEventListener('click', (event) => {
+            if (isVisible && sideBarRef.current && !event.composedPath().includes(sideBarRef.current)) {
+                toggle();
+            }
         })
+    })
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column'}}>
-        {isVisible && <Darkness />}
-        <div ref={sideBarRef} style={{position: 'relative', zIndex: '100', flex: '1'}}>
-            <div className={isVisible ? anim2 : anim1} style={{marginLeft: '-16px'}}>
-            <div style={{display: "flex", height: "calc(100vh - 90px)", position: 'fixed'}} onClick={toggle}><PlayerList /></div>
-            <button className='mobileRosterToggle' onClick={toggle} style={{position: 'absolute', left: '65vw', top: '0'}}>&#9654;</button>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {isVisible && <Darkness />}
+            <div ref={sideBarRef} style={{ position: 'relative', zIndex: '100', flex: '1' }}>
+                <div className={isVisible ? anim2 : anim1} style={{ marginLeft: '-16px' }}>
+                    <div style={{ display: "flex", height: "calc(100vh - 90px)", position: 'fixed' }} onClick={toggle}><PlayerList /></div>
+                    <button className='mobileRosterToggle' onClick={toggle} style={{ position: 'absolute', left: '65vw', top: '0' }}>&#9654;</button>
+                </div>
             </div>
-        </div>
         </div>
     )
 }

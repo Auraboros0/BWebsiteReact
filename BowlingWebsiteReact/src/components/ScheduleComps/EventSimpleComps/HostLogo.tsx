@@ -15,6 +15,8 @@ async function isNCAA(slug: string): Promise<Boolean> {
     }
 }
 
+/* The logo of a tournament's host. Calls the NCAA API to get the logo.
+   If the school is not NCAA, scan /public/assets/mascots for the logo */
 function HostLogo({hostSlug}) {
 
     const altSource = import.meta.glob(`/public/assets/Mascots/*.{png,jpg,jpeg}`, {eager: true});

@@ -8,6 +8,8 @@ import RosterMobileIMG from './RosterMobileIMG';
 import DivisionTitle from '../DivisionTitle';
 import '../../css/roster.scss';
 
+/* The Roster Page. Reads the data json of either the men's or women's team
+   and creates a list of RosterEntry elements from them*/
 export default function Roster() {
     const { gender } = useParams()
     let data;

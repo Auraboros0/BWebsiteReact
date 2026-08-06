@@ -7,6 +7,7 @@ import NextTourney from "./HomePageComps/NextTourney";
 import useConditionalRender from "../dataScripts/useConditionalRender";
 import SocialsHeader from "./HomePageComps/SocialsHeader";
 
+/* The Home Page */
 function HomePage() {
     const { isMd } = useConditionalRender();
     return (

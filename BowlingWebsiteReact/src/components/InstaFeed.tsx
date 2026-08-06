@@ -6,6 +6,7 @@ const urls: string[] = [
     "https://www.instagram.com/p/DU3rMRCmPsE/"
 ]
 
+/* A collection of instagram posts. Takes the above URLs and makes InstaPosts of them */
 function InstaFeed() {
     const class1: string = 'g-col-12 g-col-md-4';
     const class2: string = ' d-none d-md-block';

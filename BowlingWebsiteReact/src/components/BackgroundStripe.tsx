@@ -1,3 +1,4 @@
+/* The background of the navigation bar */
 function BackgroundStripe({ url }) {
     return (
         <div className="backgroundStripe" style={{backgroundImage: `linear-gradient(to left,

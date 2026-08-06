@@ -1,3 +1,5 @@
+/* Populates the home page with images from a gallery. Might rewrite this
+to allow for some modularity */
 function HomeGallery() {
     const modules = import.meta.glob('/public/assets/TestImages/*.{png,jpg,jpeg}', { eager: true });
     const fileNames = Object.keys(modules);

@@ -3,9 +3,10 @@ import { useRef, useLayoutEffect } from "react";
 import HostLogo from "./EventSimpleComps/HostLogo"
 import InfoBlock from "./EventSimpleComps/InfoBlock"
 import BigState from "./EventSimpleComps/BigState";
-import TexturedState from "./EventSimpleComps/TexturedState";
+// import TexturedState from "./EventSimpleComps/TexturedState";
 import EventHeader from "./EventSimpleComps/EventHeader";
 
+/* The items that the Schedule page is populated with. Takes a tournament object and creates a display from it */
 function EventSimple(props: tournament) {
     const startMonth = props.time[0].getMonth();
     const startDay = props.time[0].getDate();

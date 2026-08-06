@@ -5,6 +5,7 @@ I'll see if there is an API I can call to get this information and avoid enterin
 */
 
 import { StateBounds } from "../../../data/stateBounds"
+/* A graphic of a state with a texture applied. Might be tricky to use since the image is actually a backgroundImage */
 function BigState({ state }) {
     const url = `/public/assets/States/${state}.png`
     return (

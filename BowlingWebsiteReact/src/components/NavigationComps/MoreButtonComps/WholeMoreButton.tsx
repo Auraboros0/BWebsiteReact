@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import LinkCollection from './LinkCollection';
-import RosterButton from '../NavigationComps/RosterButton';
+import RosterButton from '../RosterButton';
 function WholeMoreButton() {
     const moreRef = useRef(null);
     const [isVisible, setVisibility] = useState(false);

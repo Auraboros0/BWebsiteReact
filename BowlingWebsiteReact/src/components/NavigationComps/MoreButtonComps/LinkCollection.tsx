@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import LinkButton from './LinkButton';
-import RosterButton from '../NavigationComps/RosterButton';
+import RosterButton from '../RosterButton';
 interface destination {
     url: string;
     name: string;

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import type { player } from '../../Interfaces/player'
 import useConditionalRender from "../../dataScripts/useConditionalRender";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import mensData from "../../data/mensData.json";
 import womensData from "../../data/womensData.json";
 import RosterEntryMain from "./RosterEntryComps/RosterEntryMain";
@@ -26,7 +26,7 @@ export default function PlayerDetailed() {
 
 
     useLayoutEffect(() => {
-        if (leftRef.current && rightRef.current) {
+        if (leftRef.current && rightRef.current && isMd) {
             const resize = () => {
                 leftRef.current!.style.height = `${rightRef.current!.offsetHeight}px`;
                 leftRef.current!.style.display = 'flex';
@@ -41,19 +41,16 @@ export default function PlayerDetailed() {
 
     const target: player = data.find(player => player.name === id)!;
     return (
-        <div>
-            <div style={{top: 0}}>
-            {!isMd && <MobileSelector />}
+        <div style={{ overflowY: isMd ? 'hidden' : 'visible'}}>
+            <div style={{ top: 0 }}>
+                {!isMd && <MobileSelector />}
             </div>
             <div style={{ display: "flex", gap: "4px" }}>
-                {/* {isMd && */}
-                    <div ref={leftRef} className="d-none d-md-flex" style={{ height: '0px' }}>
-                        <PlayerList />
-                    </div>
-                {/* } */}
+                {isMd && <div ref={leftRef} className="d-none d-md-flex" style={{ height: '0px' }}>
+                    <PlayerList />
+                </div>}
                 <div ref={rightRef} className="playerDetailed" style={{ width: "100%" }}>
                     <BigPlayerImage name={target.name} />
-                    {/* <RosterEntry {...target} /> */}
                     <RosterEntryMain {...target} />
                     {/* <PlayerStats name={target.name} /> */}
                 </div>

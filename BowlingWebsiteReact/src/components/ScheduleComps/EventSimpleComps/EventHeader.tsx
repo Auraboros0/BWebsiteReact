@@ -1,5 +1,6 @@
 import type { tournament } from "../../../Interfaces/tournament";
 
+/* The name and dates of a tournament */
 function EventHeader(props: tournament) {
     const startMonth = props.time[0].getMonth() + 1;
     const startDay = props.time[0].getDate();
