@@ -6,6 +6,13 @@ const urls: string[] = [
     "https://www.instagram.com/p/DU3rMRCmPsE/"
 ]
 
+// async function getPosts() {
+//     const data = await fetch('/api/instagram/posts');
+//     return data;
+// }
+
+// console.log(getPosts);
+
 /* A collection of instagram posts. Takes the above URLs and makes InstaPosts of them */
 function InstaFeed() {
     const class1: string = 'g-col-12 g-col-md-4';

@@ -1,5 +1,11 @@
 // @import "node_modules/bootstrap/scss/bootstrap-grid.scss";
 @import "../../node_modules/bootstrap/scss/bootstrap-grid.scss";
+
+@font-face {
+    font-family: 'Iosevka';
+    src: url(../Fonts/Iosevka/SGr-IosevkaTermSlab-ExtraLight.ttc);
+}
+
 .rosterList {
     display: flex;
     justify-content: center;
@@ -23,7 +29,7 @@
     justify-content: space-between;
     margin-bottom: 10px;
     width: 80vw;
-    height:140px;
+    height: 140px;
     // border: 1px black solid;
     box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.8);
     // filter:
@@ -41,7 +47,7 @@
 }
 
 .rosterTextBox {
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -49,7 +55,7 @@
 }
 
 .divForPositioning {
-    position:relative;
+    position: relative;
 }
 
 .playerName {
@@ -69,17 +75,14 @@
 }
 
 .stateIMG {
-    height:60px;
+    height: 60px;
     position: absolute;
     // left: 0px;
     margin-bottom: -90px;
-    bottom:80px;
+    bottom: 80px;
     -webkit-transform: rotate(-20deg);
     filter:
-        drop-shadow(2px 0px 0px #d01840) 
-        drop-shadow(-2px 0px 0px #d01840) 
-        drop-shadow(0px 2px 0px #d01840) 
-        drop-shadow(0px -2px 0px #d01840);
+        drop-shadow(2px 0px 0px #d01840) drop-shadow(-2px 0px 0px #d01840) drop-shadow(0px 2px 0px #d01840) drop-shadow(0px -2px 0px #d01840);
     z-index: 1;
 }
 
@@ -106,12 +109,12 @@
 .rosterEntry {
     // background-color: #d01840;
     background-image: linear-gradient(20deg,
-    //  rgba(0,0,0,0) 0% 12.5%,
-    //  rgba(255,255,255) 12.5% 15%,
-      rgba(208, 24, 64) 0 70%,
-       rgba(255,255,255) 70% 72.5%,
-        rgba(0,0,0,0) 72.5% 100%),
-         url('/public/assets/Textures/stateAccent.png');
+            //  rgba(0,0,0,0) 0% 12.5%,
+            //  rgba(255,255,255) 12.5% 15%,
+            rgba(208, 24, 64) 0 70%,
+            rgba(255, 255, 255) 70% 72.5%,
+            rgba(0, 0, 0, 0) 72.5% 100%),
+        url('/public/assets/Textures/stateAccent.png');
     background-size: 127.5% 100%, 10%;
     background-position-x: 10, auto;
     color: rgb(255, 255, 255);
@@ -150,7 +153,7 @@
     // overflow-y: auto;
     // border: 2px solid #d01840;
     scrollbar-width: none;
-    -ms-overflow-style: none;  
+    -ms-overflow-style: none;
     // animation: scroll-up 10s linear infinite;
 }
 
@@ -159,8 +162,15 @@
 // }
 
 @keyframes scroll-up {
-  0% { transform: translateY(0%); }
-  100% { transform: translateY(-100%); } /* Halfway point maintains the loop */
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+
+    /* Halfway point maintains the loop */
 }
 
 .REMTopBar {
@@ -178,6 +188,7 @@
 }
 
 .REMTopContainer {
+    font-family: 'Iosevka';
     --absolute-height: 0px;
     transition: transform 200ms ease-out;
     transform: translateY(0%);
@@ -192,6 +203,41 @@
     // transform: translateY(-200px);
 }
 
+.REMTopStats {
+    scrollbar-color: white black;
+    position: absolute;
+     display: flex;
+      flex-direction: column;
+       top: 33px;
+        background-Color: black;
+         color: white;
+          min-height: 300px;
+          max-height: calc((100cqw * (9/16)) - 125px);
+           width: 100%;
+            z-Index: 0;
+             overflow-Y: auto;
+              padding: 4px;
+               box-sizing: border-box;
+}
+
+.REMTable {
+    width: 100%;
+}
+
+.REMTable thead {
+    width: 100%;
+    text-align: left;
+}
+
+.REMTable tr {
+    width: 100%;
+}
+
+.loadingText {
+    font-family: 'Iosevka';
+    // text-align: center;
+}
+
 // .REMTopContainer.unclicked {
 //     transform: translateY(0%);
 // }
@@ -200,6 +246,7 @@
     from {
         transform: translateY(0%)
     }
+
     to {
         transform: translateY(-25px);
     }
@@ -221,7 +268,7 @@
     // background-image: linear-gradient(180deg, rgba(0,0,0,0) 0% 7.5%, rgba(255,255,255) 7.5% 10%, rgba(208,24,64) 10% 100%), url('/public/assets/Textures/stateAccent.png');
     // background-size: 100%, 15%;
     background-color: #d01840;
-    background-image: linear-gradient(60deg, rgba(208,24,64) 0% 72.5%, rgba(0,0,0,0) 72.5% 100%), url('/public/assets/Textures/testTexture.png');
+    background-image: linear-gradient(60deg, rgba(208, 24, 64) 0% 72.5%, rgba(0, 0, 0, 0) 72.5% 100%), url('/public/assets/Textures/testTexture.png');
     background-size: 100%, 30%;
     background-position: 100%, -10px -20px;
 
@@ -231,7 +278,7 @@
     // margin-bottom: -90px;
     position: absolute;
     height: 80px;
-    bottom:60px;
+    bottom: 60px;
     margin-bottom: -80px;
 }
 
@@ -243,9 +290,7 @@
     border: 4px solid #d01840;
 }
 
-.REMdetails {
-    
-}
+.REMdetails {}
 
 .REMdetails h2 {
     // border-top: 3px solid #d01840;
@@ -259,7 +304,7 @@
     margin-left: 10px;
 }
 
-.bigPlayerImage{
+.bigPlayerImage {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
@@ -268,7 +313,7 @@
     // min-width: 0;
 }
 
-.bigPlayerImage img{
+.bigPlayerImage img {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
@@ -277,9 +322,9 @@
 }
 
 .nameAndStyle {
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-weight: lighter;
-    position:absolute;
+    position: absolute;
     margin-left: 10px;
     line-height: 0.8;
     color: #FFFFFF;
@@ -297,8 +342,8 @@
     word-break: break-word;
     gap: 5px;
     -webkit-user-select: none;
-    -ms-user-select: none;     
-    user-select: none; 
+    -ms-user-select: none;
+    user-select: none;
     cursor: pointer;
 }
 
@@ -322,8 +367,7 @@
 
 .rosterEntrySmall h3 {
     font-size: 2cqw;
-    font-size: clamp(18px, 1.25rem, 1.8cqw)
-    // font-weight: 900;
+    font-size: clamp(18px, 1.25rem, 1.8cqw) // font-weight: 900;
 }
 
 // @include media-breakpoint-down(lg) {
@@ -339,166 +383,168 @@
     // box-shadow: inset 0 0 0 2px #d01840;
 }
 
-@include media-breakpoint-down(md) { // Mobile
-.rosterEntry {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    width: 100%;
-    height:120px;
-    // border: 1px black solid;
-    box-shadow: none;
-    // filter:
-    //     // drop-shadow(2px 0px 0px #d01840) 
-    //     drop-shadow(-2px 0px 0px #000000) 
-    //     drop-shadow(0px 2px 0px #000000); 
-    //     // drop-shadow(0px -2px 0px #d01840);
-    aspect-ratio: 21 / 9;
-    // z-index: -3;
-}
+@include media-breakpoint-down(md) {
 
-.rosterEntry {
-    background-color: #d01840;
-    color: rgb(255, 255, 255);
-    font-size: clamp(0.5rem, 4cqw, 0.75rem);
-    // white-space: nowrap;
-}
+    // Mobile
+    .rosterEntry {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        width: 100%;
+        height: 120px;
+        // border: 1px black solid;
+        box-shadow: none;
+        // filter:
+        //     // drop-shadow(2px 0px 0px #d01840) 
+        //     drop-shadow(-2px 0px 0px #000000) 
+        //     drop-shadow(0px 2px 0px #000000); 
+        //     // drop-shadow(0px -2px 0px #d01840);
+        aspect-ratio: 21 / 9;
+        // z-index: -3;
+    }
 
-.rosterBG {
-    background-image: none;
-    background-color:#FFFFFF;
-    background-size: cover;
-    padding: 10px;
-}
+    .rosterEntry {
+        background-color: #d01840;
+        color: rgb(255, 255, 255);
+        font-size: clamp(0.5rem, 4cqw, 0.75rem);
+        // white-space: nowrap;
+    }
 
-.leftHalfEntry {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    /* border: 1px black solid; */
-    // width: 100%;
-}
+    .rosterBG {
+        background-image: none;
+        background-color: #FFFFFF;
+        background-size: cover;
+        padding: 10px;
+    }
 
-.rosterTextBox {
-    display:block;
-    gap: 5px;
-    // flex-direction: column;
-    // justify-content: flex-start;
-    // align-items: center;
-}
+    .leftHalfEntry {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        /* border: 1px black solid; */
+        // width: 100%;
+    }
 
-.rosterMobileText {
-    // margin-top:-5px;
-    margin-bottom:-20px;
-}
+    .rosterTextBox {
+        display: block;
+        gap: 5px;
+        // flex-direction: column;
+        // justify-content: flex-start;
+        // align-items: center;
+    }
 
-.playerInfo {
-    font-size: 24px;
-}
+    .rosterMobileText {
+        // margin-top:-5px;
+        margin-bottom: -20px;
+    }
 
-.playerIMG {
-    margin-left: 10px;
-    height: 100px;
-    width: 100px;
-    border: 2px solid #FFFFFF;
-}
+    .playerInfo {
+        font-size: 24px;
+    }
 
-.stateIMG {
-    height:45px;
-    position: absolute;
-    // left: 0px;
-    margin-bottom: -80px;
-    bottom:80px;
-    -webkit-transform: rotate(-20deg);
-    filter:
-        drop-shadow(2px 0px 0px #d01840) 
-        drop-shadow(-2px 0px 0px #d01840) 
-        drop-shadow(0px 2px 0px #d01840) 
-        drop-shadow(0px -2px 0px #d01840);
-    z-index: 1;
-}
+    .playerIMG {
+        margin-left: 10px;
+        height: 100px;
+        width: 100px;
+        border: 2px solid #FFFFFF;
+    }
 
-.mobileRosterIMG img{
-    width: calc(100vw - 16px);
-}
+    .stateIMG {
+        height: 45px;
+        position: absolute;
+        // left: 0px;
+        margin-bottom: -80px;
+        bottom: 80px;
+        -webkit-transform: rotate(-20deg);
+        filter:
+            drop-shadow(2px 0px 0px #d01840) drop-shadow(-2px 0px 0px #d01840) drop-shadow(0px 2px 0px #d01840) drop-shadow(0px -2px 0px #d01840);
+        z-index: 1;
+    }
 
-.rosterEntryMain {
-    height: auto;
-    background-image: none;
-}
+    .mobileRosterIMG img {
+        width: calc(100vw - 16px);
+    }
 
-.rosterEntryMain .stateIMG {
-    // margin-bottom: -90px;
-    position: absolute;
-    height: 60px;
-    bottom:60px;
-    margin-bottom: -80px;
-}
+    .rosterEntryMain {
+        height: auto;
+        background-image: none;
+    }
 
-.rosterEntryMain .playerIMG {
-    position: absolute;
-    height: 120px;
-    width: 120px;
-    bottom: 0px;
-    border: 2px solid #d01840;
-}
+    .rosterEntryMain .stateIMG {
+        // margin-bottom: -90px;
+        position: absolute;
+        height: 60px;
+        bottom: 60px;
+        margin-bottom: -80px;
+    }
 
-.playerList {
-    width: 65vw;
-    border: 2px solid #d01840;
-    background-color: #d01840;
-}
+    .rosterEntryMain .playerIMG {
+        position: absolute;
+        height: 120px;
+        width: 120px;
+        bottom: 0px;
+        border: 2px solid #d01840;
+    }
 
-#inactiveButton.rosterEntrySmall {
-    background-color: #FFFFFF;
-    color: #121212;
-    cursor: default;
-    // box-shadow: inset 0 0 0 2px #d01840;
-}
+    .playerList {
+        width: 65vw;
+        border: 2px solid #d01840;
+        background-color: #d01840;
+    }
 
-.rosterEntrySmall {
+    #inactiveButton.rosterEntrySmall {
+        background-color: #FFFFFF;
+        color: #121212;
+        cursor: default;
+        // box-shadow: inset 0 0 0 2px #d01840;
+    }
 
-}
+    .rosterEntrySmall {}
 
-.rosterEntrySmall .playerIMG {
-    width: 100px;
-    height: 100px;
-}
+    .rosterEntrySmall .playerIMG {
+        width: 100px;
+        height: 100px;
+    }
 
-.playerDetailed {
-    background-color: #FFFFFF;
-}
+    .playerDetailed {
+        background-color: #FFFFFF;
+    }
 
-.mobileRosterToggle {
-    background-color: #d01840;
-    width: 40px;
-    height: 80px;
-    border-radius: 0px 10px 10px 0px;
-    border: 2px solid #d01840;
-    border-left: none;
+    .mobileRosterToggle {
+        background-color: #d01840;
+        width: 40px;
+        height: 80px;
+        border-radius: 0px 10px 10px 0px;
+        border: 2px solid #d01840;
+        border-left: none;
 
-    // box-shadow: 0 0 0 2px #FFFFFF;
-}
+        // box-shadow: 0 0 0 2px #FFFFFF;
+    }
 
-.mobileRosterAnim {
-    transition: transform 300ms ease-out;
-}
+    .mobileRosterAnim {
+        transition: transform 300ms ease-out;
+    }
 
-.mobileRosterAnim.one {
-    transform: translateX(-65%);
-    left: 0;
-}
+    .mobileRosterAnim.one {
+        transform: translateX(-65%);
+        left: 0;
+    }
 
-.mobileRosterAnim.two {
-    transform: translateX(0%);
-    left: 4px;
-}
+    .mobileRosterAnim.two {
+        transform: translateX(0%);
+        left: 4px;
+    }
 
-@keyframes mobileBoxSlide {
-    0% {transform: translateX(-70%); }
-    100% {transform: translateX(0%); }
-}
+    @keyframes mobileBoxSlide {
+        0% {
+            transform: translateX(-70%);
+        }
+
+        100% {
+            transform: translateX(0%);
+        }
+    }
 }

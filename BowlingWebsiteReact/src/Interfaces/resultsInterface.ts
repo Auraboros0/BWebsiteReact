@@ -1,9 +1,9 @@
 ﻿export interface resultsInterface {
-tournamentID: number
+    tournamentName: string
     No: number
-    Name: number
-    School: number
-    Tm: number
+    Name: string
+    School: string
+    Tm: string
     Total: number
     Gm: number
     Avg: number

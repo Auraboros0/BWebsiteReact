@@ -1,4 +1,6 @@
 import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
+import { mensResultsObject } from "./mensResultsObject.ts";
+import { womensResultsObject } from "./womensResultsObject.ts";
 import { execFile } from "node:child_process";
 import { promisify } from "util";
 
@@ -7,6 +9,8 @@ import fs from "node:fs";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "url";
+import { dir } from "node:console";
+import { data } from "react-router-dom";
 
 const __filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(__filename);
@@ -15,23 +19,20 @@ const pythonScript = path.resolve(dirname, "./resultsParser.py");
 const mFolder = path.resolve(dirname, "./resultsMen");
 const wFolder = path.resolve(dirname, "./resultsWomen");
 
-const mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
+let mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
     .map(file => path.join(mFolder, file));
 
-const womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
+let womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
     .map(file => path.join(wFolder, file));
-
-console.log(mensCSVs)
-
 /* 
-Lets break down all the bullshit
+Lets break down some stuff
 execFile: Executes a file via command
 execFileAsync: execFile but promise based. The promise being that the file is executed
 readdir: Read directory
 path.resolve: Creates a path.
 
 Why use await for the CSVs consts? Because we are searching for files in our system that may not exist.
-NOTE!!! JSON.parse is SUPER FUCKING PICKY
+Note: JSON.parse() is picky asf. Cannot use single quotes
 */
 
 async function parseCommand(tournamentPath: string | undefined) {
@@ -52,43 +53,117 @@ async function parseCommand(tournamentPath: string | undefined) {
     console.log("YEAHH")
 }
 
-export async function generateTourneyData(folder: string[]) {
-    const mensDataSorted: Record<string,resultsInterface[]> = {}
+/* 
+This function creates the mensResultsObject.ts and womensResultsObject.ts files by
+parsing the CSVs located within resultsMen and resultsWomen.
+*/
+export async function generateTourneyData(male: boolean) {
+    let objectName;
+    let folder: string[];
+    if (male) { objectName = "mensResultsObject"; folder = mensCSVs; }
+    else { objectName = "womensResultsObject"; folder = womensCSVs; }
+    const objectPath: string = path.resolve(dirname, `./${objectName}.ts`)
+    const mensDataSorted: Record<string, resultsInterface[]> = {}
     const allMensData: resultsInterface[] = []
+    const tournamentNames = new Set<string>();
     for (const tournament of folder) { // Iterating through every CSV
         const results = await parseCommand(tournament);
         if (typeof results === 'undefined') { continue; } // Iterating through the results of a CSV
-            for (const row of results) {
-                const rowToPush = row;
-                const tourneyName = tournament.split(/[\\.]/).at(-2);
-                row.tournamentName = tourneyName!;
-                if (mensDataSorted[row.Name]) {
-                    mensDataSorted[row.Name]?.push(rowToPush);
-                } else {
-                    mensDataSorted[row.Name] = [];
-                    mensDataSorted[row.Name]?.push(rowToPush)
-                }
+        for (const row of results) {
+            const rowToPush = row;
+            const tourneyName = tournament.split(/[\\.]/).at(-2);
+            row.tournamentName = tourneyName!;
+            tournamentNames.add(tourneyName!);
+            if (mensDataSorted[row.Name]) {
+                mensDataSorted[row.Name]?.push(rowToPush);
+            } else {
+                mensDataSorted[row.Name] = [];
+                mensDataSorted[row.Name]?.push(rowToPush)
             }
+        }
     }
     // console.log(mensDataSorted["Jake Kilander"])
-    return mensDataSorted;
+    const arrayFromTournamentSet = Array.from(tournamentNames);
+    const objectContents = `import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
+    export const ${objectName}: Record<string, resultsInterface[]> = ${JSON.stringify(mensDataSorted, null, 4)}
+    export const tournamentSet: string[] = ${JSON.stringify(arrayFromTournamentSet)}`;
+    fs.writeFileSync(objectPath, objectContents);
+    return { mensDataSorted, arrayFromTournamentSet };
 }
 
-export async function getPlayerResults(male: boolean, name: string) {
+/* 
+This function is used to recognize when new results have been added to my results folders but
+they have not yet been parsed.
+*/
+export async function identifyNewData(male: boolean, memoryTList: string[]) {
     let folder: string[];
-    if (male) { folder = mensCSVs }
-    else { folder = womensCSVs }
-    const results = await generateTourneyData(folder);
+    let playersObject;
+    let tList: string[];
+    if (male) {
+        playersObject = await import('./mensResultsObject.ts');
+        tList = playersObject.tournamentSet;
+        mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
+            .map(file => path.join(mFolder, file));
+        folder = mensCSVs;
+    }
+    else {
+        playersObject = await import('./womensResultsObject.ts');
+        tList = playersObject.tournamentSet;
+        womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
+            .map(file => path.join(wFolder, file))
+        folder = womensCSVs;
+    }
+
+    if (memoryTList.length === folder.length && memoryTList.every((val, index) => val === folder[index]!.split(/[\\.]/).at(-2))) {
+        console.log(folder[0]!.split(/[\\.]/).at(-2));
+        return false // No new data
+    } else {
+        return true // There is new data
+    }
+}
+
+/*
+This function gets a specific player's results from one of my results objects.
+*/
+export async function getPlayerResults(male: boolean, name: string, dataFromMemory?: Record<string, resultsInterface[]>) {
+    let results: Record<string, resultsInterface[]>;
+    if (dataFromMemory !== undefined) {
+        results = dataFromMemory;
+    } else {
+        if (male) {
+            const { mensResultsObject } = await import('./mensResultsObject.ts');
+            results = mensResultsObject;
+        } else {
+            const { womensResultsObject } = await import('./womensResultsObject.ts');
+            results = womensResultsObject;
+        }
+    }
+
     const toReturn = results[name];
-    return toReturn
+    if (!toReturn) { return [] };
+    return toReturn;
+    // let folder: string[];
+    // if (male) { folder = mensCSVs }
+    // else { folder = womensCSVs }
+    // const result = 
+    // const results = await generateTourneyData(male);
+    // const toReturn = results[name];
+    // if (!toReturn) { return [];}
+    // return toReturn
 }
 
-export function transformToJSON() {
+/* 
+This function simply calculates the average and total of a given player's records.
+*/
+export function getAverageAndTotal(results: resultsInterface[]) {
+    if (results.length == 0) { return { avg: 0, gamesBowled: 0 }; }
+    let total = 0;
+    let gamesBowled = 0;
+    for (const result of results) {
+        total += result.Total;
+        gamesBowled += result.Gm;
+    }
 
+    const avg = total / gamesBowled;
+    return { avg, gamesBowled };
 }
-
-// const all = await generateTourneyData(mensCSVs);
-// console.log(all);
-const results = await getPlayerResults(true, "Joaquin Herrera")
-// console.log(results);
-// parseCommand(mensCSVs[0])

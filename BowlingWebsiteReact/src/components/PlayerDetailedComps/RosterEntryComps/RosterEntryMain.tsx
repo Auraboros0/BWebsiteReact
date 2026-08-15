@@ -10,7 +10,7 @@ function RosterEntryMain(props: player) {
         <div>
             {isMd && <div className='REMContainer'>
                 <REMTopBar />
-            <div className="rosterEntryMain d-none d-md-flex">
+            <div className="rosterEntryMain">
                 <div style={{ position: "relative", width: "250px" }}><RosterLeftImg {...props} />
                     <div className='nameAndStyle'>
                         <h2>{props.name}</h2>

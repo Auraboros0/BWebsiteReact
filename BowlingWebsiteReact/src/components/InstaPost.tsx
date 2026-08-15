@@ -7,6 +7,7 @@ function InstaPost({ url }) {
       <InstagramEmbed 
         url={url} 
         width={1000}
+        className={'instaPost'}
       />
     </div>
     </div>
