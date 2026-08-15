@@ -5,7 +5,7 @@ Backend: ExpressJS
 All static data is bundled with Frontend, while files that are either heavy or will be modified are served from the Backend
 Player images and basic info is in the Frontend while tournament results are in the Backend.
 
-Noteworthy Frontend Info:
+Noteworthy Frontend Info: ---------
 
 PlayerDetailed (/detailed/:gender:id):
 
@@ -32,3 +32,7 @@ PlayerDetailed (/detailed/:gender:id):
 
 Roster (/roster/:gender):
   A simple list of either the men's team or women's team roster. The component imports team data from src/data and reads either mensData.json or womensData.json depending on the URL's gender parameter. 
+
+Noteworthy Backend Info: ---------
+
+My backend is currently used to parse & serve player results and to serve Instagram posts via the Instagram Graph API. I keep two copies of my player results (for each team). One is a typescript export file and the other is an object in server memory. The typescript export serves as a cache while the memory object is what is actually being ran. I only do this because getting Express to re-read my ts files is a hassle.
