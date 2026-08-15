@@ -1,0 +1,38 @@
+Documentation:
+Frontend: React + Vite
+Backend: ExpressJS
+
+All static data is bundled with Frontend, while files that are either heavy or will be modified are served from the Backend
+Player images and basic info is in the Frontend while tournament results are in the Backend.
+
+Noteworthy Frontend Info: ---------
+
+PlayerDetailed (/detailed/:gender:id):
+
+  This page is a two element, horizontal flexbox.
+  The left side contains a repeating roster list and the right side contains a video, basic player info and player stats.
+  The player info and stats will be pulled from the Backend and data folder using the parameters (gender & id)
+  On every load and resize, the left side will resize its height to match the right side.
+
+  PlayerList:
+    This list will scroll infinitely. This contains 3 copies of either the men's roster or women's roster. Upon hitting the beginning or end of the list the scrollTop property of the container will jump to a pre-defined position that will allow the user to continue scrolling in either direction.
+
+  To actually determine when the list should jump, I use two intersectionObservers attached via ref to two empty, zero height divs at the top and bottom of the container. When either of these divs enter the viewport the atTop or atBottom states are set to true, triggering a jump via useEffect(() => {}, [atTop/atBottom])
+
+  REMTopBar:
+    This component holds both a horizontal bar and a stats display. The bar is an empty div with a height and background image and the stats display is an absolutely positioned div.
+
+    StateMachine():
+      The REMTopBar component will exist in one of three states: clicked, hovered and default. The StateMachine() function   
+      will read these states and return a className string for the container to use.
+      The REMTopBar container's css will animate between different translateY positions depending on the returned className.
+
+    REMTopStats:
+      This component will request tournament results from the backend and then display either a loading screen or the stats. It will request the stats every five seconds until they are received. Upon either clicking onto a new player or receiving stats, this component's height will update and animate accordingly.
+
+Roster (/roster/:gender):
+  A simple list of either the men's team or women's team roster. The component imports team data from src/data and reads either mensData.json or womensData.json depending on the URL's gender parameter. 
+
+Noteworthy Backend Info: ---------
+
+My backend is currently used to parse & serve player results and to serve Instagram posts via the Instagram Graph API. I keep two copies of my player results (for each team). One is a typescript export file and the other is an object in server memory. The typescript export serves as a cache while the memory object is what is actually being ran. I only do this because getting Express to re-read my ts files is a hassle.
