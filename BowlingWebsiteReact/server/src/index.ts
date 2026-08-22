@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { getAverageAndTotal, getPlayerResults, generateTourneyData, identifyNewData } from "../data/generatePlayerData.ts";
+import { generateTeamData, identifyNewTeamData, getRecentTourneyData, getTourneyData } from "../data/generateTeamData.ts";
 import dotenv from "dotenv";
 
 dotenv.config({
@@ -15,17 +16,47 @@ const dirname = path.dirname(__filename);
 const app = express();
 const mensData = await import('../data/mensResultsObject.ts');
 const womensData = await import('../data/womensResultsObject.ts');
+const mensTeamData = await import('../data/mensTeamResultsObject.ts');
+const womensTeamData = await import('../data/womensTeamResultsObject.ts');
 
-let workingMensResults = mensData.mensResultsObject;
-let workingWomensResults = womensData.womensResultsObject;
-let workingMensTList = mensData.tournamentSet;
-let workingWomensTList = womensData.tournamentSet;
+let MensResults = mensData.mensResultsObject;
+let WomensResults = womensData.womensResultsObject;
+let MensTList = mensData.tournamentSet;
+let WomensTList = womensData.tournamentSet;
+
+let MensTeamResults = mensTeamData.mensTeamResultsObject;
+let WomensTeamResults = womensTeamData.womensTeamResultsObject;
+let MensTeamTList = mensTeamData.tournamentSet;
+let WomensTeamTList = womensTeamData.tournamentSet;
+
+async function regenerateDataPlayer(male: boolean) {
+    const data = await generateTourneyData(male)
+    if (male) {
+        MensResults = data.mensDataSorted;
+        MensTList = data.arrayFromTournamentSet;
+    } else {
+        WomensResults = data.mensDataSorted;
+        WomensTList = data.arrayFromTournamentSet;
+    }
+    console.log("GENERATING PLAYER DATA")
+}
+
+async function regenerateDataTeam(male: boolean) {
+    const data = await generateTeamData(male)
+    if (male) {
+        MensTeamResults = data.teamDataSorted;
+        MensTeamTList = data.arrayFromTournamentSet;
+    } else {
+        WomensTeamResults = data.teamDataSorted;
+        WomensTeamTList = data.arrayFromTournamentSet;
+    }
+    console.log("GENERATING TEAM DATA")
+}
 
 app.use(express.json());
-app.use(express.static('public'));
 app.use(
-    "/media",
-    express.static(path.join(dirname, "media"))
+    "/public",
+    express.static(path.join(dirname, "public"))
 );
 
 /*
@@ -36,19 +67,11 @@ app.get("/api/detailed/:gender/:id", async (req, res) => {
     let male: boolean;
     if (req.params.gender === 'mens') { male = true }
     else { male = false; }
-    if (await identifyNewData(male, male ? workingMensTList : workingWomensTList)) {
-        const data = await generateTourneyData(male)
-        if (male) {
-            workingMensResults = data.mensDataSorted;
-            workingMensTList = data.arrayFromTournamentSet;
-        } else {
-            workingWomensResults = data.mensDataSorted;
-            workingWomensTList = data.arrayFromTournamentSet;
-        }
-        console.log("GENERATING DATA")
+    if (await identifyNewData(male, male ? MensTList : WomensTList)) {
+        regenerateDataPlayer(male);
     }
 
-    const results = await getPlayerResults(male, req.params.id, male ? workingMensResults : workingWomensResults);
+    const results = await getPlayerResults(male, req.params.id, male ? MensResults : WomensResults);
     let avg;
     let total;
 
@@ -65,9 +88,42 @@ app.get("/api/detailed/:gender/:id", async (req, res) => {
     }
 })
 
+/* Gets the results of the most recent tournament */
 app.get("/api/home/recap", async (req, res) => {
     // Get high game & high series of recent competition
-    res.json()
+    if (await identifyNewTeamData(true, MensTeamTList)) {
+        regenerateDataTeam(true);
+    }
+    if (await identifyNewTeamData(false, WomensTeamTList)) {
+        regenerateDataTeam(false);
+    }
+    const mData = await getRecentTourneyData(true, MensTeamResults);
+    const wData = await getRecentTourneyData(true, WomensTeamResults);
+    if (!mData.outOf && !wData.outOf) {
+        res.status(404).json({ displayString: "Waiting for results!"})
+    }
+    else {
+        res.status(200).json({ mData: mData, wData: wData })
+    }
+
+})
+
+app.get("/api/home/tournamentnames", async (req, res) => {
+    res.status(200).json({MensTList, WomensTList});
+})
+
+app.get("/api/home/:male/:tournament", async (req, res) => {
+    if (await identifyNewTeamData(true, MensTeamTList)) {
+        regenerateDataTeam(true);
+    }
+    if (await identifyNewTeamData(false, WomensTeamTList)) {
+        regenerateDataTeam(false);
+    }
+    let male = true;
+    let tournamentObject = MensTeamResults;
+    if (req.params.male != 'mens') {male = false; tournamentObject = WomensTeamResults}
+    const data = await getTourneyData(male, req.params.tournament, tournamentObject);
+    res.status(200).json(data)
 })
 
 // app.get("/api/instagram/posts", async (req, res) => {

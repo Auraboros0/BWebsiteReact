@@ -20,7 +20,7 @@ function InstaFeed() {
     let class4: string = class1;
 
     return (
-        <div className="grid photos" style={{ '--bs-gap': '1rem 1rem' } as React.CSSProperties}>
+        <div className="grid photos" style={{ '--bs-gap': '1rem 1rem', background: 'white'} as React.CSSProperties}>
             {urls.map((item: string, index) => {
                 if (index >= 1) {class4 = class1 + class2;}
                 return (

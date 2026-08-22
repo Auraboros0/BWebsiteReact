@@ -13,7 +13,7 @@ interface tourneyScanner {
 }
 
 /* Function used to check if a tournament exists in both team's schedules */
-function scanSchedules() {
+export function scanSchedules() {
     const combined: tournament[] = []
     const mScanner: tourneyScanner[] = [];
     const wScanner: tourneyScanner[] = [];

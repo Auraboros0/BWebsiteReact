@@ -20,8 +20,10 @@ function REMTopStats({ ref, onDataLoad }) {
     const [responseStatus, logResponseStatus] = useState<number>(0);
     const { gender, id } = useParams();
 
+    // Every 5 seconds, attempt to read player data. If data is read, no more attempts will be made.
     useEffect(() => {
         logResponseStatus(0);
+        let count = 0;
         const interval = setInterval(() => {
             const retrieve = async () => {
                 try {
@@ -37,6 +39,8 @@ function REMTopStats({ ref, onDataLoad }) {
                     if (returned) { clearInterval(interval); }
                 }
                 catch (error) {
+                    if (count >= 3) { clearInterval(interval) }
+                    count += 1;
                     console.error("Failed to retrieve data");
                 }
             }
@@ -47,10 +51,10 @@ function REMTopStats({ ref, onDataLoad }) {
     }, [id])
 
     return (
-        <div ref={ref} className='REMTopStats' style={{}}>
+        <div ref={ref} className='REMTopStats'>
             <div style={{position: 'relative', display: 'flex', flexDirection: 'column', flexGrow: '1'}}>
                 <h2>Stats: {id}</h2>
-                {responseStatus === 0 && <Loading />}
+                {responseStatus === 0 && <Loading text={"Loading Data"}/>}
                 {/* <div style={{border: '4px solid white', height: '100%'}}></div> */}
                 {responseStatus === 404 && <h2>Stats have not been established</h2>}
                 {responseStatus === 200 && <div>

@@ -29,7 +29,7 @@ function NavigationBar() {
                 <nav>
                     <Link to="/"><button><h2>Home</h2></button></Link>
                     {/* <Link to="/roster"><button><h2>Roster</h2></button></Link> */}
-                    <Link to="/results"><button><h2>Results</h2></button></Link>
+                    <Link to="/gallery"><button><h2>Gallery</h2></button></Link>
                     <Link to="/schedule"><button><h2>Schedule</h2></button></Link>
                     <RosterButton />
                 </nav>

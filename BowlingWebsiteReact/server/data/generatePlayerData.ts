@@ -16,8 +16,8 @@ const __filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(__filename);
 const pythonScript = path.resolve(dirname, "./resultsParser.py");
 
-const mFolder = path.resolve(dirname, "./resultsMen");
-const wFolder = path.resolve(dirname, "./resultsWomen");
+const mFolder = path.resolve(dirname, "./Mens_Results_Individual");
+const wFolder = path.resolve(dirname, "./Womens_Results_Individual");
 
 let mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
     .map(file => path.join(mFolder, file));
@@ -35,7 +35,7 @@ Why use await for the CSVs consts? Because we are searching for files in our sys
 Note: JSON.parse() is picky asf. Cannot use single quotes
 */
 
-async function parseCommand(tournamentPath: string | undefined) {
+export async function parseCommand(tournamentPath: string | undefined) {
     // return `python resultsParser.py ${tournamentPath}`
     if (typeof tournamentPath === 'undefined') { return }
     const { stdout, stderr } = await execFileAsync(
@@ -55,7 +55,7 @@ async function parseCommand(tournamentPath: string | undefined) {
 
 /* 
 This function creates the mensResultsObject.ts and womensResultsObject.ts files by
-parsing the CSVs located within resultsMen and resultsWomen.
+parsing the CSVs located within Mens_Results_Individual and Results_Women_Individual.
 */
 export async function generateTourneyData(male: boolean) {
     let objectName;
@@ -70,15 +70,16 @@ export async function generateTourneyData(male: boolean) {
         const results = await parseCommand(tournament);
         if (typeof results === 'undefined') { continue; } // Iterating through the results of a CSV
         for (const row of results) {
-            const rowToPush = row;
             const tourneyName = tournament.split(/[\\.]/).at(-2);
             row.tournamentName = tourneyName!;
             tournamentNames.add(tourneyName!);
+
+            // If the record already contains data for a player, push their corresponding data to their entry.
             if (mensDataSorted[row.Name]) {
-                mensDataSorted[row.Name]?.push(rowToPush);
-            } else {
+                mensDataSorted[row.Name]?.push(row);
+            } else { // If the record doesn't contain the player, initialize their entry with a blank array and push their data to it
                 mensDataSorted[row.Name] = [];
-                mensDataSorted[row.Name]?.push(rowToPush)
+                mensDataSorted[row.Name]?.push(row)
             }
         }
     }
@@ -95,30 +96,53 @@ export async function generateTourneyData(male: boolean) {
 This function is used to recognize when new results have been added to my results folders but
 they have not yet been parsed.
 */
-export async function identifyNewData(male: boolean, memoryTList: string[]) {
+export async function identifyNewData(male: boolean, memoryTList?: string[]) {
     let folder: string[];
     let playersObject;
     let tList: string[];
-    if (male) {
-        playersObject = await import('./mensResultsObject.ts');
-        tList = playersObject.tournamentSet;
-        mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
-            .map(file => path.join(mFolder, file));
-        folder = mensCSVs;
-    }
-    else {
-        playersObject = await import('./womensResultsObject.ts');
-        tList = playersObject.tournamentSet;
-        womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
-            .map(file => path.join(wFolder, file))
-        folder = womensCSVs;
-    }
 
-    if (memoryTList.length === folder.length && memoryTList.every((val, index) => val === folder[index]!.split(/[\\.]/).at(-2))) {
-        console.log(folder[0]!.split(/[\\.]/).at(-2));
-        return false // No new data
-    } else {
-        return true // There is new data
+    if (typeof memoryTList !== "undefined") {
+        if (male) {
+            mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
+                .map(file => path.join(mFolder, file));
+            folder = mensCSVs;
+        }
+        else {
+            womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
+                .map(file => path.join(wFolder, file))
+            folder = womensCSVs;
+        }
+
+        if (memoryTList.length === folder.length && memoryTList.every((val, index) => val === folder[index]!.split(/[\\.]/).at(-2))) {
+            // console.log(folder[0]!.split(/[\\.]/).at(-2));
+            return false // No new data
+        } else {
+            return true // There is new data
+        }
+    } 
+    // If I do not pass in a list of tournaments...
+    else {
+        if (male) {
+            playersObject = await import('./mensResultsObject.ts');
+            tList = playersObject.tournamentSet;
+            mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
+                .map(file => path.join(mFolder, file));
+            folder = mensCSVs;
+        }
+        else {
+            playersObject = await import('./womensResultsObject.ts');
+            tList = playersObject.tournamentSet;
+            womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
+                .map(file => path.join(wFolder, file))
+            folder = womensCSVs;
+        }
+
+        if (tList.length === folder.length && tList.every((val, index) => val === folder[index]!.split(/[\\.]/).at(-2))) {
+            // console.log(folder[0]!.split(/[\\.]/).at(-2));
+            return false // No new data
+        } else {
+            return true // There is new data
+        }
     }
 }
 
@@ -142,14 +166,6 @@ export async function getPlayerResults(male: boolean, name: string, dataFromMemo
     const toReturn = results[name];
     if (!toReturn) { return [] };
     return toReturn;
-    // let folder: string[];
-    // if (male) { folder = mensCSVs }
-    // else { folder = womensCSVs }
-    // const result = 
-    // const results = await generateTourneyData(male);
-    // const toReturn = results[name];
-    // if (!toReturn) { return [];}
-    // return toReturn
 }
 
 /* 
@@ -166,4 +182,8 @@ export function getAverageAndTotal(results: resultsInterface[]) {
 
     const avg = total / gamesBowled;
     return { avg, gamesBowled };
+}
+
+export function getWeeklyResults() {
+
 }

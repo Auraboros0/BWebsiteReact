@@ -7,6 +7,7 @@ import Schedule from './components/ScheduleComps/Schedule';
 // import './css/global.css';
 import './css/global.scss'
 import PlayerDetailed from './components/PlayerDetailedComps/PlayerDetailed';
+import Gallery from './components/GalleryComps/Gallery';
 
 function App() {
   return (<div>
@@ -16,6 +17,8 @@ function App() {
       <Route path="/roster/:gender" element={<Roster />} />
       <Route path="/detailed/:gender/:id" element={<PlayerDetailed />} />
       <Route path="/schedule" element={<Schedule />} />
+      <Route path="/gallery" element={<Gallery />} />
+      <Route path="/results/:gender/:name" element={<div></div>} />
     </Routes>
   </div>
   )

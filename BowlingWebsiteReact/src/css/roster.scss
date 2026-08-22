@@ -17,7 +17,7 @@
 }
 
 .rosterBG {
-    background-image: linear-gradient(to left, rgba(255, 149, 0, 0.2), rgba(0, 0, 0, 0.8)), url('/assets/Textures/uwStock2.jpg');
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('/assets/Textures/grunge.jpg');
     background-size: cover;
     padding: 10px;
 }
@@ -178,7 +178,7 @@
     width: 100%;
     height: 25px;
     background-image: url(/public/assets/Textures/stateAccent.png);
-    background-size: 10%;
+    background-size: 10% auto;
     background-position-x: 1px;
     margin-bottom: 0px;
     border-top: 4px solid white;
@@ -214,10 +214,11 @@
           min-height: 300px;
           max-height: calc((100cqw * (9/16)) - 125px);
            width: 100%;
-            z-Index: 0;
              overflow-Y: auto;
               padding: 4px;
                box-sizing: border-box;
+                pointer-events: auto;
+                 z-index: -1;
 }
 
 .REMTable {
@@ -231,6 +232,20 @@
 
 .REMTable tr {
     width: 100%;
+}
+
+.REMStatsFlair {
+    display: flex;
+    position: absolute;
+    top: -30px;
+    width: max-content;
+    color: white;
+    animation: scroll-left 15s linear infinite;
+}
+
+@keyframes scroll-left {
+   0%{ transform: translateX(0%)}
+   100%{ transform: translateX(-50%)}; 
 }
 
 .loadingText {

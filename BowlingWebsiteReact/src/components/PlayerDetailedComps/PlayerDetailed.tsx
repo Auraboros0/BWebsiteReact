@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router";
 import type { player } from '../../Interfaces/player'
-import useConditionalRender from "../../dataScripts/useConditionalRender";
+import useConditionalRender from "../../Scripts/useConditionalRender";
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import mensData from "../../data/mensData.json";
 import womensData from "../../data/womensData.json";
@@ -61,7 +61,7 @@ export default function PlayerDetailed() {
                 {isMd && <div ref={leftRef} className="" style={{ height: '0px' }}>
                     <PlayerList />
                 </div>}
-                <div ref={rightRef} className="playerDetailed" style={{ width: "100%" }}>
+                <div ref={rightRef} className="playerDetailed" style={{ width: "100%", backgroundColor: 'black' }}>
                     <div ref={oneRef}><BigPlayerImage name={target.name} /></div>
                     <div ref={twoRef}><RosterEntryMain {...target} /></div>
                     {!isMd && <REMTopBar />}

@@ -2,7 +2,7 @@ import type { player } from "../../../Interfaces/player";
 import REMdetails from "./REMdetails";
 import RosterLeftImg from "../../RosterComps/RosterLeftImg";
 import RosterRight from "../../RosterComps/RosterRight";
-import useConditionalRender from "../../../dataScripts/useConditionalRender";
+import useConditionalRender from "../../../Scripts/useConditionalRender";
 import REMTopBar from "./REMTopBar";
 function RosterEntryMain(props: player) {
     const { isMd } = useConditionalRender();

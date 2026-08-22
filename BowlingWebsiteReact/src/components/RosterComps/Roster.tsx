@@ -28,7 +28,7 @@ export default function Roster() {
                 <RosterMobileIMG gender={gender} />
             </div>
             <div className="rosterBG">
-                <DivisionTitle title={"ROSTER"} red={true}/>
+                <div style={{marginBottom: '16px'}}><DivisionTitle title={"ROSTER"} red={true} filename={""}/></div>
                 {data.map((item: player) => {
                     return (
                         <div>

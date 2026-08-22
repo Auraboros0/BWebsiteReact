@@ -34,6 +34,11 @@ $navBarMargin: 10px;
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Iosevka';
+    src: url(../Fonts/Iosevka/SGr-IosevkaTermSlab-ExtraLight.ttc);
+}
+
 .dragging {
     user-select: none;
     -webkit-user-select: none;
@@ -74,17 +79,40 @@ br {
     -webkit-transform: rotate(180deg);
 }
 
-.headerDivision {
+.aboutHeader {
+    box-sizing: border-box;
+    color: black;
+    font-size: 24px;
+    height: 50px;
     padding: 2px;
-    width: auto;
-    background-image: url(/public/assets/Textures/redDash.png);
-    background-position-y: -5px;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
+    padding-left: 8px;
+    background-color: white;
+    // background-image: url('/public/assets/Textures/redRough.png');
+    background-repeat: repeat;
+    border-top: 8px solid white;
+    align-content: center;
+}
+
+.headerDivisionStripes {
+    background-size: 10% auto;
+    background-repeat: repeat;
+}
+
+.headerDivision {
+    box-sizing: border-box;
+    // margin-left: -8px;
+    padding: 2px;
+    padding-left: 8px;
+    width: calc(100% + 8px);
+    margin-bottom: 0px;
+    background-position-y: 5px, 0;
+    background-size: auto 100%, auto auto;
+    background-repeat: no-repeat, repeat;
     color: #FFFFFF;
 }
 
 .headerDivisionWhite {
+    margin-left: -8px;
     padding: 2px;
     width: calc-size(auto, size + 32px);
     max-width: calc(100vw - 32px);
@@ -117,50 +145,119 @@ br {
 }
 
 .socialsHeader {
-    background-image: linear-gradient(180deg, #FFFFFF 0% 45%, #d01840 45% 55%, #FFFFFF 55% 100%);
+    // background-image: linear-gradient(180deg, transparent 0% 45%, #d01840 45% 55%, transparent 55% 100%);
+}
+
+.socialLink {
+    background-color: transparent;
 }
 
 .socialLink h2 {
-    color: black;
-    background-color: #FFFFFF;
+    color: white;
+    -webkit-text-stroke: 1px #d01840;
+    // background-color: #FFFFFF;
 }
 
 .socialsHeader a {
-    color: #FFFFFF;
+    color: transparent;
 }
 
 .scrollingResults {
     position: absolute;
     -webkit-transform: rotate(5deg);
     width: 120%;
-    height: 200px;
+    height: 30%;
     align-content: center;
     color: white;
     // background-color: #d01840;
     background-image: url(/public/assets/Textures/grungeStripeAlt.png);
-    background-position-y: 25px;
+    background-position-y: center;
     background-repeat: repeat no-repeat;
     background-size: auto 75%;
     bottom: 0;
+    box-sizing: border-box;
 }
 
-.genderImage {
-    position: relative;
-    width: 30%;
-    border: 2px solid black;
+.scrollingResultsText {
+    // transition: transform 5000ms ease-out;
+    animation: scroll-left 15s linear infinite;
+    font-size: calc(100vw / 70);
+
 }
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+// .genderImage {
+//     position: relative;
+//     width: 50%;
+//     border: 2px solid black;
+// }
 
 .genderImage img {
     width: 100%;
+    box-sizing: border-box;
 }
 
 .exposition {
-    width: calc(100% + 16px);
-    margin-left: -8px;
+    position: relative;
+    width: calc(100% + 8px);
+    // margin-left: -8px;
     padding: 20px;
+    white-space: pre-line;
+
+}
+
+.exposition h2 {
+    font-size: calc(100vw / 50);
+            font-weight: 400;
 }
 
 .exposition.M {
+    border-top: 8px solid white;
+    background-color: #d01840;
+    color: #FFFFFF;
+}
+
+.exposition.M::after {
+    position: absolute;
+    top: 0;
+    inset: 0;
+    content: "";
+    background-image: linear-gradient(170deg,
+            rgba(255, 255, 255, 0) 0% 10%,
+            rgba(255, 255, 255, 1) 10% 13%,
+            rgba(208, 24, 64, 0) 13% 87%,
+            rgba(255, 255, 255, 1) 87% 90%,
+            rgba(255, 255, 255, 0) 90% 100%), url(/public/assets/textures/stateAccentAlt.png);
+
+    mask-image: linear-gradient(170deg,
+            rgba(255, 255, 255, 1) 0% 10%,
+            rgba(255, 255, 255, 1) 10% 13%,
+            rgba(208, 24, 64, 0) 13% 87%,
+            rgba(255, 255, 255, 1) 87% 90%,
+            rgba(255, 255, 255, 1) 90% 100%);
+
+    -webkit-mask-image: linear-gradient(170deg,
+            rgba(255, 255, 255, 1) 0% 10%,
+            rgba(255, 255, 255, 1) 10% 13%,
+            rgba(208, 24, 64, 0) 13% 87%,
+            rgba(255, 255, 255, 1) 87% 90%,
+            rgba(255, 255, 255, 1) 90% 100%);
+
+    background-size: auto, 10%;
+    color: white;
+    z-index: 2;
+}
+
+.exposition.M.top {
     background-image: linear-gradient(170deg,
             rgba(0, 0, 0, 0) 0% 7%,
             rgba(255, 255, 255, 1) 7% 10%,
@@ -172,9 +269,39 @@ br {
 }
 
 .exposition.F {
-    border-bottom: 4px solid #d01840;
+    border-top: 8px solid white;
+    border-bottom: 8px solid white;
+    color: white;
+    background-image: linear-gradient(to left, rgba(0,0,0,0.6)), url(/assets/Textures/grunge.jpg);
 }
 
+.resultsBox {
+    font-family: 'Iosevka';
+}
+
+.resultsBox.hovered h1 {
+    opacity: 0.0;
+    filter: blur(5px);
+    width: 100%;
+}
+
+.resultsBox.selection h1 {
+    opacity: 1.0 !important;
+    filter: blur(0px) !important;
+}
+
+.resultsBox.selection a {
+    opacity: 1.0 !important;
+    filter: blur(0px) !important;
+    text-decoration: none;
+    color: white;
+}
+
+.gallerySquare.hovered {
+    // border: 4px solid pink;
+    border: 4px solid rgb(255, 0, 89);
+    box-shadow: 0 0 20px 2px rgb(255, 0, 89)
+}
 // .linkButton:hover {
 //     position:relative;
 //     z-index: 10;
@@ -183,9 +310,12 @@ br {
 
 @include media-breakpoint-up(md) {
     .photos {
+        padding: 16px;
+        gap: 4px;
         margin-left: auto;
         margin-right: auto;
-        // background-image: url(/public/assets/Textures/stripes2.png);
+        background-color: black;
+        border-bottom: 8px solid white;
         // background-size: 100%;
         // border: 4px solid #d01840;
     }
@@ -196,6 +326,9 @@ br {
         justify-content: center;
         align-items: center;
         align-self: center;
+        border: 4px solid white;
+        height: 100%;
+        box-sizing: border-box;
         // aspect-ratio: 9 / 16;
         // width: 100%;
         // height: auto;
@@ -207,7 +340,7 @@ br {
         // aspect-ratio: 9 / 16;
         // width: 100%;
         // height: auto;
-        border: 2px black solid;
+        border: 4px white solid;
         width: 30vw;
     }
 }
@@ -228,6 +361,8 @@ br {
     }
 
     .photos {
+        padding: 4px;
+        background-image: url('/public/assets/Textures/grunge.jpg');
         margin-left: auto;
         margin-right: auto;
         display: flex;
@@ -237,7 +372,9 @@ br {
 
     .gallerySquare {
         position: relative;
-        border: 2px black solid;
+        margin-left: auto;
+        margin-right: auto;
+        border: 4px white solid;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -246,6 +383,93 @@ br {
 
     .gallerySquare img {
         // aspect-ratio: 1 / 1;
-        width: 90vw;
+        width: 100%;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .mainImage {
+        display: flex;
+        justify-content: center;
+        aspect-ratio: 9 / 16;
+        width: 100%;
+        height: auto;
+    }
+
+    .mainImage img {
+        display: flex;
+        justify-content: center;
+        aspect-ratio: 9 / 16;
+        width: 100%;
+        height: auto;
+    }
+
+    .exposition {
+        position: relative;
+        width: calc(100% + 8px);
+        // margin-left: -8px;
+        padding: 20px;
+        white-space: pre-line;
+    }
+
+    .exposition h2 {
+        font-size: 24px;
+        font-weight: lighter;
+    }
+
+    .exposition.M {
+        border-top: 8px solid #d01840;
+        background-color: #d01840;
+        background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5)), url('/public/assets/Textures/grunge.jpg');
+        color: #FFFFFF;
+        border-bottom: 8px solid #d01840;
+    }
+
+    .exposition.M::after {
+        position: absolute;
+        top: 0;
+        inset: 0;
+        content: "";
+        background-image: linear-gradient(170deg,
+                rgba(255, 255, 255, 0) 0% 10%,
+                rgba(255, 255, 255, 1) 10% 13%,
+                rgba(208, 24, 64, 0) 13% 87%,
+                rgba(255, 255, 255, 1) 87% 90%,
+                rgba(255, 255, 255, 0) 90% 100%), url(/public/assets/textures/stateAccentAlt.png);
+
+        mask-image: linear-gradient(170deg,
+                rgba(255, 255, 255, 1) 0% 10%,
+                rgba(255, 255, 255, 1) 10% 13%,
+                rgba(208, 24, 64, 0) 13% 87%,
+                rgba(255, 255, 255, 1) 87% 90%,
+                rgba(255, 255, 255, 1) 90% 100%);
+
+        -webkit-mask-image: linear-gradient(170deg,
+                rgba(255, 255, 255, 1) 0% 10%,
+                rgba(255, 255, 255, 1) 10% 13%,
+                rgba(208, 24, 64, 0) 13% 87%,
+                rgba(255, 255, 255, 1) 87% 90%,
+                rgba(255, 255, 255, 1) 90% 100%);
+
+        background-size: auto, 10%;
+        color: white;
+        z-index: -2;
+    }
+
+    .exposition.M.top {
+        background-image: linear-gradient(170deg,
+                rgba(0, 0, 0, 0) 0% 7%,
+                rgba(255, 255, 255, 1) 7% 10%,
+                rgba(208, 24, 64, 1) 10% 90%,
+                rgba(255, 255, 255, 1) 90% 93%,
+                rgba(0, 0, 0, 0) 93% 100%), url(/public/assets/textures/stateAccent.png);
+        background-size: auto, 10%;
+        color: white;
+    }
+
+    .exposition.F {}
+
+    .scrollingResultsText {
+        font-size: 16px
     }
 }

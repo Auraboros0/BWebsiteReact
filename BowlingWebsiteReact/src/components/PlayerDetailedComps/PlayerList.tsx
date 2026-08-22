@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
 import { useRef, useEffect, Fragment, useState } from "react";
 import type { player } from "../../Interfaces/player";
-import type { ClickDragHandle } from "../../dataScripts/ClickAndDrag";
-import ClickAndDrag from "../../dataScripts/ClickAndDrag";
+import type { ClickDragHandle } from "../../Scripts/ClickAndDrag";
+import ClickAndDrag from "../../Scripts/ClickAndDrag";
 import RosterEntrySmall from "./RosterEntryComps/RosterEntrySmall";
 import mData from '../../data/mensData.json'
 import wData from '../../data/womensData.json'

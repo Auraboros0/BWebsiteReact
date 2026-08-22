@@ -6,15 +6,15 @@ function injectDot(baseString: string, count: number) {
     return baseString
 }
 
-function Loading() {
+function Loading({text}) {
     const baseString = "Loading Data";
-    const [displayString, setDisplayString] = useState(baseString);
+    const [displayString, setDisplayString] = useState(text);
     const [dotTracker, incrementDotTracker] = useState(0);
     useEffect(() => {
         const interval = setInterval(() => {
             incrementDotTracker(prev => {
                 const next = (prev + 1) % 4;
-                setDisplayString(prev => injectDot(baseString, next));
+                setDisplayString(prev => injectDot(text, next));
                 return next;
             })
         }, 500);

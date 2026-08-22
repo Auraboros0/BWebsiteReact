@@ -1,5 +1,5 @@
 import type { tournament } from "../../../Interfaces/tournament"
-import useConditionalRender from "../../../dataScripts/useConditionalRender";
+import useConditionalRender from "../../../Scripts/useConditionalRender";
 /* The information about a tournament. Takes a tournament object and checks what teams are competing
    and displays the information accordinly */
 function InfoBlock(props: tournament) {

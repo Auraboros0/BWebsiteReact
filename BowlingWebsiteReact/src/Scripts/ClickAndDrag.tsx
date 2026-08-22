@@ -15,6 +15,7 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
             reactToJump,
         }))
 
+        // Whenever the parent jumps, this will be called via ref
         function reactToJump(itemHeight:number, up: boolean) {
             if (drag.current.active) {
             if (up) {drag.current.initialScroll += itemHeight}
@@ -24,7 +25,6 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
         }
 
 
-// export default function ClickAndDrag({ scrollRef, children }: ClickDragProps) {
 
     let holdTime = 0;
     const dragThreshold = 100;

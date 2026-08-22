@@ -3,7 +3,7 @@ import type { tournament } from "../../Interfaces/tournament";
 import { scheduleM } from "../../data/scheduleM";
 import { scheduleW } from "../../data/scheduleW";
 import DivisionTitle from "../DivisionTitle";
-import useConditionalRender from "../../dataScripts/useConditionalRender";
+import useConditionalRender from "../../Scripts/useConditionalRender";
 
 
 // Returns the current or nearest tournament from a schedule
@@ -11,16 +11,16 @@ let live: boolean = false;
 function getDate(schedule: tournament[]) {
     const today = new Date();
     today.setHours(0,0,0,0);
-    const todayTime = today.getTime;
+    const todayTime = today.getTime();
     let nearest: tournament = schedule[0];
 
     for (const tourney of schedule) {
-        const tourneyStart = tourney.time[0].getTime;
-        const tourneyEnd = tourney.time[1].getTime
-        if (tourneyEnd < todayTime) { break; }
-        if (tourneyStart >= nearest.time[0].getTime) { break; }
+        const tourneyStart = tourney.time[0].getTime();
+        const tourneyEnd = tourney.time[1].getTime()
+        if (tourneyStart <= todayTime && todayTime <= tourneyEnd) { nearest = tourney; live = true; break;}
+        if (tourneyEnd < todayTime) { continue; }
+        if (tourneyStart >= nearest.time[0].getTime()) { continue; }
         if (tourneyStart > todayTime) { nearest = tourney}
-        if (tourneyStart <= todayTime && todayTime <= tourneyEnd) { nearest = tourney; live = true;}
     }
 
     return nearest;
@@ -30,9 +30,9 @@ const nextM = getDate(scheduleM);
 const nextW = getDate(scheduleW);
 
 function compareDates(tourney1: tournament, tourney2: tournament) {
-    const tourneyStart1 = tourney1.time[0].getTime;
-    const tourneyEnd1 = tourney1.time[1].getTime;
-    const tourneyStart2 = tourney2.time[0].getTime;
+    const tourneyStart1 = tourney1.time[0].getTime();
+    const tourneyEnd1 = tourney1.time[1].getTime();
+    const tourneyStart2 = tourney2.time[0].getTime();
 
     if (tourneyStart1 <= tourneyStart2 && tourneyStart2 <= tourneyEnd1) {
         return true;
@@ -42,7 +42,7 @@ function compareDates(tourney1: tournament, tourney2: tournament) {
 
 function createText(tourney: tournament, tourney2?: tournament) {
 
-    if (tourney.time[1].getTime < new Date().getTime) { 
+    if (tourney.time[1].getTime() < new Date().getTime()) { 
         const tournamentString = '';
         return {tournamentString}
     }
@@ -52,10 +52,10 @@ function createText(tourney: tournament, tourney2?: tournament) {
     const endMonth = tourney.time[1].getMonth() + 1;
     const endDay = tourney.time[1].getDate();
     const liveString = 'HAPPENING NOW!'
-    const upcomingString = 'Next Competition'
+    const upcomingString = 'Next Competition:'
     const startString = live ? liveString : upcomingString
-    const tournamentString = `${startString}: ${tourney.name} @ ${tourney.center[0]} in ${tourney.city[0].city}, ${tourney.city[0].state} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
-    const tournamentStringAlt = `${startString}: ${tourney.name} ! Men @ ${tourney.center[0]} in ${tourney.city[0].city}, ${tourney.city[0].state} | Women @ ${tourney2?.center[0]} in ${tourney2?.city[0].city}, ${tourney2?.city[0].state} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
+    const tournamentString = `${startString} ${tourney.name} @ ${tourney.center[0]} in ${tourney.city[0].city}, ${tourney.city[0].state} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
+    const tournamentStringAlt = `${startString} ${tourney.name} ! Men @ ${tourney.center[0]} in ${tourney.city[0].city}, ${tourney.city[0].state} | Women @ ${tourney2?.center[0]} in ${tourney2?.city[0].city}, ${tourney2?.city[0].state} from ${startMonth}/${startDay} - ${endMonth}/${endDay}`
     if (tourney2) { return {tournamentString, tournamentStringAlt}}
     return {tournamentString}
 }

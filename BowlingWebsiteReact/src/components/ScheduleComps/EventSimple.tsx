@@ -36,7 +36,7 @@ function EventSimple(props: tournament) {
             <div ref={leftRef}><HostLogo hostSlug={props.hostSlug} /></div>
             <div ref={rightRef} className='eventSimple'>
                 <EventHeader {...props} />
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex'}}>
                     <InfoBlock {...props} />
                 </div>
                 <div style={{ position: 'absolute', right: '0' }}>

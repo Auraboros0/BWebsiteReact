@@ -1,0 +1,23 @@
+.gallery {
+    width: calc(100% + 16px);
+    margin-left: -8px;
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(#111111);
+    padding-top: 30px;
+    gap: 2vw;
+}
+
+.galleryColumn {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 30vw;
+    gap: 2vw;
+}
+
+.galleryEntry {
+    box-sizing: border-box;
+    width: 100%;
+    border: 4px solid white;
+}
