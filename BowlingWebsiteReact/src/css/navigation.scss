@@ -27,7 +27,7 @@ $navBarMargin: 10px;
     flex-grow: 1;
     min-width: 0;
     z-index: 100;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 20px 20px 0px 20px;
     // width:100vw;
     // overflow-x: hidden;
 }
@@ -133,8 +133,29 @@ $navBarMargin: 10px;
     border-radius: 0px 20px 20px 0px;
 }
 
+#inactiveButton.moreButton:hover {
+     text-shadow: 
+    // -2px -2px 0 #d01840,  2px -2px 0 #d01840, 
+    // -2px  2px 0 #d01840,  2px  2px 0 #d01840,
+    -2px -2px 0 white,   2px -2px 0 white, 
+    -2px  2px 0 white,   2px  2px 0 white;
+    // -webkit-text-stroke: 1px white;
+    color: black;
+}
+
 #isActiveButton.moreButton  {
     border-radius: 20px 20px 0px 0px;
+}
+
+#inactiveButton.moreButton {
+     text-shadow: 
+    // -2px -2px 0 #d01840,  2px -2px 0 #d01840, 
+    // -2px  2px 0 #d01840,  2px  2px 0 #d01840,
+    -2px -2px 0 white,   2px -2px 0 white, 
+    -2px  2px 0 white,   2px  2px 0 white;
+    // -webkit-text-stroke: 1px white;
+    color: black;
+
 }
 
 #isActiveButton {
@@ -150,6 +171,22 @@ $navBarMargin: 10px;
 #inactiveButton:hover{
     background-color: #d01840;
     color: white;
+}
+
+.MorFRedo {
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 0 4px #d01840;
+    // border: 2px #d01840 solid;
+    border-top: none;
+    width: 100%;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    color: black;
+    background-color: white;
 }
 
 @include media-breakpoint-up(md) {
@@ -183,7 +220,7 @@ $navBarMargin: 10px;
     }
 
     .genderButton {
-    border-radius: 15px 15px 0 0;
+    // border-radius: 15px 15px 0 0;
     }
 
     .navContainer {

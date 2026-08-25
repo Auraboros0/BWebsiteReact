@@ -12,7 +12,7 @@ function RosterEntrySmall(props: player) {
 
     const handleClick = () => {
         if (!alreadyAtLink(props.name)) {
-            navigate(`/detailed/${gender}/${props.name}`, { replace: true })
+            navigate(`/detailed/${gender}/${props.name}`, { replace: true, preventScrollReset: true})
         }
     }
     

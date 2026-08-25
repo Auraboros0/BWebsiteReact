@@ -6,6 +6,7 @@ import BackgroundStripe from '../BackgroundStripe';
 import RosterButton from './RosterButton';
 import NavLogo from './NavLogo';
 import '../../css/navigation.scss'
+import RosterButtonRedo from './RosterButtonRedo';
 function NavigationBar() {
     const BGPath = '/public/assets/Textures/badger.png'
     const navigate = useNavigate()
@@ -31,7 +32,7 @@ function NavigationBar() {
                     {/* <Link to="/roster"><button><h2>Roster</h2></button></Link> */}
                     <Link to="/gallery" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Gallery</h2></button></Link>
                     <Link to="/schedule" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Schedule</h2></button></Link>
-                    <RosterButton />
+                    <RosterButtonRedo />
                 </nav>
             </div>
             <div className="d-md-none" style={{ position: "absolute", top: "0px"}}>

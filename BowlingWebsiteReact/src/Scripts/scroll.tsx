@@ -19,14 +19,16 @@ export const scroll = (scrollSpeed: number, animationId: RefObject<number | null
         const layer = options.layer;
         const reverse = options.reverse;
         let putString: string = "";
-        let cellSize: number = 0;
-        if (!itemRef.current) { return { putString, cellSize } };
+        let cellSizeW: number = 0;
+        let cellSizeH: number = 0;
+        if (!itemRef.current) { return { putString, cellSizeW, cellSizeH, xAxis } };
         const backgroundSizes = getComputedStyle(itemRef.current!).backgroundSize.split(" ");
         let cellMultiplier;
         if (xAxis) { cellMultiplier = parseFloat(backgroundSizes[1]) / 100 }
         else { cellMultiplier = parseFloat(backgroundSizes[0]) / 100 }
         const aspectRatio = itemRef.current!.offsetWidth / itemRef.current!.offsetHeight;
-        cellSize = itemRef.current!.offsetWidth * cellMultiplier * aspectRatio;
+        cellSizeW = itemRef.current!.offsetWidth * cellMultiplier;
+        cellSizeH = itemRef.current!.offsetWidth * cellMultiplier * aspectRatio;
 
         if (reverse) { scrollSpeed = -Math.abs(scrollSpeed) }
         if (layer) {
@@ -34,22 +36,23 @@ export const scroll = (scrollSpeed: number, animationId: RefObject<number | null
                 putString += "0px, ";
             }
         }
-        return { putString, cellSize, xAxis }
+        return { putString, cellSizeW, cellSizeH, xAxis }
     }
 
     // let stringToModify = createAnimationInfo().putString;
     // const cellSize = createAnimationInfo().cellSize;
-    const cellSize = createAnimationInfo().cellSize;
+    const cellSizeW = createAnimationInfo().cellSizeW;
+    const cellSizeH = createAnimationInfo().cellSizeH;
     const putString = createAnimationInfo().putString
     const xAxis = createAnimationInfo().xAxis;
     const animate = () => {
         position.current += scrollSpeed;
-        position.current = position.current % cellSize;
+        position.current = position.current % (cellSizeW * cellSizeH);
         if (xAxis) {
-            itemRef.current!.style.backgroundPositionX = `${putString}${position.current % cellSize}px`;
+            itemRef.current!.style.backgroundPositionX = `${putString}${position.current}px`;
         } else {
-            itemRef.current!.style.backgroundPositionX = `${putString}${position.current % cellSize}px`;
-            itemRef.current!.style.backgroundPositionY = `${putString}${position.current % cellSize}px`;
+            itemRef.current!.style.backgroundPositionX = `${putString}${position.current}px`;
+            itemRef.current!.style.backgroundPositionY = `${putString}${position.current}px`;
         }
         animationId.current = requestAnimationFrame(animate);
     }
