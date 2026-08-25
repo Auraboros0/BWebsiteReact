@@ -10,20 +10,23 @@ function RosterButton() {
         setRosterActive(!rosterActive);
     }
 
+    const handleClick = (event: MouseEvent) => {
+        if (rosterActive && rosterRef.current && !event.composedPath().includes(rosterRef.current)) {
+            collapse();
+        }
+    }
+
     useEffect(() => {
-        document.body.addEventListener('click', (event) => {
-            if (rosterActive && rosterRef.current && !event.composedPath().includes(rosterRef.current)) {
-                collapse();
-            }
-        })
-    })
+        document.body.addEventListener('click', handleClick)
+        return () => document.body.removeEventListener('click', handleClick)
+    }, [rosterActive])
 
     return (
-        <div ref={rosterRef} style={{display: "inline-block", borderRadius: "0px 20px 20px 0px", boxShadow: rosterActive ? 'inset 0 0 0 2px #d01840' : ''}}>
-            <div onClick={collapse} style={{display: "inline-block"}}>
+        <div ref={rosterRef} style={{ display: "inline-block", borderRadius: "0px 20px 20px 0px", boxShadow: rosterActive ? 'inset 0 0 0 2px #d01840' : '' }}>
+            <div onClick={collapse} style={{ display: "inline-block" }}>
                 {rosterActive && <MaleOrFemale />}
             </div>
-            <button id={rosterActive ? 'isActiveButton' : 'inactiveButton'} style={{borderRadius: "0px 20px 20px 0px"}} onClick={collapse}>
+            <button id={rosterActive ? 'isActiveButton' : 'inactiveButton'} style={{ borderRadius: "0px 20px 20px 0px" }} onClick={collapse}>
                 <h2>Roster</h2>
             </button>
         </div>

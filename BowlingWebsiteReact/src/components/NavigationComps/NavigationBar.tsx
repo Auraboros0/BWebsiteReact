@@ -27,10 +27,10 @@ function NavigationBar() {
         <div className="innerFlexbox">
             <div className="d-none d-md-block">
                 <nav>
-                    <Link to="/"><button><h2>Home</h2></button></Link>
+                    <Link to="/" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Home</h2></button></Link>
                     {/* <Link to="/roster"><button><h2>Roster</h2></button></Link> */}
-                    <Link to="/gallery"><button><h2>Gallery</h2></button></Link>
-                    <Link to="/schedule"><button><h2>Schedule</h2></button></Link>
+                    <Link to="/gallery" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Gallery</h2></button></Link>
+                    <Link to="/schedule" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Schedule</h2></button></Link>
                     <RosterButton />
                 </nav>
             </div>

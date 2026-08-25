@@ -65,15 +65,15 @@ export async function generateTourneyData(male: boolean) {
     const objectPath: string = path.resolve(dirname, `./${objectName}.ts`)
     const mensDataSorted: Record<string, resultsInterface[]> = {}
     const allMensData: resultsInterface[] = []
-    const tournamentNames = new Set<string>();
+    const tournamentNames = new Map<string, string>();
     for (const tournament of folder) { // Iterating through every CSV
         const results = await parseCommand(tournament);
         if (typeof results === 'undefined') { continue; } // Iterating through the results of a CSV
         for (const row of results) {
             const tourneyName = tournament.split(/[\\.]/).at(-2);
+            const tourneyDate: string = `${tournament.split(/[\\.]/).at(-3)!}T12:00:00`
             row.tournamentName = tourneyName!;
-            tournamentNames.add(tourneyName!);
-
+            tournamentNames.set(tourneyName!, tourneyDate!);
             // If the record already contains data for a player, push their corresponding data to their entry.
             if (mensDataSorted[row.Name]) {
                 mensDataSorted[row.Name]?.push(row);
@@ -87,7 +87,7 @@ export async function generateTourneyData(male: boolean) {
     const arrayFromTournamentSet = Array.from(tournamentNames);
     const objectContents = `import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
     export const ${objectName}: Record<string, resultsInterface[]> = ${JSON.stringify(mensDataSorted, null, 4)}
-    export const tournamentSet: string[] = ${JSON.stringify(arrayFromTournamentSet)}`;
+    export const tournamentSet: [string, string][] = ${JSON.stringify(arrayFromTournamentSet)}`;
     fs.writeFileSync(objectPath, objectContents);
     return { mensDataSorted, arrayFromTournamentSet };
 }
@@ -96,7 +96,7 @@ export async function generateTourneyData(male: boolean) {
 This function is used to recognize when new results have been added to my results folders but
 they have not yet been parsed.
 */
-export async function identifyNewData(male: boolean, memoryTList?: string[]) {
+export async function identifyNewData(male: boolean, memoryTList?: [string, string][]) {
     let folder: string[];
     let playersObject;
     let tList: string[];
@@ -113,7 +113,7 @@ export async function identifyNewData(male: boolean, memoryTList?: string[]) {
             folder = womensCSVs;
         }
 
-        if (memoryTList.length === folder.length && memoryTList.every((val, index) => val === folder[index]!.split(/[\\.]/).at(-2))) {
+        if (memoryTList.length === folder.length && memoryTList.every(([first], index) => first === folder[index]!.split(/[\\.]/).at(-2))) {
             // console.log(folder[0]!.split(/[\\.]/).at(-2));
             return false // No new data
         } else {
@@ -124,14 +124,14 @@ export async function identifyNewData(male: boolean, memoryTList?: string[]) {
     else {
         if (male) {
             playersObject = await import('./mensResultsObject.ts');
-            tList = playersObject.tournamentSet;
+            tList = playersObject.tournamentSet.map(item => item[0]);
             mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
                 .map(file => path.join(mFolder, file));
             folder = mensCSVs;
         }
         else {
             playersObject = await import('./womensResultsObject.ts');
-            tList = playersObject.tournamentSet;
+            tList = playersObject.tournamentSet.map(item => item[0]);
             womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
                 .map(file => path.join(wFolder, file))
             folder = womensCSVs;

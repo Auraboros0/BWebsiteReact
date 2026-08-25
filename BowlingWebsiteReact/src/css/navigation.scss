@@ -82,6 +82,12 @@ $navBarMargin: 10px;
     color: white;
 }
 
+.innerFlexbox button:focus {
+    background-color: #d01840;
+    color: white;
+    outline: none;
+}
+
 .sideLogo {
     font-weight: 900;
     color: #FFFFFF;

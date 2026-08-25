@@ -377,4 +377,4 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
         }
     ]
 }
-    export const tournamentSet: string[] = ["Pioneer Invite","GLBC I","GLBC II","Titan Invitational","Big Ten Championships","GLBC III","GLBC IV"]
+    export const tournamentSet: [string, string][] = [["Pioneer Invite","2025-10-04T12:00:00"],["GLBC I","2025-10-11T12:00:00"],["GLBC II","2025-10-25T12:00:00"],["Titan Invitational","2025-11-15T12:00:00"],["Big Ten Championships","2025-12-06T12:00:00"],["GLBC III","2026-01-24T12:00:00"],["GLBC IV","2026-01-31T12:00:00"]]

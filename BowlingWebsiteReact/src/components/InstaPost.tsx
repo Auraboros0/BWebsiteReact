@@ -3,8 +3,9 @@ import { InstagramEmbed } from "react-social-media-embed"
 function InstaPost({ url }) {
     return (
     <div>
-     <div style={{ display: 'flex', justifyContent: 'center' }}>
+     <div tabIndex={0} style={{ display: 'flex', justifyContent: 'center' }}>
       <InstagramEmbed 
+        tabIndex={-1}
         url={url} 
         width={1000}
         className={'instaPost'}

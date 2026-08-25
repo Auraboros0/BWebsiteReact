@@ -9,7 +9,7 @@ import Credit from "./HomePageComps/Credit";
 import SocialsHeader from "./HomePageComps/SocialsHeader";
 import GenderedAbout from "./HomePageComps/GenderedAbout";
 import SFImageCopy from "./UniversalUIComps/SFImageCopy";
-import ResultsBoxContainer from "./HomePageComps/ResultsBoxContainer";
+import ResultsBoxContainer from "./ResultsDisplayComps/ResultsBoxContainer";
 /* The Home Page */
 // async function getPosts() {
 //     const data = await fetch('/api/instagram/posts');
@@ -25,8 +25,7 @@ function HomePage() {
     where we painstakingly grind our way up a leaderboard and attempt to make our way into the bracket at the end of the year.\
     We also bowl a few extra tournaments each season, details of which can be found in the Schedule tab."
 
-    const expositionTwo: string = "We have a Mens and Womens team, both of which compete in many of the same tournaments\
-    in separate brackets.\n Both teams practice weekly @ Sett Recreation (Located in the basement of Union South) and all team members are granted\
+    const expositionTwo: string = "Both men's and women's teams practice weekly @ Sett Recreation (Located in the basement of Union South) and all team members are granted\
     free equipment storage.\n If you're interested in joining the team, feel free to reach out via Instagram DM or Facebook message."
 
     const expositionOneMobile: string= "The UW-Madison Bowling Team is an intercollegiate team that travels to compete against other schools\
@@ -45,7 +44,7 @@ function HomePage() {
             <GenderedAbout male={true} text={expositionOneMobile} />
             <GenderedAbout male={false} text={expositionTwo} />
             <ResultsBoxContainer />
-            <InstaFeed />
+            {/* <InstaFeed /> */}
             <Credit />
         </div>
     );

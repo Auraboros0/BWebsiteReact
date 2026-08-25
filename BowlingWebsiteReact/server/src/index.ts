@@ -2,7 +2,11 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { getAverageAndTotal, getPlayerResults, generateTourneyData, identifyNewData } from "../data/generatePlayerData.ts";
-import { generateTeamData, identifyNewTeamData, getRecentTourneyData, getTourneyData } from "../data/generateTeamData.ts";
+import { generateTeamData,
+     identifyNewTeamData,
+      getRecentTourneyData,
+       getTourneyData,
+        getCombinedTLists } from "../data/generateTeamData.ts";
 import dotenv from "dotenv";
 
 dotenv.config({
@@ -29,6 +33,8 @@ let WomensTeamResults = womensTeamData.womensTeamResultsObject;
 let MensTeamTList = mensTeamData.tournamentSet;
 let WomensTeamTList = womensTeamData.tournamentSet;
 
+let combinedTList = await getCombinedTLists(MensTeamTList, WomensTeamTList);
+
 async function regenerateDataPlayer(male: boolean) {
     const data = await generateTourneyData(male)
     if (male) {
@@ -50,6 +56,7 @@ async function regenerateDataTeam(male: boolean) {
         WomensTeamResults = data.teamDataSorted;
         WomensTeamTList = data.arrayFromTournamentSet;
     }
+    combinedTList = await getCombinedTLists(MensTeamTList, WomensTeamTList);
     console.log("GENERATING TEAM DATA")
 }
 
@@ -109,7 +116,16 @@ app.get("/api/home/recap", async (req, res) => {
 })
 
 app.get("/api/home/tournamentnames", async (req, res) => {
-    res.status(200).json({MensTList, WomensTList});
+    if (await identifyNewTeamData(true, MensTeamTList)) {
+        regenerateDataTeam(true);
+    }
+    if (await identifyNewTeamData(false, WomensTeamTList)) {
+        regenerateDataTeam(false);
+    }
+    if (Object.keys(combinedTList).length == 0) {
+        res.status(404).json(combinedTList);
+    }
+    res.status(200).json(combinedTList);
 })
 
 app.get("/api/home/:male/:tournament", async (req, res) => {

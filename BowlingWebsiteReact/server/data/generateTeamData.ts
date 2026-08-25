@@ -46,6 +46,7 @@ export async function parseCommand(tournamentPath: string | undefined) {
     console.log("YEAHH")
 }
 
+/* Creates the mens/womensTeamResults object and the accompanying tournamentSet */
 export async function generateTeamData(male: boolean) {
     let objectName;
     let folder: string[];
@@ -53,14 +54,15 @@ export async function generateTeamData(male: boolean) {
     else { objectName = "womensTeamResultsObject"; folder = womensCSVs; }
     const objectPath: string = path.resolve(dirname, `./${objectName}.ts`)
     const teamDataSorted: Record<string, teamResultsInterface[]> = {}
-    const tournamentNames = new Set<string>();
+    const tournamentNames = new Map<string, string>();
     for (const tournament of folder) { // Iterating through every CSV
         const results = await parseCommand(tournament);
         if (typeof results === 'undefined') { continue; } // Iterating through the results of a CSV
         for (const row of results) {
             const tourneyName = tournament.split(/[\\.]/).at(-2);
+            const tourneyDate: string = `${tournament.split(/[\\.]/).at(-3)!}T12:00:00`
             row.tournamentName = tourneyName!;
-            tournamentNames.add(tourneyName!);
+            tournamentNames.set(tourneyName!, tourneyDate!);
             if (teamDataSorted[tourneyName!]) {
                 teamDataSorted[tourneyName!]?.push(row);
             } else {
@@ -72,12 +74,13 @@ export async function generateTeamData(male: boolean) {
     const arrayFromTournamentSet = Array.from(tournamentNames);
     const objectContents = `import type { teamResultsInterface } from "../Interfaces/teamResultsInterface.ts";
     export const ${objectName}: Record<string, teamResultsInterface[]> = ${JSON.stringify(teamDataSorted, null, 4)}
-    export const tournamentSet: string[] = ${JSON.stringify(arrayFromTournamentSet)}`;
+    export const tournamentSet: [string, string][] = ${JSON.stringify(arrayFromTournamentSet)}`;
     fs.writeFileSync(objectPath, objectContents);
     return { teamDataSorted, arrayFromTournamentSet };
 }
 
-export async function identifyNewTeamData(male: boolean, memoryTList?: string[]) {
+/* Identifies new CSV files by comparing the tournament set to the CSV folder */
+export async function identifyNewTeamData(male: boolean, memoryTList?: [string ,string][]) {
     let folder: string[];
     let playersObject;
     let tList: string[];
@@ -94,7 +97,7 @@ export async function identifyNewTeamData(male: boolean, memoryTList?: string[])
             folder = womensCSVs;
         }
 
-        if (memoryTList.length === folder.length && memoryTList.every((val, index) => val === folder[index]!.split(/[\\.]/).at(-2))) {
+        if (memoryTList.length === folder.length && memoryTList.every(([first], index) => first === folder[index]!.split(/[\\.]/).at(-2))) {
             // console.log(folder[0]!.split(/[\\.]/).at(-2));
             return false // No new data
         } else {
@@ -105,14 +108,14 @@ export async function identifyNewTeamData(male: boolean, memoryTList?: string[])
     else {
         if (male) {
             playersObject = await import('./mensTeamResultsObject.ts');
-            tList = playersObject.tournamentSet;
+            tList = playersObject.tournamentSet.map(item => item[0]);
             mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
                 .map(file => path.join(mFolder, file));
             folder = mensCSVs;
         }
         else {
             playersObject = await import('./womensTeamResultsObject.ts');
-            tList = playersObject.tournamentSet;
+            tList = playersObject.tournamentSet.map(item => item[0]);
             womensCSVs = (await readdir(wFolder)).filter(file => file.endsWith(".csv"))
                 .map(file => path.join(wFolder, file))
             folder = womensCSVs;
@@ -127,6 +130,7 @@ export async function identifyNewTeamData(male: boolean, memoryTList?: string[])
     }
 }
 
+/* Gets the info of one tournament via name and gender */
 export async function getTourneyData(male: boolean, name: string, dataFromMemory?: Record<string, teamResultsInterface[]>) {
     if (typeof dataFromMemory !== 'undefined') {
         const toReturn = dataFromMemory[name];
@@ -145,6 +149,7 @@ export async function getTourneyData(male: boolean, name: string, dataFromMemory
     }
 }
 
+/* Gets results of the most recent tournament for one team */
 export async function getRecentTourneyData(male: boolean, dataFromMemory?: Record<string, teamResultsInterface[]>) {
     if (typeof dataFromMemory !== 'undefined') {
         const tourney = dataFromMemory[Object.keys(dataFromMemory).at(-1)!]
@@ -187,4 +192,31 @@ export async function getRecentTourneyData(male: boolean, dataFromMemory?: Recor
         const name: string = ourEntry?.tournamentName!;
         return { placement, outOf, name };
     }
+}
+
+/* Returns a combined tournament list with an integer that specifies which team(s) competed
+   This function does not return tournament results but is used to aid in accessing them */
+export async function getCombinedTLists(memoryM: [string, string][], memoryF: [string,string][]) {
+    // string[0] = gender. string[1] = chronological index.
+    const tListReturned: Record<string, [number, string]> = {};
+    let iteratorM: number = 0;
+    let iteratorF: number = 0;
+
+    for (const m of memoryM) {
+        tListReturned[m[0]] = [0, m[1]];
+        iteratorM++;
+    }
+
+    for (const f of memoryF) {
+        if (tListReturned[f[0]]) {
+            tListReturned[f[0]]![0] = 2;
+            tListReturned
+        } else {
+            tListReturned[f[0]] = [1, f[1]];
+            iteratorF++;
+        }
+    }
+
+    return tListReturned;
+
 }
