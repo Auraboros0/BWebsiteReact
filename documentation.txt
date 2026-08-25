@@ -36,3 +36,10 @@ Roster (/roster/:gender):
 Noteworthy Backend Info: ---------
 
 My backend is currently used to parse & serve player results and to serve Instagram posts via the Instagram Graph API. I keep two copies of my player results (for each team). One is a typescript export file and the other is an object in server memory. The typescript export serves as a cache while the memory object is what is actually being ran. I only do this because getting Express to re-read my ts files is a hassle.
+
+There are two types of tournament objects.
+1: Individual Results (Record<playerName: string, resultsInterface[])
+2: Team Results (Record<TournamentName: string>, teamResultsInterface[])
+
+Each tournament object's file also contains a tournament set object ([tournamentName: string][gender: number, date: string]
+  The date within this object is sent to the frontend and used to create a Date object, which will then allows me to sort by   date.
