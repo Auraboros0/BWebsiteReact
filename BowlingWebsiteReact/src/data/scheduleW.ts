@@ -5,7 +5,7 @@ export const scheduleW: tournament[] = [
         name: "Great Lakes Bowling Conference I",
         gender: 1,
         time: [new Date(2026, 9, 10), new Date(2026, 9, 11)],
-        hostSlug: "minnesota",
+        hostSlug: "GLBC",
         city: [{
             street: "2200 Mounds View Blvd",
             city: "Mounds View",
@@ -24,7 +24,7 @@ export const scheduleW: tournament[] = [
         name: "Great Lakes Bowling Conference II",
         gender: 1,
         time: [new Date(2026, 9, 24), new Date(2026, 9, 25)],
-        hostSlug: "wisconsin",
+        hostSlug: "GLBC",
         city: [{
             street: "4711 Farwell St",
             city: "McFarland",
@@ -62,7 +62,7 @@ export const scheduleW: tournament[] = [
         name: "Great Lakes Bowling Conference III",
         gender: 1,
         time: [new Date(2027, 0, 24), new Date(2027, 0, 25)],
-        hostSlug: "rock-valley",
+        hostSlug: "GLBC",
         city: [{
             street: "7171 Cherryvale N Blvd",
             city: "Rockford",
@@ -81,7 +81,7 @@ export const scheduleW: tournament[] = [
         name: "Great Lakes Bowling Conference IV",
         gender: 1,
         time: [new Date(2027, 0, 30), new Date(2027, 0, 31)],
-        hostSlug: "wis-eau-claire",
+        hostSlug: "GLBC",
         city: [{
             street: "4007 E State St",
             city: "Weston",

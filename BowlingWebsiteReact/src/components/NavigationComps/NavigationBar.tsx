@@ -26,14 +26,12 @@ function NavigationBar() {
         </div>
 
         <div className="innerFlexbox">
-            <div className="d-none d-md-block">
-                <nav>
+            <div className="d-none d-md-flex">
                     <Link to="/" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Home</h2></button></Link>
                     {/* <Link to="/roster"><button><h2>Roster</h2></button></Link> */}
                     <Link to="/gallery" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Gallery</h2></button></Link>
                     <Link to="/schedule" tabIndex={-1}><button onClick={(e) => e.currentTarget.blur()}><h2>Schedule</h2></button></Link>
                     <RosterButtonRedo />
-                </nav>
             </div>
             <div className="d-md-none" style={{ position: "absolute", top: "0px"}}>
                 <WholeMoreButton />

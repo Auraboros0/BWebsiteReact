@@ -59,7 +59,6 @@ br {
     user-select: none;
 }
 
-
 .triangle {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -352,7 +351,7 @@ br {
     background-image: url('/public/assets/Textures/mines.jpg');
     background-size: 30% auto;
     background-repeat: repeat;
-    
+
 }
 
 .REMTable.team {
@@ -392,8 +391,148 @@ th {
     font-size: 64px;
 }
 
-.userSelectDeadzone {
+.resultsKey {
+    position: absolute;
+    top: -20px;
+    left: 22.5px;
+}
 
+.userSelectDeadzone {}
+
+.instaBoxBorder {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    opacity: 0;
+    border: 4px dotted #d01840;
+    min-height: 300px;
+    z-index: 1;
+    transform: translateY(-20%);
+    transition: transform 400ms ease-out;
+    animation: fadeInOut 2.0s ease-in-out forwards;
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5) 0% 100%), url('/public/Instagram_Glyph_White.png');
+    background-size: auto, 10%;
+    background-clip: padding-box;
+}
+
+.instaBoxBorder.loading {
+    box-sizing: border-box;
+    width: 100vw;
+    transform: translateY(0%);
+    // animation-play-state: paused;
+    animation: loadingBox 2.0s ease-in-out infinite alternate
+}
+
+
+.instaBox {
+    // background-clip: content-box;
+    // padding: 8px;
+    // min-height: 700px;
+    // background-color: aqua;
+    opacity: 0.0;
+    animation: fadeIn 2.0s ease-in-out forwards;
+}
+
+.instaImage {
+    // border: 4px solid #d01840;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0px;
+    box-sizing: border-box;
+    border: 8px solid white;
+    background-color: white;
+    // aspect-ratio: 9 / 16;
+
+}
+
+.instaImage img,
+video {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px 10px 10px 10px;
+    // aspect-ratio: 9 / 16;
+}
+
+.instaImage h2,
+a {
+    display: block;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    color: black;
+    text-decoration: none;
+}
+
+.instaSash {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    width: 75px;
+    height: 75px;
+    background-image: url('/public/Instagram_Glyph_White.png'), linear-gradient(45deg, transparent 0% 50%, #d01840 50% 100%);
+    background-size: 45%, auto;
+    background-position: 90% 10%, left top;
+    background-repeat: no-repeat, repeat;
+    pointer-events: none;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(0%)
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(0%)
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    50% {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    100% {
+        opacity: 1;
+        pointer-events: unset;
+    }
+}
+
+@keyframes loadingBox {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+.instaColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 // .linkButton:hover {
@@ -404,15 +543,23 @@ th {
 
 @include media-breakpoint-up(md) {
     .photos {
-        padding: 16px;
+        padding: 4px;
         gap: 4px;
         margin-left: auto;
         margin-right: auto;
         background-color: black;
-        background-image: linear-gradient(180deg, rgba(0,0,0,0.5)), url('/public/assets/Textures/grunge.jpg');
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5)), url('/public/assets/Textures/grunge.jpg');
         border-bottom: 8px solid white;
         // background-size: 100%;
         // border: 4px solid #d01840;
+    }
+
+    .photos.insta {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .gallerySquare {
@@ -566,7 +713,7 @@ th {
         color: white;
     }
 
-    .exposition.F h2{
+    .exposition.F h2 {
         font-size: 24px;
         font-weight: lighter;
     }
@@ -583,7 +730,7 @@ th {
     }
 
     .teamResults {
-            background-image: linear-gradient(180deg, rgba(0, 0, 0, 1.0));
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 1.0));
     }
 
     .teamResults tr,
@@ -595,7 +742,8 @@ th {
         text-align: center;
     }
 
-    .REMTable.team td, th {
+    .REMTable.team td,
+    th {
         // border-left: 2px solid white;
         border-bottom: 2px solid #FFFFFF;
         padding-bottom: 4px;
@@ -615,11 +763,11 @@ th {
         // border-right: 2px solid white;
     }
 
-.resultsButton {
-    // font-size: 32px;
-}
+    .resultsButton {
+        // font-size: 32px;
+    }
 
-.resultsHeadText {
-    // font-size: 24px;
-}
+    .resultsHeadText {
+        // font-size: 24px;
+    }
 }

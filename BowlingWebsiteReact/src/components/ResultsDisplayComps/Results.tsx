@@ -20,6 +20,8 @@ function getNextAndLast(idx: number, entries: [string, [number, string]][], gend
     let prev: string = '';
     let nextIdx: number = -1;
     let prevIdx: number = -1;
+
+    // Searching for the closest next tournament that matches the selected gender
     for (let i = idx + 1; i < entries.length; i++) {
         const nextEntryGender = entries[i][1][0];
         if (nextEntryGender == gender || nextEntryGender == 2) {
@@ -28,6 +30,8 @@ function getNextAndLast(idx: number, entries: [string, [number, string]][], gend
             break;
         }
     };
+
+    // Searching for the closest previous tournament that matches the selected gender
     for (let i = idx - 1; i > -1; i--) {
         const prevEntryGender = entries[i][1][0];
         if (prevEntryGender == gender || prevEntryGender == 2) {
@@ -148,6 +152,7 @@ function NextAndLastButtons(props: { entries: [string, [number, string]][], idx:
 
                     {props.prev[1] != -1 && <button className='resultsButton' style={{ display: 'flex', alignItems: 'center', top: '0', left: '-125px', position: 'absolute' }}
                         onClick={() => prevNav()}>
+                        {isMd && <h2 className="resultsKey">A</h2>}
                         <h1 className="resultsArrow">&#x25C0;</h1>
                         <h1 className="resultsHeadText">Prev</h1>
                     </button>}
@@ -157,6 +162,7 @@ function NextAndLastButtons(props: { entries: [string, [number, string]][], idx:
                     {props.next[1] != -1 && <button className='resultsButton' style={{ display: 'flex', alignItems: 'center', top: '0', left: '0', position: 'absolute' }}
                         onClick={() => nextNav()}>
                         <h1 className="resultsHeadText">Next</h1>
+                        {isMd && <h2 className="resultsKey" style={{left: 'unset', right: '22.5px'}}>D</h2>}
                         <h1 className="resultsArrow">&#x25B6;</h1>
                     </button>}
                 </div>}

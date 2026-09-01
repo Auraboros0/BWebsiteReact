@@ -74,6 +74,7 @@ $navBarMargin: 10px;
     border: none;
     height: inherit;
     font-size: clamp(0.1rem, 5vw, 1rem);
+    cursor: pointer;
 
 }
 
@@ -189,6 +190,11 @@ $navBarMargin: 10px;
     background-color: white;
 }
 
+.rosterButton:focus {
+    background-color: #d01840 !important;
+    outline: none;
+    color: white !important;
+}
 @include media-breakpoint-up(md) {
 
 .genderButton {

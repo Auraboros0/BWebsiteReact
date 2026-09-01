@@ -6,19 +6,27 @@ function RosterEntrySmall(props: player) {
     const { gender, id } = useParams();
 
     function alreadyAtLink(name: string) {
-        if (id === name) { return true;}
+        if (id === name) { return true; }
         return false;
     }
 
     const handleClick = () => {
         if (!alreadyAtLink(props.name)) {
-            navigate(`/detailed/${gender}/${props.name}`, { replace: true, preventScrollReset: true})
+            navigate(`/detailed/${gender}/${props.name}`, { replace: true, preventScrollReset: true })
         }
     }
-    
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter') {
+            if (!alreadyAtLink(props.name)) {
+                navigate(`/detailed/${gender}/${props.name}`, { replace: true, preventScrollReset: true })
+            }
+        }
+    }
+
     return (
-        <div className='rosterEntrySmall' id={alreadyAtLink(props.name) ? 'inactiveButton' : 'isActiveButton' } onClick={handleClick}>
-            <RosterLeftImg {...props}/>
+        <div tabIndex={0} className='rosterEntrySmall' id={alreadyAtLink(props.name) ? 'inactiveButton' : 'isActiveButton'} onClick={handleClick} onKeyDown={handleKeyDown}>
+            <RosterLeftImg {...props} />
             <h3>{props.name}</h3>
         </div>
     )

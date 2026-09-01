@@ -44,7 +44,7 @@ function HomePage() {
             <GenderedAbout male={true} text={expositionOneMobile} />
             <GenderedAbout male={false} text={expositionTwo} />
             <ResultsBoxContainer />
-            {/* <InstaFeed /> */}
+            <InstaFeed />
             <Credit />
         </div>
     );

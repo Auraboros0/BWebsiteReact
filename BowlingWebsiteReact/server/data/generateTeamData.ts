@@ -150,9 +150,9 @@ export async function getTourneyData(male: boolean, name: string, dataFromMemory
 }
 
 /* Gets results of the most recent tournament for one team */
-export async function getRecentTourneyData(male: boolean, dataFromMemory?: Record<string, teamResultsInterface[]>) {
-    if (typeof dataFromMemory !== 'undefined') {
-        const tourney = dataFromMemory[Object.keys(dataFromMemory).at(-1)!]
+export async function getRecentTourneyData(male: boolean, dataFromMemory?: Record<string, teamResultsInterface[]>, tournamentSet?: [string,string][]) {
+    if (typeof dataFromMemory !== 'undefined' && typeof tournamentSet !== 'undefined') {
+        const tourney = dataFromMemory[tournamentSet.at(-1)![0]]
         if (typeof tourney === 'undefined') { return { placement: 0, outOf: 0, name: "" } }
         let ourEntry: teamResultsInterface | undefined;
         for (const entry of tourney!) {

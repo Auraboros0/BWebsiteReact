@@ -362,6 +362,11 @@
     cursor: pointer;
 }
 
+.rosterEntrySmall:focus {
+    background-color: white;
+    color: #d01840;
+}
+
 .rosterEntrySmall .playerIMG {
     width: 12vw;
     height: auto;
