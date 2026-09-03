@@ -21,7 +21,7 @@ function VideoType(props: InstaObject) {
         }
     }
     return (
-        <div className='instaImage'>
+        <div className='instaImage verticalVideo'>
             <a
                 href={props.permalink}
                 target="_blank"

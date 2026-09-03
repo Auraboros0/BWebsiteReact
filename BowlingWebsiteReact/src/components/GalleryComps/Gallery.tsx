@@ -1,4 +1,5 @@
 import '../../css/gallery.scss'
+import GalleryEntry from './GalleryEntry';
 import { fetchWithRetry } from "../../Scripts/fetchWithRetry";
 import { useEffect, useState, useRef } from "react";
 const endpoint = `/api/gallery`
@@ -10,6 +11,14 @@ async function getData() {
     )
     const dataJSON = await data.json();
     return dataJSON;
+}
+
+function MuteButton(props: { onMute: () => void }) {
+    return (
+        <div onClick={props.onMute} style={{ position: 'absolute', bottom: '0', right: '0' }}>
+            <button>MUTE BUTTON</button>
+        </div>
+    )
 }
 
 function GalleryColumn(props: { comps: React.ReactNode[] }) {
@@ -24,45 +33,8 @@ function GalleryColumn(props: { comps: React.ReactNode[] }) {
     )
 }
 
-function GalleryEntry(props: { url: [string, boolean],
-     onPlay: (video: HTMLVideoElement) => void,
-     registerVideo: (video: HTMLVideoElement) => void,
-     unregisterVideo: (video: HTMLVideoElement) => void })
-    {
-    const [show, setShow] = useState(false);
-    const self = useRef<HTMLVideoElement>(null)
-    const API = import.meta.env.VITE_API_URL;
-    const mediaURL = props.url[1] ? `${API}/media/video/${props.url[0]}` : `${API}/media/image/${props.url[0]}`
-
-    useEffect(() => {
-        const video = self.current;
-
-        if (!video) return;
-
-        props.registerVideo(video);
-
-        return () => {
-            props.unregisterVideo(video);
-        };
-    }, []);
-
-    return (
-        <div className="instaImage" style={{ backgroundColor: 'white' }}>
-            {!props.url[1] && <img onClick={() => setShow(!show)}
-             style={{ width: '100%' }}
-              src={mediaURL} />}
-
-            {props.url[1] && <video ref={self} onClick={() => props.onPlay(self.current!)}
-             style={{ width: '100%' }}
-              src={mediaURL} />}
-
-            <h2>{props.url[0]}</h2>
-        </div>
-    )
-}
-
 function Gallery() {
-    
+
 
     // ALL THESE FUNCTIONS ARE FOR GalleryEntry
     // Adding video to Gallery's video set
@@ -77,16 +49,13 @@ function Gallery() {
 
     // Pausing all other videos within the video set upon playing one
     const playOnePauseOthers = (video: HTMLVideoElement) => {
-        if (video.paused) {
-            video.play();
+        // if (video.paused) {
+            // video.play();
             for (const other of videoRefSet.current) {
                 if (other != video) {
                     other.pause();
                 }
             }
-        } else {
-            video.pause();
-        }
     }
 
     const [mediaURLs, setMediaURLs] = useState<[string, boolean][]>([]);
@@ -94,7 +63,7 @@ function Gallery() {
     const videoRefSet = useRef(new Set<HTMLVideoElement>());
 
     mediaURLs.map((i, index) => {
-        columnComps[index % 3].push(<GalleryEntry key={(index * 3) + index % 3} url={i} onPlay={playOnePauseOthers} registerVideo={registerVideo} unregisterVideo={unregisterVideo}/>);
+        columnComps[index % 3].push(<GalleryEntry key={(index * 3) + index % 3} url={i} onPlay={playOnePauseOthers} registerVideo={registerVideo} unregisterVideo={unregisterVideo} />);
     })
 
     useEffect(() => {

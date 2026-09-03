@@ -36,7 +36,8 @@ $navBarMargin: 10px;
 
 @font-face {
     font-family: 'Iosevka';
-    src: url(../Fonts/Iosevka/SGr-IosevkaTermSlab-ExtraLight.ttc);
+    src: url(../Fonts/Iosevka/Iosevka-Term-Slab-Extralight.ttf);
+    // src: url(../Fonts/Iosevka/Iosevka-Term-Slab-Extralight.ttf);
 }
 
 .dragging {
@@ -48,7 +49,8 @@ html,
 body {
     position: relative;
     font-family: $basicFont;
-    font-weight: bold;
+    font-weight: 400;
+    overscroll-behavior: none;
     // margin: 8;
 }
 
@@ -90,11 +92,6 @@ br {
     background-repeat: repeat;
     border-top: 8px solid white;
     align-content: center;
-}
-
-.headerDivisionStripes {
-    background-size: 10% auto;
-    background-repeat: repeat;
 }
 
 .headerDivision {
@@ -483,6 +480,29 @@ a {
     pointer-events: none;
 }
 
+.headerDivisionStripes {
+    background-size: 10% auto;
+    background-repeat: repeat;
+}
+
+@keyframes scrollLeft {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: var(--cell_size_x) var(--cell_size_y);
+    }
+}
+
+@keyframes scrollRight {
+    from {
+        background-position: var(--cell_size_x) var(--cell_size_y);
+    }
+    to {
+        background-position: 0% 0%;
+    }
+}
+
 @keyframes fadeInOut {
     0% {
         opacity: 0;
@@ -541,7 +561,6 @@ a {
 //     background-color: #d01840;
 // }
 
-@include media-breakpoint-up(md) {
     .photos {
         padding: 4px;
         gap: 4px;
@@ -585,7 +604,6 @@ a {
         border: 4px white solid;
         width: 30vw;
     }
-}
 
 @include media-breakpoint-down(md) {
 
@@ -600,16 +618,6 @@ a {
 
     .triangle {
         display: none;
-    }
-
-    .photos {
-        padding: 4px;
-        background-image: url('/public/assets/Textures/grunge.jpg');
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
     }
 
     .gallerySquare {

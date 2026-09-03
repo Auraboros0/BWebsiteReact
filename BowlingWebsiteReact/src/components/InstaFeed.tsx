@@ -86,20 +86,20 @@ function InstaFeed() {
 
 
     return (
-        <div>
-            <div className="insta photos" style={{minHeight: `${500}px` } as React.CSSProperties}>
+        <div style={{position: 'relative'}}>
+            <div className="insta photos" style={{ minHeight: `${500}px`} as React.CSSProperties}>
                 {instaData.length == 0 &&
-                    <div className='instaBoxBorder loading' style={{ display: 'block', position: 'relative', left: '0', width: '100vw', height: '500px'}}></div>
+                    <div className='instaBoxBorder loading' style={{ display: 'block', position: 'relative', left: '0', width: '100vw', height: '500px' }}></div>
                 }
-                {!isMd && <InstaPostNew {...instaData[randomPostThree.current]}/>}
+                {!isMd && <InstaPostNew {...instaData[randomPostThree.current]} />}
                 {isMd && instaData.length != 0 && <>
-                <InstaColumn items={instaColumnData[0]} />
-                <InstaColumn items={instaColumnData[1]} />
-                <InstaColumn items={instaColumnData[2]} />
+                    <InstaColumn items={instaColumnData[0]} />
+                    <InstaColumn items={instaColumnData[1]} />
+                    <InstaColumn items={instaColumnData[2]} />
                 </>
-            }
+                }
             </div>
-            <div ref={bottomRef} style={{ height: '0px', width: '100%', backgroundColor: 'aqua' }}></div>
+            <div ref={bottomRef} style={{ height: '0px', width: '100%', backgroundColor: 'aqua', position: 'absolute', bottom: '100px' }}></div>
         </div>
     )
 }

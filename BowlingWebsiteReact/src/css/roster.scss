@@ -1,11 +1,6 @@
 // @import "node_modules/bootstrap/scss/bootstrap-grid.scss";
 @import "../../node_modules/bootstrap/scss/bootstrap-grid.scss";
 
-@font-face {
-    font-family: 'Iosevka';
-    src: url(../Fonts/Iosevka/SGr-IosevkaTermSlab-ExtraLight.ttc);
-}
-
 .rosterList {
     display: flex;
     justify-content: center;
@@ -147,6 +142,10 @@
     min-width: 200px;
     flex-shrink: 0;
     max-height: inherit;
+    overscroll-behavior: none;
+    overflow-anchor: none;
+    scroll-behavior: none;
+    touch-action: none;
     // flex-grow: 1;
     // overflow-y: hidden;
     // overflow-x: hidden;

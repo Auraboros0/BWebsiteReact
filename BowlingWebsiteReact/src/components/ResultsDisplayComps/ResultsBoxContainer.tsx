@@ -83,6 +83,8 @@ function ResultsBoxContainer() {
         <div onMouseEnter={() => { startScroll() }} onMouseLeave={() => { endScroll() }}>
             <DivisionTitle title={"RESULTS"} red={true} filename={"stateAccent.png"} ref={topRef} />
 
+            {/* ======= CONDITIONAL RENDERS ========*/}
+
             {resStatus == 200 && <HomeGallery {...{ list: tournamentEntries }} />}
 
             {resStatus == 400 && <div style={{ width: '100%', height: '200px', textAlign: 'center', backgroundColor: 'black', color: 'white', alignContent: 'center', borderBottom: '8px solid white' }}>
@@ -92,6 +94,9 @@ function ResultsBoxContainer() {
             {resStatus == 404 && <div style={{ width: '100%', height: '200px', textAlign: 'center', backgroundColor: 'black', color: 'white', alignContent: 'center', borderBottom: '8px solid white' }}>
                 <h1 style={{ marginTop: '0', fontFamily: 'Iosevka' }}>Results Coming Later</h1>
             </div>}
+
+            {/* ======= CONDITIONAL RENDERS ========*/}
+
 
             <div className='socialsHeader' style={{ position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
                 <div style={{ width: '100%' }}>

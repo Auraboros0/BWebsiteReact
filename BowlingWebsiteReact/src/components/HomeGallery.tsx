@@ -1,6 +1,5 @@
 import ResultsBox from "./ResultsDisplayComps/ResultsBox";
 import { useState, useEffect } from "react";
-import { useEntries } from "./ResultsDataContext";
 
 function randomizeAndSlice(filenames: string[], count: number) {
     const toReturn = filenames.sort(() => Math.random() - 0.5).slice(0, count);
@@ -16,13 +15,11 @@ export interface entryWithNextAndPrev {
 export interface tournamentEntry {
     entry: [string, [number, string]]
 }
-/* Populates the home page with images from a gallery. Might rewrite this
-to allow for some modularity */
+
+/* Populates the home page with links to tournament results */
 function HomeGallery(props: { list: Record<string, [number, string]> }) {
     const modules = import.meta.glob('/public/assets/TestImages/*.{png,jpg,jpeg}', { eager: true });
     const [sorted, setSorted] = useState<[string, [number, string]][]>([]);
-    const [sortedObject, setSortedObject] = useState<entryWithNextAndPrev[]>([])
-    const fileNames = Object.keys(modules);
     const class1: string = 'g-col-6 g-col-md-4';
     const class2: string = '';
     let class4: string = class1;

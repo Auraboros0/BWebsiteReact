@@ -41,11 +41,17 @@ export const scroll = (scrollSpeed: number, animationId: RefObject<number | null
 
     // let stringToModify = createAnimationInfo().putString;
     // const cellSize = createAnimationInfo().cellSize;
-    const cellSizeW = createAnimationInfo().cellSizeW;
-    const cellSizeH = createAnimationInfo().cellSizeH;
-    const putString = createAnimationInfo().putString
-    const xAxis = createAnimationInfo().xAxis;
-    const animate = () => {
+    const specs = createAnimationInfo();
+    const cellSizeW = specs.cellSizeW;
+    const cellSizeH = specs.cellSizeH;
+    const putString = specs.putString
+    const xAxis = specs.xAxis;
+    let lastTime = performance.now();
+    const animate = (time: number) => {
+        const delta = time - lastTime;
+        lastTime = time;
+
+        position.current += scrollSpeed * (delta / 1000);
         position.current += scrollSpeed;
         position.current = position.current % (cellSizeW * cellSizeH);
         if (xAxis) {
