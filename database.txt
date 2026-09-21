@@ -1,0 +1,15 @@
+PostgreSQL.
+
+Tables:
+  players
+  users
+  videos
+  seasons
+  season_players
+  individual_results
+  team_results
+
+All data regarding the current season will be cached in server memory.
+For previous season data, a temporary cache will be created whenever accessed.
+Ex: Fetch is made for 2024-25 season tournaments
+  -> Server adds "2024-25" to map that holds Record: <"2024-25", tournament_results>
