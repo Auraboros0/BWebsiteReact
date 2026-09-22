@@ -9,7 +9,20 @@ Tables:
   individual_results
   team_results
 
+individual_results and team_results are modeled to resemble the CSV files from bowl.com.
+They extend the existing results interfaces that I made pre-SQL migration, adding only 3 fields
+male: boolean
+season_id: number
+player_id (for individual): number.
+
+
+
 All data regarding the current season will be cached in server memory.
 For previous season data, a temporary cache will be created whenever accessed.
 Ex: Fetch is made for 2024-25 season tournaments
   -> Server adds "2024-25" to map that holds Record: <"2024-25", tournament_results>
+
+This is done to both improve performance and cut down on runtime complexity.
+Record[name] is much simpler and quicker than a DB query.
+
+But the DB will exist for any complex queries or fetches for data that isn't accessed often
