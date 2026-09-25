@@ -1,4 +1,4 @@
-import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
+import type { resultsInterface } from "../../Interfaces/resultsInterface.ts";
 import { mensResultsObject } from "./mensResultsObject.ts";
 import { womensResultsObject } from "./womensResultsObject.ts";
 import { execFile } from "node:child_process";
@@ -16,8 +16,8 @@ const __filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(__filename);
 const pythonScript = path.resolve(dirname, "./resultsParser.py");
 
-const mFolder = path.resolve(dirname, "./Mens_Results_Individual");
-const wFolder = path.resolve(dirname, "./Womens_Results_Individual");
+const mFolder = path.resolve(dirname, "../Mens_Results_Individual");
+const wFolder = path.resolve(dirname, "../Womens_Results_Individual");
 
 let mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
     .map(file => path.join(mFolder, file));
@@ -50,7 +50,6 @@ export async function parseCommand(tournamentPath: string | undefined) {
     // console.log(stdout)
     const result = JSON.parse(stdout) as resultsInterface[];
     return result
-    console.log("YEAHH")
 }
 
 /* 
@@ -72,7 +71,7 @@ export async function generateTourneyData(male: boolean) {
         for (const row of results) {
             const tourneyName = tournament.split(/[\\.]/).at(-2);
             const tourneyDate: string = `${tournament.split(/[\\.]/).at(-3)!}T12:00:00`
-            row.tournamentName = tourneyName!;
+            row.Tournament_name = tourneyName!;
             tournamentNames.set(tourneyName!, tourneyDate!);
             // If the record already contains data for a player, push their corresponding data to their entry.
             if (mensDataSorted[row.Name]) {
@@ -83,7 +82,6 @@ export async function generateTourneyData(male: boolean) {
             }
         }
     }
-    // console.log(mensDataSorted["Jake Kilander"])
     const arrayFromTournamentSet = Array.from(tournamentNames);
     const objectContents = `import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
     export const ${objectName}: Record<string, resultsInterface[]> = ${JSON.stringify(mensDataSorted, null, 4)}

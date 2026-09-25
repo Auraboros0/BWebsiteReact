@@ -1,30 +1,30 @@
 [
     {
         "name": "Stephanie Lo",
-        "year": "Sophomore",
+        "year": "",
         "state": "WI",
-        "height": "5'6",
-        "major": "Bowling",
-        "hometown": "Madison, WI",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 1H",
-        "events": []
-        },
+        "height": "",
+        "major": "",
+        "hometown": "",
+        "favoriteXYZ": [
+            "",
+            ""
+        ],
+        "style": "RH / 1H"
+    },
     {
         "name": "Juliana Bergman",
-        "year": "Sophomore",
+        "year": "Grad",
         "state": "WI",
-        "height": "5'6",
-        "major": "Bowling",
-        "hometown": "Madison, WI",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 2H",
-        "events": []
-        },
+        "height": "5'4",
+        "major": "2nd World Language Education",
+        "hometown": "Sheboygan, WI",
+        "favoriteXYZ": [
+            "Hobby",
+            "Scrapbooking"
+        ],
+        "style": "RH / 2H"
+    },
     {
         "name": "Beverly Bloch",
         "year": "Senior",
@@ -32,49 +32,49 @@
         "height": "5'7",
         "major": "Psychology + Spanish",
         "hometown": "Peshtigo, WI",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["Season", "Fall"],
-        "style": "RH / 1H",
-        "events": []
-        },
+        "favoriteXYZ": [
+            "Season",
+            "Fall"
+        ],
+        "style": "RH / 1H"
+    },
     {
         "name": "Alondra Chavez",
-        "year": "Sophomore",
+        "year": "",
         "state": "WI",
-        "height": "5'6",
-        "major": "Bowling",
-        "hometown": "Madison, WI",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 1H",
-        "events": []
-        },
+        "height": "",
+        "major": "",
+        "hometown": "",
+        "favoriteXYZ": [
+            "",
+            ""
+        ],
+        "style": "RH / 1H"
+    },
     {
         "name": "Nyla Duzon",
-        "year": "Sophomore",
+        "year": "",
         "state": "WI",
-        "height": "5'6",
-        "major": "Bowling",
-        "hometown": "Madison, WI",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 1H",
-        "events": []
-        },
+        "height": "",
+        "major": "",
+        "hometown": "",
+        "favoriteXYZ": [
+            "",
+            ""
+        ],
+        "style": "RH / 1H"
+    },
     {
-        "name": "Emily Dobberfuhl",
-        "year": "Sophomore",
+        "name": "Madison Awe",
+        "year": "Freshman",
         "state": "WI",
-        "height": "5'6",
-        "major": "Bowling",
-        "hometown": "Madison, WI",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 1H",
-        "events": []
-        }
+        "height": "5'5",
+        "major": "Animal & Veterinary Biosciences + Zoology",
+        "hometown": "Elkhart Lake, WI",
+        "favoriteXYZ": [
+            "Animal",
+            "Fox"
+        ],
+        "style": "RH / 1H"
+    }
 ]

@@ -10,7 +10,7 @@ interface destination {
 const links: destination[] = [
     {url: "/", name: "Home", style: {}},
     {url: "/roster/mens", name: "Roster", style: {}},
-    {url: "/", name: "Gallery", style: {}},
+    {url: "/gallery", name: "Gallery", style: {}},
     {url: "/schedule", name: "Schedule", style: {borderRadius: "0px 0px 20px 20px"}}
 ]
 function LinkCollection() {

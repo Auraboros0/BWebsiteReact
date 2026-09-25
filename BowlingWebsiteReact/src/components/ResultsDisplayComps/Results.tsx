@@ -1,20 +1,39 @@
 import { useParams, useLocation, useNavigate } from "react-router"
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, cache } from "react";
 import type { teamResultsInterface } from "../../Interfaces/teamResultsInterface";
 import useConditionalRender from "../../Scripts/useConditionalRender";
 import { Table } from "react-bootstrap";
 import BackButton from "../UniversalUIComps/BackButton";
-import Loading from "../PlayerDetailedComps/RosterEntryComps/Loading";
+import Loading from "../UniversalUIComps/Loading";
 import { scroll } from "../../Scripts/scroll";
+import type { tournamentEntry } from "./ResultsBoxContainer";
+import { fetchWithRetry } from "../../Scripts/fetchWithRetry";
 
-async function getData(gender: string | undefined, id: string | undefined) {
-    const data = await fetch(`/api/home/${gender}/${id}`);
-    const dataJSON = await data.json();
-    const response = await data.status;
-    return { dataJSON, response }
+import { resultsCache } from "../../caches/TournamentCache";
+
+function getTournamentFromCache(gender: string, id: string) {
+
 }
 
-function getNextAndLast(idx: number, entries: [string, [number, string]][], gender: number) {
+async function getData(gender: string | undefined, id: string | undefined) {
+    const data = await fetchWithRetry(
+        () => fetch(`/api/home/${gender}/${id}`),
+        10
+    )
+
+    if (!data.ok) {
+        return {
+            dataJSON: {},
+            response: data.status
+        }
+    } else {
+        const dataJSON = await data.json();
+        const response = await data.status;
+        return { dataJSON, response }
+    }
+}
+
+function getNextAndLast(idx: number, entries: tournamentEntry[], gender: number) {
 
     let next: string = '';
     let prev: string = '';
@@ -52,7 +71,9 @@ function ResultsTableEntry(props: { entry: teamResultsInterface }) {
         ourTeam = true;
     }
     return (
-        <tr style={{ position: 'relative', color: `${ourTeam ? '#FF0059' : '#FFFFFF'}` }}>
+        <tr style={{ position: 'relative',
+         color: `${ourTeam ? '#FF0059' : '#FFFFFF'}`,
+         filter: `${ourTeam ? 'drop-shadow(1px 1px 1px rgb(255, 0, 89))' : ''}` }}>
             <td>#{entry.No}</td>
             <td>{entry.Team_Name}</td>
             {isMd && <td>{entry.Team}</td>}
@@ -72,21 +93,21 @@ function ResultsTable(props: { male: boolean, name: string, results: teamResults
         scroll(0.5, animationId, position, bgRef, { xAxis: false, reverse: false, layer: 0 })
     }, [])
     return (
-        <div className='teamResults' ref={bgRef}>
+        <div className='teamResults' style={{}} ref={bgRef}>
             <div style={{ display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'space-between' }}>
                 <BackButton />
                 <h1 style={{ marginLeft: '45px' }}>{props.name} ({props.male ? 'Men' : 'Women'})</h1>
                 {props.nextAndLast}
             </div>
-            <div style={{}}>
-                <Table className='REMTable team' style={{}}>
+            <div style={{ border: isMd ? '4px solid white': 'none', minHeight: '65vh', backgroundColor: 'black' }}>
+                {props.results.length != 0 && <Table className='REMTable team' style={{}}>
                     <thead>
                         <tr>
-                            <th>Place</th>
-                            <th>University</th>
+                            <th>#</th>
+                            <th style={{}}>University</th>
                             {isMd && <th style={{ marginLeft: 'auto' }}>Day 1 Ind.</th>}
                             {isMd && <th>Day 2 Baker</th>}
-                            <th>Avg</th>
+                            <th style={{paddingRight: '40px'}}>Avg</th>
                             <th>Diff</th>
                         </tr>
                     </thead>
@@ -97,13 +118,14 @@ function ResultsTable(props: { male: boolean, name: string, results: teamResults
                             )
                         })}
                     </tbody>
-                </Table>
+                </Table>}
+                {props.results.length == 0 && <Loading text={`Loading results`} />}
             </div>
         </div>
     )
 }
 
-function NextAndLastButtons(props: { entries: [string, [number, string]][], idx: number, male: boolean, next: [string, number], prev: [string, number] }) {
+function NextAndLastButtons(props: { entries: tournamentEntry[], male: boolean, next: [string, number], prev: [string, number] }) {
     const { isMd } = useConditionalRender();
     const genderString = props.male ? 'mens' : 'womens';
     const navigate = useNavigate();
@@ -150,7 +172,7 @@ function NextAndLastButtons(props: { entries: [string, [number, string]][], idx:
 
                     {/* Previous Button */}
 
-                    {props.prev[1] != -1 && <button className='resultsButton' style={{ display: 'flex', alignItems: 'center', top: '0', left: '-125px', position: 'absolute' }}
+                    {props.prev[1] != -1 && <button title='Use me with A!' className='resultsButton' style={{ display: 'flex', alignItems: 'center', top: '0', left: '-125px', position: 'absolute' }}
                         onClick={() => prevNav()}>
                         {isMd && <h2 className="resultsKey">A</h2>}
                         <h1 className="resultsArrow">&#x25C0;</h1>
@@ -159,10 +181,10 @@ function NextAndLastButtons(props: { entries: [string, [number, string]][], idx:
 
                     {/* Next Button */}
 
-                    {props.next[1] != -1 && <button className='resultsButton' style={{ display: 'flex', alignItems: 'center', top: '0', left: '0', position: 'absolute' }}
+                    {props.next[1] != -1 && <button title='Use me with D!' className='resultsButton' style={{ display: 'flex', alignItems: 'center', top: '0', left: '0', position: 'absolute' }}
                         onClick={() => nextNav()}>
                         <h1 className="resultsHeadText">Next</h1>
-                        {isMd && <h2 className="resultsKey" style={{left: 'unset', right: '22.5px'}}>D</h2>}
+                        {isMd && <h2 className="resultsKey" style={{ left: 'unset', right: '22.5px' }}>D</h2>}
                         <h1 className="resultsArrow">&#x25B6;</h1>
                     </button>}
                 </div>}
@@ -178,47 +200,89 @@ function NextAndLastButtons(props: { entries: [string, [number, string]][], idx:
 }
 
 function Results() {
+
     const { gender, id, idx } = useParams();
+    const idRef = useRef(id);
     const { entries } = useLocation().state;
     const location = useLocation();
+    const firstLoad = useRef(true);
 
     const [tourney, setTourney] = useState<teamResultsInterface[]>([]);
     const [response, logResponse] = useState<number>(400);
-    const [loading, setLoading] = useState(true);
-
-    const [nextObj, setNext] = useState<[string, number]>(['', -1])
-    const [prevObj, setPrev] = useState<[string, number]>(['', -1])
+    const [loading, setLoading] = useState<boolean>(false);
 
     let male: boolean = false;
     let genderNumber = 1;
     if (gender == 'mens') { male = true; genderNumber = 0 }
-
-
+    const { next, prev, nextIdx, prevIdx } = getNextAndLast(+idx!, entries, genderNumber);
 
     useEffect(() => {
+
+        // Wait for timer to resolve
+        // Check if client still wants to display the fetched data by comparing id param from URL and fetched data
+        // If so, set state (tourney) to the fetched data and add it to the cache
+        // If not, do not set state but still add to cache
+        idRef.current = id
+        const cache_id = `${id}_${male ? "M" : "F"}`
+        let firstFetch: boolean = false;
         const load = async () => {
-            const data = await getData(gender, id);
-            setTourney(data.dataJSON);
-            logResponse(data.response);
-            const { next, prev, nextIdx, prevIdx } = getNextAndLast(+idx!, entries, genderNumber);
-            setNext([next, nextIdx]);
-            setPrev([prev, prevIdx]);
+            setTourney([]);
+            if (!resultsCache.has(cache_id)) {
+                try {
+                    const results = await getData(gender, id);
+                    resultsCache.set(cache_id, results.dataJSON);
+                    firstFetch = true;
+                }
+                catch (error) {
+                    console.error("Could not fetch results");
+                }
+            }
+
+            const data = resultsCache.get(cache_id);
+            if (data === undefined) {
+                logResponse(502);
+                return;
+            }
+            if (!firstLoad.current && firstFetch) {
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            if (idRef.current === data[0].Tournament_Name) {
+                setTourney(data);
+                logResponse(200);
+            }
+            firstLoad.current = false;
         }
-        setLoading(true);
-        load();
-        setLoading(false);
-        console.log("REROUTE")
+
+        const run = async () => {
+            try {
+                // setLoading(true);
+                load();
+            }
+            finally {
+                setLoading(false)
+            }
+        }
+
+        run();
+        return () => setTourney([]);
     }, [location.pathname])
 
 
     return (
-        <div className='resultsPage'>
-            {response == 200 && !loading && <ResultsTable {...{
-                male: male, name: id!, results: tourney,
-                nextAndLast: <NextAndLastButtons {...{ entries: entries, idx: +idx!, male: male, next: nextObj, prev: prevObj }} />
-            }} />}
-            {response >= 400 && <Loading text={"Loading"} />}
-            {response == 200 && loading && <Loading text={"Loading"} />}
+        <div className='resultsPage' style={{ position: 'relative' }}>
+            {response == 200 && <>
+                <ResultsTable {...{
+                    male: male, name: id!, results: tourney,
+                    nextAndLast: <NextAndLastButtons {...{ entries: entries, male: male, next: [next, nextIdx], prev: [prev, prevIdx] }} />
+                }} />
+                {loading == true && <div style={{ position: 'absolute', top: '0', right: '8px', fontFamily: 'Iosevka', backgroundColor: 'black' }}>
+                    <Loading text={"Loading entry"} />
+                </div>}
+            </>
+            }
+            {response == 400 && <Loading text={"Loading"} />}
+            {response == 502 && <h2 style={{ fontFamily: 'Iosevka' }}>Failed to load data.</h2>}
+            {/* {response == 200 && loading && <Loading text={"Loading"} />} */}
         </div>
     )
 }

@@ -7,10 +7,8 @@ export function populateInfiniteScroll(item: RefObject<HTMLDivElement | null>, c
         const containerWidth = container.current.offsetWidth;
         let repeatCount: number = 2 * Math.floor((1 + (containerWidth / textWidth)));
         if (repeatCount < 2) { repeatCount = 2 };
-        console.log("top", repeatCount)
         return repeatCount;
     } else {
-        console.log("bottom")
         return 2;
     }
 }

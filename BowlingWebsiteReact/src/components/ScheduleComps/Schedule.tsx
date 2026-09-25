@@ -3,6 +3,7 @@ import { scheduleM } from "../../data/scheduleM"
 import { scheduleW } from "../../data/scheduleW"
 import EventSimple from "./EventSimple";
 import '../../css/schedule.scss';
+import DivisionTitle from "../DivisionTitle";
 
 /*
 This will just be used to track whether or not a tournament has been added to the list.
@@ -77,11 +78,15 @@ export function scanSchedules() {
 /* The schedule page. Reads both men's and women's schedules and generates a list of EventSimple elements from them */
 function Schedule() {
     const combined = scanSchedules();
+    const current_season = import.meta.env.VITE_CURRENT_SEASON;
     return (
+        <div className='scheduleContainer' style={{padding: '10px'}}>
+        <DivisionTitle title={`SCHEDULE: ${current_season}`} red={true} filename={""} />
         <div className='schedule'>
             {combined.map((item: tournament) => {
                 return (<EventSimple {...item}/>)
             })}
+        </div>
         </div>
     )
 }

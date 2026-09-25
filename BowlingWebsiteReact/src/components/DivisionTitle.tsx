@@ -44,7 +44,7 @@ const DivisionTitle = forwardRef<animatedBarRef, props>(( props, ref ) => {
     if (props.red) {divName = 'headerDivision'}
     else {divName='headerDivisionWhite'}
     return (
-        <div className={divName} style={{position: 'relative', backgroundImage: `url(/public/assets/Textures/redDash.png), linear-gradient(180deg, transparent 0% 50%, #d01840 50% 60%, #d01840 60% 100%)`}}>
+        <div className={divName} style={{position: 'relative', overflow: 'clip', backgroundImage: `url(/public/assets/Textures/redDash.png), linear-gradient(180deg, transparent 0% 50%, #d01840 50% 60%, #d01840 60% 100%)`}}>
             <div className = 'headerDivisionStripes' ref={bgRef} style={{position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, backgroundImage: `url(/public/assets/Textures/${props.filename})`, zIndex: '-1'}}></div>
             {!isMobile && <h2>{props.title}</h2>}
             {isMobile && <h3>{props.title}</h3>}

@@ -17,7 +17,6 @@ export default function RosterEntry(props: player) {
     const { gender, id } = useParams();
 
     function alreadyAtLink(name: string) {
-        console.log(id)
         if (id === name) { return true;}
         return false;
     }
@@ -30,9 +29,9 @@ export default function RosterEntry(props: player) {
 
     return (
         <div>
-            {/* <div style={{height: '30px', backgroundImage: "url(/public/assets/Textures/roof.jpg)", backgroundSize: '50% auto', width: '80vw', borderBottom: '8px solid #ffffff'}}></div> */}
             <div className="rosterEntry" onClick={handleClick} style={{cursor: alreadyAtLink(props.name) ? '' : 'pointer'}}>
                 {/* <div className="d-block d-sm-flex"> */}
+                <div style={{height: '30px', width: '102%', marginTop: '-30px', borderBottom: '8px solid #ffffff'}}></div>
                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "99%"}}>
                     <RosterLeftImg {...props} />
                     <div className="rosterTextBox " style={{width: "100%"}}>
@@ -40,7 +39,7 @@ export default function RosterEntry(props: player) {
                         <RosterRight {...props} />
                     </div>
                 </div>
-                <div className="triangle"></div>
+                {/* <div className="triangle"></div> */}
             </div>
 
             {/* </div> */}

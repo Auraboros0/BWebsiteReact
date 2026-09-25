@@ -12,6 +12,7 @@ import '../../css/roster.scss';
    and creates a list of RosterEntry elements from them*/
 export default function Roster() {
     const { gender } = useParams()
+    const current_season = import.meta.env.VITE_CURRENT_SEASON
     let data;
 
     if (gender === 'mens') { data = mensData }
@@ -28,7 +29,7 @@ export default function Roster() {
                 <RosterMobileIMG gender={gender} />
             </div>
             <div className="rosterBG">
-                <div style={{marginBottom: '16px'}}><DivisionTitle title={"ROSTER"} red={true} filename={""}/></div>
+                <div style={{marginBottom: '16px'}}><DivisionTitle title={`ROSTER: ${current_season}`} red={true} filename={""}/></div>
                 {data.map((item: player) => {
                     return (
                         <div>

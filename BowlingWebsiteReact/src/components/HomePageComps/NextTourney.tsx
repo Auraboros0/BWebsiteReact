@@ -82,7 +82,7 @@ function NextTourney() {
         <div>
             {tourneyStrings.filter(Boolean).map((item: string) => {
                 return (
-                    <DivisionTitle title={item} red={false} isMobile={!isMd} />
+                    <h3 style={{color: 'white'}}>{item}</h3>
                 )
             })}
         </div>

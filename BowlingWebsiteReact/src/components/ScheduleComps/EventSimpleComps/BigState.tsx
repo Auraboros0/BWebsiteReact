@@ -27,7 +27,7 @@ function BigState({ state }) {
                 WebkitTransform: 'scale(1.05) rotate(5deg)'
             }}></div>
             <div className='bigState' style={{
-                background: 'url("/public/assets/Textures/stateAccent.png")',
+                // background: 'url("/public/assets/Textures/stateAccent.png")',
                 backgroundSize: '50%',
                 mask: `url("${url}") center / contain no-repeat`,
                 WebkitMask: `url(${url}) center / contain no-repeat`,

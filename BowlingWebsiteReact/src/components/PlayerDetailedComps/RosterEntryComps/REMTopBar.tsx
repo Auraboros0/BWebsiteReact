@@ -1,10 +1,20 @@
-import { useLayoutEffect, useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { useParams } from "react-router";
 import { populateInfiniteScroll } from "../../../Scripts/populateInfiniteScroll";
 import { scroll } from "../../../Scripts/scroll";
 import REMTopStats from "./REMTopStats";
 import useConditionalRender from "../../../Scripts/useConditionalRender";
-function REMTopBar() {
+
+interface props {
+    onOpenStats: () => void;
+    onCloseStats: () => void
+}
+export interface REMBarRef {
+    startScroll: () => void;
+    stopScroll: () => void;
+}
+
+const REMTopBar = forwardRef<REMBarRef, props>((props, ref) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const barRef = useRef<HTMLDivElement>(null);
     const absoluteRef = useRef<HTMLDivElement>(null);
@@ -15,6 +25,7 @@ function REMTopBar() {
     const animationId = useRef<number | null>(null);
     const [isClicked, setIsClicked] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
+    const [isInterrupted, setIsInterrupted] = useState(false);
     const [hasUpdated, setHasUpdated] = useState(false);
 
     const [repeatCount, setRepeatCount] = useState<number>(1);
@@ -22,23 +33,33 @@ function REMTopBar() {
     const { isMd } = useConditionalRender();
     const { id } = useParams();
 
-    // const classStringOne: string = 'REMTopContainer';
-    // const classStringTwo: string = 'REMTopContainer';
+
     const classStringOne: string = 'REMTopContainer clicked'
     const classStringTwo: string = 'REMTopContainer'
     const classStringThree: string = 'REMTopContainer hovering'
+    const classStringFour: string = 'REMTopContainer'
+
+    const flairStringOne: string = 'REMStatsFlair'
+    const flairStringTwo: string = 'REMStatsFlair'
+
+    useImperativeHandle(ref, () => ({
+        startScroll() { 
+            scrollWrapper(0.5)
+         },
+        stopScroll() {setIsClicked(false);}
+    }))
 
     /*
-    If I just use this without a cancel function it makes a cool effect
-    */
-
-    /*
-    0: No hover, no click.
-    1: Hover, no click.
-    2: Clicked, doesn't matter if hovering.
+    1: No hover, no click.
+    2: Hover, no click.
+    3: Clicked, doesn't matter if hovering.
+    4: Interrupted by video playing
     */
     const stateMachine = () => {
         if (!isMd) { return classStringTwo }
+        if (isInterrupted) {
+            return classStringTwo;
+        }
         if (isClicked) {
             return classStringOne;
         }
@@ -48,18 +69,34 @@ function REMTopBar() {
         return classStringTwo;
     }
 
+    const stateMachineTwo = () => {
+        if (isInterrupted) {
+            return flairStringTwo;
+        }
+        return flairStringOne;
+    }
+
     const handleDataReceived = () => {
         setHasUpdated(!hasUpdated);
     }
 
     const handleClick = () => {
+        if (!isClicked) {
+            props.onOpenStats();
+            scrollWrapper(0.5);
+        } else {
+            props.onCloseStats();
+        }
         setIsClicked(!isClicked);
+        
         // if (isClicked) { stopScroll()}
         // else {scroll(1.5)}
     }
 
     function scrollWrapper(scrollSpeed: number) {
-        scroll(scrollSpeed, animationId, position, barRef, {xAxis: false, reverse: false, layer: 0});
+        if (isMd) {
+            scroll(scrollSpeed, animationId, position, barRef, {xAxis: false, reverse: false, layer: 0});
+        }
     } 
 
     /*
@@ -82,8 +119,6 @@ function REMTopBar() {
             if (containerRef.current) {
                 divHeight = absoluteRef.current!.offsetHeight;
                 containerRef.current.style.setProperty("--absolute-height", `-${divHeight}px`);
-                console.log(divHeight);
-                console.log("stuff");
                 scrollWrapper(0.5);
             }
         })
@@ -95,34 +130,12 @@ function REMTopBar() {
             if (flairRef.current && barRef.current) {
                 const count = populateInfiniteScroll(flairRef, barRef);
                 setRepeatCount(count);
-                console.log("IM DOING SOMETHING")
             }
         }
         resize();
         window.addEventListener("resize", resize);
         return () => {window.removeEventListener("resize", resize)};
     }, [])
-
-    // const scroll = (scrollSpeed: number, xAxis?: boolean) => {
-    //     // if (animationId.current) { return }
-    //     if (animationId.current) {
-    //         cancelAnimationFrame(animationId.current)
-    //         animationId.current = null;
-    //     }
-    //     const animate = () => {
-    //         const cellSize = barRef.current!.offsetWidth * 0.10;
-    //         position.current += scrollSpeed;
-    //         position.current = position.current % cellSize;
-    //         if (xAxis) {
-    //             barRef.current!.style.backgroundPositionX = `${position.current % cellSize}px`;
-    //         } else {
-    //             barRef.current!.style.backgroundPositionX = `${position.current % cellSize}px`;
-    //             barRef.current!.style.backgroundPositionY = `${position.current % cellSize}px`;
-    //         }
-    //         animationId.current = requestAnimationFrame(animate);
-    //     }
-    //     animationId.current = requestAnimationFrame(animate)
-    // }
 
     const stopScroll = () => {
         if (animationId.current) {
@@ -145,9 +158,9 @@ function REMTopBar() {
                 setIsHovering(false);
             }
             }>
-            <div ref={barRef} className='REMTopBar' style={{overflowX: 'clip', overflowY: 'visible'}}>
+            <div ref={barRef} className={'REMTopBar'} style={{position: 'relative', marginTop: '0px', overflowX: 'clip', overflowY: 'visible'}}>
                 <h3 ref={flairRef} style={{position: 'absolute', visibility: 'hidden'}}>&nbsp;STATS &#x269D;</h3>
-                <h3 className='REMStatsFlair'>
+                <h3 className={stateMachineTwo()}>
                     {Array.from({ length: repeatCount }).map((_index) => (
                         <div>&nbsp;STATS &#x269D;</div>
                     ))}
@@ -156,6 +169,6 @@ function REMTopBar() {
             <REMTopStats ref={absoluteRef} onDataLoad={handleDataReceived} />
         </div >
     )
-}
+})
 
 export default REMTopBar;

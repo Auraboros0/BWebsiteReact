@@ -32,7 +32,6 @@ function MobileSelector() {
     const toggle = () => {
         setVisible(!isVisible);
         animString = handleAnimation(anim1, anim2, isVisible);
-        console.log(animString);
     }
 
     useEffect(() => {
@@ -48,7 +47,9 @@ function MobileSelector() {
             {isVisible && <Darkness />}
             <div ref={sideBarRef} style={{ position: 'relative', zIndex: '100', flex: '1' }}>
                 <div className={isVisible ? anim2 : anim1} style={{ marginLeft: '-16px' }}>
-                    <div style={{ display: "flex", height: "calc(100vh - 90px)", position: 'fixed' }} onClick={toggle}><PlayerList /></div>
+                    <div style={{ display: "flex", height: "calc(100vh - 90px)", position: 'fixed' }} onClick={toggle}>
+                        <PlayerList />
+                    </div>
                     <button className='mobileRosterToggle' onClick={toggle} style={{ position: 'absolute', left: '65vw', top: '0' }}>&#9654;</button>
                 </div>
             </div>

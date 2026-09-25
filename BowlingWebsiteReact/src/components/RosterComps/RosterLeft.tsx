@@ -10,13 +10,9 @@ interface player {
 
 function RosterLeft(props: player) {
     return (
-        <div className="rosterMobileText">
-            {/* <div className="divForPositioning"> */}
-                <h2 className="playerInfo" style={{ width: "100%"}}>
-                    <div className="d-none d-md-block">{props.height}</div>
+                <h2 className="rosterMobileTextLeft" style={{}}>
+                    {/* <div className="d-none d-md-block">{props.height}</div> */}
                     {props.name}</h2>
-            {/* </div> */}
-        </div>
     )
 }
 

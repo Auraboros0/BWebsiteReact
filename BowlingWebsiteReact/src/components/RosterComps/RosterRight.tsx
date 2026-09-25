@@ -9,10 +9,7 @@ interface player {
 
 function RosterRight(props: player) {
     return (
-        <div className="rosterMobileText">
-             {/* <div className="triangle"></div> */}
-             <h2><br className="d-none d-md-block"/>{props.year} / {props.major} / {props.hometown}</h2>
-         </div>
+        <h2 className="rosterMobileTextRight"><br className="d-none d-md-block"/>{props.year} / {props.major} / <span style={{whiteSpace: 'nowrap'}}>{props.hometown}</span></h2>
     )
 }
 

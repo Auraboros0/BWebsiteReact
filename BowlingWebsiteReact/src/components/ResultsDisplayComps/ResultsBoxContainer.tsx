@@ -5,14 +5,17 @@ import DivisionTitle from "../DivisionTitle"
 import HomeGallery from "../HomeGallery"
 import SocialsHeader from "../HomePageComps/SocialsHeader"
 import useConditionalRender from "../../Scripts/useConditionalRender"
-import Loading from "../PlayerDetailedComps/RosterEntryComps/Loading"
+import Loading from "../UniversalUIComps/Loading"
 import { useEntries } from "../ResultsDataContext"
+
 async function getTournamentNames() {
     const data = await fetch("/api/home/tournamentnames");
     const dataJSON = await data.json();
     const response = await data.status;
     return { dataJSON, response };
 }
+
+export type tournamentEntry = [string, [number, string]]
 
 /* This whole nest of components is kinda convoluted
    ResultsBoxContainer: Fetches the tournament set object. It is of type Record<string, [number, string]>
@@ -102,10 +105,7 @@ function ResultsBoxContainer() {
                 <div style={{ width: '100%' }}>
                     <DivisionTitle title={"SOCIALS"} red={true} filename={'stateAccent.png'} ref={bottomRef} />
                 </div>
-                {isMd && <div className='socialLink' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', gap: '10px' }}>
-                    <a href="https://www.instagram.com/uwbowlingteam/"><h2>INSTAGRAM</h2></a>
-                    <a href="https://www.facebook.com/BowlUW/"><h2>FACEBOOK</h2></a>
-                </div>}
+                <SocialsHeader />
             </div>
         </div>
     )

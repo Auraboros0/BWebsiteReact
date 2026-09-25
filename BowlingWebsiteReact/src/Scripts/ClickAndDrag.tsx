@@ -1,4 +1,4 @@
-import { useRef, useImperativeHandle, forwardRef } from 'react'
+import { useRef, useImperativeHandle, useEffect, forwardRef } from 'react'
 export interface ClickDragHandle {
     reactToJump: (itemHeight: number, up: boolean) => void
 }
@@ -20,7 +20,6 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
             if (drag.current.active) {
                 if (up) { drag.current.initialScroll += itemHeight }
                 else { drag.current.initialScroll -= itemHeight }
-                console.log(drag.current.initialScroll, 'jump');
             }
         }
 
@@ -47,7 +46,6 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
             drag.current.initialY = e.clientY;
             drag.current.currentY = e.clientY;
             drag.current.initialScroll = element.scrollTop;
-            console.log(drag.current.initialScroll, 'click')
         }
 
         // 
@@ -69,7 +67,6 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
             drag.current.active = false;
             scrollRef.current?.releasePointerCapture(e.pointerId);
             // e.currentTarget.releasePointerCapture(e.pointerId);
-            console.log("INACTIVE")
             function animateInertia() {
                 element.scrollTop += velocity
                 accelerate();
@@ -84,6 +81,25 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
             const element = scrollRef.current!;
             element.scrollTop += e.deltaY;
         };
+
+        // useEffect(() => {
+        //     const element = scrollRef.current;
+        //     if (!element) return;
+
+        //     const onWheel = (e: WheelEvent) => {
+        //         e.preventDefault();
+        //         element.scrollTop += e.deltaY;
+        //     };
+
+        //     element.addEventListener('wheel', onWheel, {
+        //         passive: false
+        //     });
+
+        //     return () => {
+        //         element.removeEventListener('wheel', onWheel);
+        //     };
+        // }, [scrollRef]);
+
 
         function accelerate() {
             {

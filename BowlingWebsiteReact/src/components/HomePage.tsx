@@ -28,19 +28,20 @@ function HomePage() {
     const expositionTwo: string = "Both men's and women's teams practice weekly @ Sett Recreation (Located in the basement of Union South) and all team members are granted\
     free equipment storage.\n If you're interested in joining the team, feel free to reach out via Instagram DM or Facebook message."
 
-    const expositionOneMobile: string= "The UW-Madison Bowling Team is an intercollegiate team that travels to compete against other schools\
-    in two day weekend tournaments.\n We primarily compete within the Great Lakes Bowling Conference, a collection of university teams from WI, IL, IA & MN\
+    const expositionOneMobile: string= "The UW-Madison Bowling Team is an intercollegiate team open to all UW-Madison students.\n \
+    We travel to compete against other schools in two day weekend tournaments.\
+    Our team primarily competes within the Great Lakes Bowling Conference, a collection of university teams from WI, IL, IA & MN\
     though we also participate in various non-conference tournaments each season"
     return (
         <div style={{width: 'calc(100% + 16px)', marginLeft: '-8px', overflowX: 'clip'}}>
             <div style={{position: 'absolute'}}>
             {/* <DivisionTitle title={'Next Competition: Placeholder Tournament @ Place, WI on ##/##'} red={false}/> */}
-            {/* {isMd && <NextTourney />} */}
+            {/* {!isMd && <NextTourney />} */}
             </div>
             <MainImage />
             {/* {!isMd && <NextTourney />} */}
             {/* <h3>Next Competition: Placeholder Tournament @ Place, WI on ##/##</h3> */}
-            <div className='aboutHeader'>ABOUT</div>
+            <h2 className='aboutHeader'>ABOUT</h2>
             <GenderedAbout male={true} text={expositionOneMobile} />
             <GenderedAbout male={false} text={expositionTwo} />
             <ResultsBoxContainer />

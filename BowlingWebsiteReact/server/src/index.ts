@@ -1,16 +1,20 @@
 import express from "express";
 import path from "path";
+import chokidar from "chokidar";
 import fs from "fs/promises";
+import rateLimit from "express-rate-limit";
+import { watch } from "fs";
 import { fileURLToPath } from "url";
-import { getAverageAndTotal, getPlayerResults, generateTourneyData, identifyNewData } from "../data/generatePlayerData.ts";
+import { getAverageAndTotal, getPlayerResults, generateTourneyData, identifyNewData } from "../data/PlayerData/generatePlayerData.ts";
 import {
     generateTeamData,
     identifyNewTeamData,
     getRecentTourneyData,
     getTourneyData,
     getCombinedTLists
-} from "../data/generateTeamData.ts";
+} from "../data/TeamData/generateTeamData.ts";
 import dotenv from "dotenv";
+import "dotenv/config";
 import cron from "node-cron";
 
 dotenv.config({
@@ -18,14 +22,25 @@ dotenv.config({
 });
 
 import type { InstaObject } from "../Interfaces/instaObject.ts";
+import { generateVideoRecord, getFilenames } from "../data/MediaData/GenerateVideoRecord.ts";
 const __filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(__filename);
 
 const app = express();
-const mensData = await import('../data/mensResultsObject.ts');
-const womensData = await import('../data/womensResultsObject.ts');
-const mensTeamData = await import('../data/mensTeamResultsObject.ts');
-const womensTeamData = await import('../data/womensTeamResultsObject.ts');
+const mensData = await import('../data/PlayerData/mensResultsObject.ts');
+const womensData = await import('../data/PlayerData/womensResultsObject.ts');
+const mensTeamData = await import('../data/TeamData/mensTeamResultsObject.ts');
+const womensTeamData = await import('../data/TeamData/womensTeamResultsObject.ts');
+const VideoRecord = await import('../data/MediaData/VideoRecord.ts');
+
+let currentSeason = "2025-2026"
+
+await createAllEntries();
+let dbResultsCache = await generateRecordForIndividuals(currentSeason);
+let dbResultsCacheTeam;
+
+let prevResultsCache = new Map();
+let prevResultsCacheTeam = new Map();
 
 let MensResults = mensData.mensResultsObject;
 let WomensResults = womensData.womensResultsObject;
@@ -37,19 +52,93 @@ let WomensTeamResults = womensTeamData.womensTeamResultsObject;
 let MensTeamTList = mensTeamData.tournamentSet;
 let WomensTeamTList = womensTeamData.tournamentSet;
 
+let MemoryVideoRecord = VideoRecord.VideoRecord;
+
 let recentTourneysM = getRecentTourneyData(true, MensTeamResults, MensTeamTList);
 let recentTourneysW = getRecentTourneyData(false, WomensTeamResults, WomensTeamTList);
 
 let combinedTList = await getCombinedTLists(MensTeamTList, WomensTeamTList);
 let instaData: InstaObject[] | null = null;
 
+app.use(express.json());
+app.use(
+    "/public",
+    express.static(path.join(dirname, "public"))
+);
+app.use(
+    "/media",
+    express.static(path.join(dirname, "../media"))
+);
+
+const apiLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    limit: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 setInstaData();
+generateVideoRecord();
 
 cron.schedule("0 * * * *", async () => {
     console.log("Fetching New Posts");
     await setInstaData();
 });
 
+const watcher = chokidar.watch(path.join(dirname, "../media"), {
+    ignoreInitial: true,
+});
+
+watcher.on("add", async (filePath) => {
+    console.log("Added:", filePath);
+    MemoryVideoRecord = await generateVideoRecord();
+});
+
+watcher.on("unlink", async (filePath) => {
+    console.log("Removed:", filePath);
+    MemoryVideoRecord = await generateVideoRecord();
+});
+
+watch(path.join(dirname, "../data/Mens_Results_Individual"), async () => {
+    if (await identifyNewData(true, MensTList)) {
+        await regenerateDataPlayer(true);
+    }
+    // dbResultsCache = await generateRecordForIndividuals(currentSeason);
+})
+
+watch(path.join(dirname, "../data/Womens_Results_Individual"), async () => {
+    if (await identifyNewData(false, WomensTList)) {
+        await regenerateDataPlayer(false);
+    }
+    // dbResultsCache = await generateRecordForIndividuals(currentSeason);  
+})
+
+watch(path.join(dirname, "../data/Mens_Results_Team"), async () => {
+    if (await identifyNewData(true, MensTeamTList)) {
+        await regenerateDataTeam(true);
+    }
+    // dbResultsCacheTeam = ...
+})
+
+watch(path.join(dirname, "../data/Womens_Results_Team"), async () => {
+    if (await identifyNewData(false, WomensTList)) {
+        await regenerateDataTeam(false);
+    }
+    // dbResultsCacheTeam = ...
+})
+
+// SQL DATABASE TESTING
+import { db } from "../db/connection.ts";
+import { createAllEntries, getAllEventsIndividual, generateRecordForIndividuals, getAverageAndTotalSQL } from "../db/results_individual.ts";
+import { createSeason, initializeSeasons } from "../db/seasons.ts";
+import type { InstagramMedia } from "../Interfaces/InstagramMedia.ts";
+
+async function testDatabase() {
+    const result = await db.query("SELECT NOW()");
+    console.log("Database connected:", result.rows[0]);
+}
+
+testDatabase();
 
 async function setInstaData() {
     const token = process.env.INSTAGRAM_ACCESS_TOKEN;
@@ -57,12 +146,17 @@ async function setInstaData() {
         const response = await fetch(
             `https://graph.instagram.com/me/media` +
             `?fields=id,username,profile_picture_url,caption,media_type,media_url,permalink,timestamp` +
-            `&limit=15` +
+            `&limit=6` +
             `&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
         );
         const data = await response.json();
-        instaData = await data.data;
-        return await data;
+        const filteredData = await data.data.filter(
+            (post: InstagramMedia) =>
+                post.media_type === "IMAGE" ||
+                post.media_type === "VIDEO"
+        );
+        instaData = await filteredData;
+        return await filteredData;
     } catch (error) {
         console.error(error);
         return;
@@ -96,16 +190,6 @@ async function regenerateDataTeam(male: boolean) {
     console.log("GENERATING TEAM DATA")
 }
 
-app.use(express.json());
-app.use(
-    "/public",
-    express.static(path.join(dirname, "public"))
-);
-app.use(
-    "/media",
-    express.static(path.join(dirname, "../media"))
-);
-
 /*
 Return JSON or TS with player results
 */
@@ -114,21 +198,22 @@ app.get("/api/detailed/:gender/:id", async (req, res) => {
     let male: boolean;
     if (req.params.gender === 'mens') { male = true }
     else { male = false; }
-    if (await identifyNewData(male, male ? MensTList : WomensTList)) {
-        regenerateDataPlayer(male);
-    }
 
     const results = await getPlayerResults(male, req.params.id, male ? MensResults : WomensResults);
+    // const results = await getAllEventsIndividual(req.params.id, undefined, dbResultsCache);
     let avg;
     let total;
 
-    if (results.length != 0) {
-        const output = getAverageAndTotal(results);
+    if (results!.length != 0) {
+        // const output = await getAverageAndTotalSQL(results!);
+        const output = await getAverageAndTotal(results);
         avg = output.avg.toFixed(3);
         total = output.gamesBowled;
+        console.log(avg, total);
     }
     else { avg = "Unestablished"; total = 0; }
-    if (results.length != 0) {
+    // await console.log(results);
+    if (results!.length != 0) {
         res.status(200).json({ average: avg, gamesBowled: total, results });
     } else {
         res.status(404).json({ average: "Undefined", gamesBowled: 0, results: [] })
@@ -138,12 +223,12 @@ app.get("/api/detailed/:gender/:id", async (req, res) => {
 /* Gets the results of the most recent tournament */
 app.get("/api/home/recap", async (req, res) => {
     // Get high game & high series of recent competition
-    if (await identifyNewTeamData(true, MensTeamTList)) {
-        regenerateDataTeam(true);
-    }
-    if (await identifyNewTeamData(false, WomensTeamTList)) {
-        regenerateDataTeam(false);
-    }
+    // if (await identifyNewTeamData(true, MensTeamTList)) {
+    //     regenerateDataTeam(true);
+    // }
+    // if (await identifyNewTeamData(false, WomensTeamTList)) {
+    //     regenerateDataTeam(false);
+    // }
     const mData = await recentTourneysM
     const wData = await recentTourneysW;
     if (!mData.outOf && !wData.outOf) {
@@ -157,12 +242,12 @@ app.get("/api/home/recap", async (req, res) => {
 
 /* Gets the names of every tournament and the teams that participated */
 app.get("/api/home/tournamentnames", async (req, res) => {
-    if (await identifyNewTeamData(true, MensTeamTList)) {
-        regenerateDataTeam(true);
-    }
-    if (await identifyNewTeamData(false, WomensTeamTList)) {
-        regenerateDataTeam(false);
-    }
+    // if (await identifyNewTeamData(true, MensTeamTList)) {
+    //     regenerateDataTeam(true);
+    // }
+    // if (await identifyNewTeamData(false, WomensTeamTList)) {
+    //     regenerateDataTeam(false);
+    // }
     if (Object.keys(combinedTList).length == 0) {
         res.status(404).json(combinedTList);
     }
@@ -171,12 +256,12 @@ app.get("/api/home/tournamentnames", async (req, res) => {
 
 /* Gets the results of a particular tournament */
 app.get("/api/home/:male/:tournament", async (req, res) => {
-    if (await identifyNewTeamData(true, MensTeamTList)) {
-        regenerateDataTeam(true);
-    }
-    if (await identifyNewTeamData(false, WomensTeamTList)) {
-        regenerateDataTeam(false);
-    }
+    // if (await identifyNewTeamData(true, MensTeamTList)) {
+    //     regenerateDataTeam(true);
+    // }
+    // if (await identifyNewTeamData(false, WomensTeamTList)) {
+    //     regenerateDataTeam(false);
+    // }
     let male = true;
     let tournamentObject = MensTeamResults;
     if (req.params.male != 'mens') { male = false; tournamentObject = WomensTeamResults }
@@ -208,12 +293,36 @@ app.get("/api/gallery", async (req, res) => {
         const filesImage = await fs.readdir(imagePath);
         const filesVideo = await fs.readdir(videoPath);
 
-        res.json({images: filesImage, videos: filesVideo });
+        res.json({ images: filesImage, videos: filesVideo });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Unable to read folder" });
     }
 })
+
+/* Gets the URLs of videos for a particular player */
+app.get("/api/playermedia/:gender/:id", async (req, res) => {
+    try {
+        const name = req.params.id;
+        const data = await getFilenames(name, MemoryVideoRecord);
+        let wide = await data[0];
+        const tall = await data[1];
+        if (wide.length == 0) {
+            wide = tall;
+        }
+        if (wide.length == 0 && tall.length == 0) {
+            res.status(404).json({ name: name, wide: wide, tall: tall });
+        } else {
+            res.status(200).json({ name: name, wide: wide, tall: tall });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Unable to read folder" });
+    }
+})
+
+// PUT ----------------------------------------------------------------------------------------
 
 /*
     Creates a dictionary of entries that are <name: string, scores: number[]>

@@ -10,7 +10,7 @@ function GenderedAbout({ male, text }) {
                 {/* {male && <div className='genderImage male'><img src='/public/assets/Textures/grunge.jpg' /></div>} */}
                 {male && <SFImageCopy url={'/public/assets/Textures/grunge.jpg'} width={'50%'} />}
                 {!male && <h2 style={{ width: '60%', textAlign: 'right' }}>{text}</h2>}
-                {male && <h2 style={{ width: '40%', textAlign: 'left' }}>{text}</h2>}
+                {male && <h2 style={{ width: '60%', textAlign: 'left' }}>{text}</h2>}
                 {!male && <SFImageCopy url={'/public/assets/TestImages/1.png'} width={'50%'} />}
                 {/* {!male && <div className='genderImage female'><img src='/public/assets/TestImages/1.png' /></div>} */}
             </div>}

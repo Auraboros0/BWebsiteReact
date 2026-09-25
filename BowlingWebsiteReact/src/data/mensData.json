@@ -6,25 +6,25 @@
         "height": "5'8",
         "major": "Computer Science",
         "hometown": "Chicago, IL",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["Soundtrack", "Drakengard I (PS2)"],
-        "style": "RH / 2H",
-        "events": []
+        "favoriteXYZ": [
+            "Soundtrack",
+            "Drakengard I (PS2)"
+        ],
+        "style": "RH / 2H"
     },
     {
         "name": "Jake Kilander",
         "year": "Senior",
         "state": "MN",
-        "height": "6'0",
+        "height": "5'10",
         "major": "Journalism",
-        "hometown": "Robbinsdale, MN",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "LH / 1H",
-        "events": []
-        },
+        "hometown": "Minneapolis, MN",
+        "favoriteXYZ": [
+            "Teammate",
+            "Joaquin Herrera"
+        ],
+        "style": "LH / 1H"
+    },
     {
         "name": "Michael Chelney",
         "year": "Junior",
@@ -32,38 +32,38 @@
         "height": "6'0",
         "major": "Math + Statistics",
         "hometown": "Montvale, NJ",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 2H",
-        "events": []
-        },
+        "favoriteXYZ": [
+            "idk",
+            "idk"
+        ],
+        "style": "RH / 2H"
+    },
     {
         "name": "Vojtech Cisar",
-        "year": "Senior",
+        "year": "Junior",
         "state": "IL",
-        "height": "6'3",
-        "major": "Business",
-        "hometown": "South Elgin, IL",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 1HNT",
-        "events": []
-        },
+        "height": "6'0",
+        "major": "Actuarial Science",
+        "hometown": "Saint Charles, IL",
+        "favoriteXYZ": [
+            "Gym Lift",
+            "Incline Bench"
+        ],
+        "style": "RH / 1HNT"
+    },
     {
         "name": "Zachary Thao-Her",
         "year": "Sophomore",
         "state": "WI",
-        "height": "5'6",
+        "height": "5'5",
         "major": "Electrical Engineering",
         "hometown": "Milwaukee, WI",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 2H",
-        "events": []
-        },
+        "favoriteXYZ": [
+            "Hobby",
+            "COOOKING🍔🌭🌮"
+        ],
+        "style": "RH / 2H"
+    },
     {
         "name": "Matthew Orlow",
         "year": "Junior",
@@ -71,10 +71,23 @@
         "height": "6'3",
         "major": "Business",
         "hometown": "Chicago, IL",
-        "gamesPlayed": 0,
-        "average": 0,
-        "favoriteXYZ": ["idk", "idk"],
-        "style": "RH / 1H",
-        "events": []
-        }
+        "favoriteXYZ": [
+            "idk",
+            "idk"
+        ],
+        "style": "RH / 1H"
+    },
+    {
+        "name": "Aneis Zerillo",
+        "year": "Freshman",
+        "state": "NJ",
+        "height": "6'3",
+        "major": "Political Science / International Studies",
+        "hometown": "Closter, NJ",
+        "favoriteXYZ": [
+            "NBA Team",
+            "New York Knicks 🏀"
+        ],
+        "style": "RH / 1H"
+    }
 ]

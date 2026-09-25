@@ -7,7 +7,6 @@ function injectDot(baseString: string, count: number) {
 }
 
 function Loading({text}) {
-    const baseString = "Loading Data";
     const [displayString, setDisplayString] = useState(text);
     const [dotTracker, incrementDotTracker] = useState(0);
     useEffect(() => {

@@ -3,7 +3,7 @@ Unlike generatePlayerData.ts, this collection of functions targets overall team 
 the standings of individual players.
 */
 
-import type { teamResultsInterface } from "../Interfaces/teamResultsInterface.ts";
+import type { teamResultsInterface } from "../../Interfaces/teamResultsInterface.ts";
 import { execFile } from "node:child_process";
 import { promisify } from "util";
 
@@ -19,8 +19,8 @@ const __filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(__filename);
 const pythonScript = path.resolve(dirname, "./teamResultsParser.py");
 
-const mFolder = path.resolve(dirname, "./Mens_Results_Team");
-const wFolder = path.resolve(dirname, "./Womens_Results_team");
+const mFolder = path.resolve(dirname, "../Mens_Results_Team");
+const wFolder = path.resolve(dirname, "../Womens_Results_team");
 
 let mensCSVs = (await readdir(mFolder)).filter(file => file.endsWith(".csv"))
     .map(file => path.join(mFolder, file));
@@ -43,7 +43,6 @@ export async function parseCommand(tournamentPath: string | undefined) {
     // console.log(stdout)
     const result = JSON.parse(stdout) as teamResultsInterface[];
     return result
-    console.log("YEAHH")
 }
 
 /* Creates the mens/womensTeamResults object and the accompanying tournamentSet */
@@ -61,7 +60,7 @@ export async function generateTeamData(male: boolean) {
         for (const row of results) {
             const tourneyName = tournament.split(/[\\.]/).at(-2);
             const tourneyDate: string = `${tournament.split(/[\\.]/).at(-3)!}T12:00:00`
-            row.tournamentName = tourneyName!;
+            row.Tournament_Name = tourneyName!;
             tournamentNames.set(tourneyName!, tourneyDate!);
             if (teamDataSorted[tourneyName!]) {
                 teamDataSorted[tourneyName!]?.push(row);
@@ -164,7 +163,7 @@ export async function getRecentTourneyData(male: boolean, dataFromMemory?: Recor
         if (!ourEntry) { return { placement: 0, outOf: 0, name: "" } }
         const placement: number = ourEntry.No;
         const outOf: number = Object.keys(tourney).length;
-        const name: string = ourEntry.tournamentName;
+        const name: string = ourEntry.Tournament_Name;
         return { placement, outOf, name };
     } // If data was not passed in from server memory...
     else {

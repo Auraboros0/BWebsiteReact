@@ -21,6 +21,25 @@ export const scheduleW: tournament[] = [
     },
     {
         tournamentID: 1,
+        name: "Stout Open",
+        gender: 1,
+        time: [new Date(2026, 9, 17), new Date(2026, 9, 18)],
+        hostSlug: "wis-stout",
+        city: [{
+            street: "1616 N Clairemont Ave #1",
+            city: "Eau Claire",
+            state: "WI",
+            zip: 54703
+        }],
+        center: ["Bowl Winkle's"],
+        teamIDs: [
+            0,
+            1,
+            2,
+        ],
+    },
+    {
+        tournamentID: 2,
         name: "Great Lakes Bowling Conference II",
         gender: 1,
         time: [new Date(2026, 9, 24), new Date(2026, 9, 25)],
@@ -39,8 +58,8 @@ export const scheduleW: tournament[] = [
         ],
     },
     {
-        tournamentID: 2,
-        name: "Titan Invite",
+        tournamentID: 3,
+        name: "Prairie Bowling Invite",
         gender: 1,
         time: [new Date(2026, 10, 21), new Date(2026, 10, 22)],
         hostSlug: "wis-oshkosh",
@@ -58,7 +77,7 @@ export const scheduleW: tournament[] = [
         ],
     },
     {
-        tournamentID: 3,
+        tournamentID: 4,
         name: "Great Lakes Bowling Conference III",
         gender: 1,
         time: [new Date(2027, 0, 24), new Date(2027, 0, 25)],
@@ -77,7 +96,7 @@ export const scheduleW: tournament[] = [
         ],
     },
     {
-        tournamentID: 4,
+        tournamentID: 5,
         name: "Great Lakes Bowling Conference IV",
         gender: 1,
         time: [new Date(2027, 0, 30), new Date(2027, 0, 31)],
@@ -89,6 +108,25 @@ export const scheduleW: tournament[] = [
             zip: 61108
         }],
         center: ["Weston Lanes"],
+        teamIDs: [
+            0,
+            1,
+            2,
+        ],
+    },
+    {
+        tournamentID: 6,
+        name: "Viterbo Open",
+        gender: 1,
+        time: [new Date(2027, 1, 20), new Date(2027, 1, 21)],
+        hostSlug: "vhawk",
+        city: [{
+            street: "807 4th St S",
+            city: "La Crosse",
+            state: "WI",
+            zip: 54601
+        }],
+        center: ["Pla-Mor Lanes"],
         teamIDs: [
             0,
             1,

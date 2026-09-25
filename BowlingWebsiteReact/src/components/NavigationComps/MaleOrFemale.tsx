@@ -8,7 +8,6 @@ function MaleOrFemale() {
     }
 
     const handleClick = (team: string) => {
-        console.log('hi');
         if (!checkLocation(team)) {
             navigate(`/roster/${team}`)
         }

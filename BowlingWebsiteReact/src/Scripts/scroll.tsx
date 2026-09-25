@@ -62,5 +62,7 @@ export const scroll = (scrollSpeed: number, animationId: RefObject<number | null
         }
         animationId.current = requestAnimationFrame(animate);
     }
+    if (!document.hidden) {
     animationId.current = requestAnimationFrame(animate)
+    }
 }

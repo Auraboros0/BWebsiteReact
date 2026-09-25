@@ -1,5 +1,5 @@
 export interface teamResultsInterface {
-    tournamentName: string;
+    Tournament_Name: string;
     No: number;
     Team_Name: string;
     Team: number;

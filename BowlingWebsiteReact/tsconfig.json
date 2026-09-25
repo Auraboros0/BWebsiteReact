@@ -8,7 +8,8 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["BowlingWebsiteReact/*"]
+      "@/*": ["./src/*"],
+      "!/*": ["./public/*"]
     }
   }
 }

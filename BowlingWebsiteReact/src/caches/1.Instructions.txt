@@ -1,0 +1,19 @@
+How my caches will work
+
+1: Frontend executes function to fetch
+2: Function will check its respective cache
+2a: If the desired object already exists, load that object and do not fetch
+2b: If the desired object doesn't exist, fetch it and enter it into the cache
+
+For functions that request an entire collection of data, maybe modify the requests and response
+    - Frontend could send the cache's length or a piece of data from the first/last entry of an array
+    - Backend could compare the cache's length/data to its own and decide how to respond
+        - If the two are in sync, send a 204 response and nothing else. Frontend loads from cache
+        - If not, send a 200 response and data. Frontend edits cache and then loads from it. 
+    - For now, just load the cached data before checking, just so the user isnt staring at nothing.
+      For now, it is acceptable for the new data to suddenly appear on screen upon being loaded.
+
+For components that display one entry of a list, follow the pattern used in Results.tsx:
+    - Use a ref to store the current selection and compare it to the selection in the fetch
+        - If they match, execute the code that leads to the selected entry being displayed and add to cache
+        - If not, skip the code that leads to data being displayed but still add to cache

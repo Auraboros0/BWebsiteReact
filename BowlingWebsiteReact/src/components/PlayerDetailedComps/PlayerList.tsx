@@ -27,88 +27,48 @@ function PlayerList() {
     const [atTop, setAtTop] = useState(false);
     const [atBottom, setAtBottom] = useState(false);
 
-    let scrollHeight = 0;
-    let itemHeight = 0;
+    const scrollHeight = useRef(100);
+    const itemHeight = useRef(100);
     let count = 3;
 
     // Getting heights of both refs
     useEffect(() => {
         if (scrollRef.current && itemRef.current) {
-            scrollHeight = scrollRef.current.offsetHeight;
-            itemHeight = itemRef.current.offsetHeight;
+            scrollHeight.current = scrollRef.current.scrollHeight;
+            itemHeight.current = itemRef.current.offsetHeight;
         }
-    });
-
-    function jump(position: number) {
-        const element = scrollRef.current!
-        element.scrollTop = position;
-        // scrollRef.current?.scrollTo({
-        //     top: position,
-        //     behavior: 'instant',
-        // });
-        console.log('JUMP')
-    }
-
-
-    /* Update state whenever the beginning or end of the scroll window is reached */
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                for (const entry of entries) {
-                    if (entry.target === topRef.current) {
-                        setAtTop(entry.isIntersecting);
-                    }
-                    if (entry.target === bottomRef.current) {
-                        setAtBottom(entry.isIntersecting);
-                    }
-                }
-
-            },
-            {
-                root: scrollRef.current,
-                threshold: 1,
-            }
-        );
-
-        observer.observe(topRef.current!);
-        observer.observe(bottomRef.current!);
-
-        return () => observer.disconnect();
+        jump(itemHeight.current);
     }, []);
 
 
-    /*
-    Explanation of jump value:
-    Scrolling down by one list length gives the scroll window room to scroll up while being visually
-    identical to the starting position. 
-    */
+    function jump(position: number) {
+        console.log(position);
+        const element = scrollRef.current!
+        element.scrollTop = position;
+    }
+
     useEffect(() => {
-        if (atTop) {
-            // console.log(itemHeight);
-            jump(itemHeight);
-            dragRef.current?.reactToJump(itemHeight, true);
-        }
-    }, [atTop]);
+        const element = scrollRef.current;
+        if (!element) return;
 
-    /*
-    Explanation of jump value:
-    itemHeight 1: Gives the scrollbar some room to scroll backwards, wouldn't have any room if I used 0
-    scrollHeight - itemHeight: Gives me the length of the gap between the scroll window and one full list.
-    itemHeight - (scrollHeight - itemHeight): Move one full list length ahead and then scroll backwards to position
-    the bottom of list #2 to the bottom of the scroll window.
+        const handleScroll = () => {
+            console.log(element.scrollTop)
+            if (element.scrollTop <= 0) {
+                jump(itemHeight.current);
+                dragRef.current?.reactToJump(itemHeight.current, true);
+            }
+            else if (element.scrollTop >= itemHeight.current * 2) {
+                jump(12 + itemHeight.current - (scrollHeight.current - itemHeight.current));
+                dragRef.current?.reactToJump(itemHeight.current, false);
+            }
+        };
 
-    12: Not sure yet, the jump occurs after the 4px margin after the last element is crossed. Without any offset
-    the jump positions the last element to the bottom of the scroll window without any margin. When adding 4 there is still
-    a visible jump backwards but it is seamless with 12.
-    */
-    useEffect(() => {
-        if (atBottom) {
-            // console.log(12 + itemHeight - (scrollHeight - itemHeight))
-            jump(12 + itemHeight - (scrollHeight - itemHeight));
-            dragRef.current?.reactToJump(itemHeight, false);
-        }
-    }, [atBottom]);
+        element.addEventListener("scroll", handleScroll);
 
+        return () => {
+            element.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     let data;
     if (gender === 'mens') { data = mData }
@@ -116,8 +76,7 @@ function PlayerList() {
 
     return (
         <ClickAndDrag scrollRef={scrollRef} ref={dragRef}>
-        {/* <div ref={scrollRef} className='detailedRosterView playerList scrollContainer'> */}
-            <div ref={topRef} style={{ height: '0px' }} />
+            {/* <div ref={scrollRef} className='detailedRosterView playerList scrollContainer'> */}
             {Array.from({ length: count }).map((_, index) => (
                 <Fragment key={index}>
                     <div ref={itemRef}>
@@ -129,8 +88,7 @@ function PlayerList() {
                     </div>
                 </Fragment>
             ))}
-            <div ref={bottomRef} style={{ height: '0px' }} />
-        {/* </div> */}
+            {/* </div> */}
         </ClickAndDrag>
     )
 }

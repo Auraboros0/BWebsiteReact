@@ -23,6 +23,7 @@
 }
 
 .verticalVideo {
+    position: relative;
     width: 100%;
     cursor: pointer;
 }
@@ -37,10 +38,10 @@
 
 .instaImage.gall {
     filter: brightness(1.0);
-    background-color: transparent;
+    background-color: #d01840;
     background-image: linear-gradient(45deg, #d01840 0% 80%, #FFFFFF 80% 82.5%, transparent 82.5% 100%), url(/public/assets/Textures/stateAccent.png);
     background-size: auto 200px, 30%;
-    background-repeat: repeat, repeat;
+    background-repeat: no-repeat, repeat;
     background-clip: padding-box;
     color: white;
     border: 4px dotted #777777;
@@ -64,7 +65,8 @@
     outline: none;
 }
 
-.instaImage.gall img, video {
+.instaImage.gall img,
+.instaImage.gall video {
     display: block;
 }
 

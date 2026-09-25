@@ -9,7 +9,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 859,
             "Gm": 5,
             "Avg": 171.8,
-            "tournamentName": "GLBC I"
+            "Tournament_name": "GLBC I"
         },
         {
             "No": 29,
@@ -19,7 +19,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 749,
             "Gm": 5,
             "Avg": 149.8,
-            "tournamentName": "GLBC II"
+            "Tournament_name": "GLBC II"
         },
         {
             "No": 9,
@@ -29,7 +29,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 825,
             "Gm": 5,
             "Avg": 165,
-            "tournamentName": "Titan Invitational"
+            "Tournament_name": "Titan Invitational"
         },
         {
             "No": 4,
@@ -39,7 +39,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 911,
             "Gm": 5,
             "Avg": 182.2,
-            "tournamentName": "GLBC III"
+            "Tournament_name": "GLBC III"
         },
         {
             "No": 11,
@@ -49,7 +49,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 903,
             "Gm": 5,
             "Avg": 180.6,
-            "tournamentName": "GLBC IV"
+            "Tournament_name": "GLBC IV"
         },
         {
             "No": 5,
@@ -59,7 +59,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 916,
             "Gm": 5,
             "Avg": 183.2,
-            "tournamentName": "Viterbo Invitational"
+            "Tournament_name": "Viterbo Invitational"
         }
     ],
     "Stephanie Lo": [
@@ -71,7 +71,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 826,
             "Gm": 5,
             "Avg": 165.2,
-            "tournamentName": "GLBC I"
+            "Tournament_name": "GLBC I"
         },
         {
             "No": 24,
@@ -81,7 +81,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 768,
             "Gm": 5,
             "Avg": 153.6,
-            "tournamentName": "GLBC II"
+            "Tournament_name": "GLBC II"
         },
         {
             "No": 1,
@@ -91,7 +91,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 993,
             "Gm": 5,
             "Avg": 198.6,
-            "tournamentName": "Titan Invitational"
+            "Tournament_name": "Titan Invitational"
         },
         {
             "No": 6,
@@ -101,7 +101,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 899,
             "Gm": 5,
             "Avg": 179.8,
-            "tournamentName": "GLBC III"
+            "Tournament_name": "GLBC III"
         },
         {
             "No": 13,
@@ -111,7 +111,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 891,
             "Gm": 5,
             "Avg": 178.2,
-            "tournamentName": "GLBC IV"
+            "Tournament_name": "GLBC IV"
         },
         {
             "No": 12,
@@ -121,7 +121,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 833,
             "Gm": 5,
             "Avg": 166.6,
-            "tournamentName": "Viterbo Invitational"
+            "Tournament_name": "Viterbo Invitational"
         }
     ],
     "Alondra Chavez": [
@@ -133,7 +133,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 813,
             "Gm": 5,
             "Avg": 162.6,
-            "tournamentName": "GLBC I"
+            "Tournament_name": "GLBC I"
         },
         {
             "No": 26,
@@ -143,7 +143,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 763,
             "Gm": 5,
             "Avg": 152.6,
-            "tournamentName": "GLBC II"
+            "Tournament_name": "GLBC II"
         },
         {
             "No": 23,
@@ -153,7 +153,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 725,
             "Gm": 5,
             "Avg": 145,
-            "tournamentName": "Titan Invitational"
+            "Tournament_name": "Titan Invitational"
         },
         {
             "No": 16,
@@ -163,7 +163,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 850,
             "Gm": 5,
             "Avg": 170,
-            "tournamentName": "GLBC III"
+            "Tournament_name": "GLBC III"
         },
         {
             "No": 8,
@@ -173,7 +173,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 918,
             "Gm": 5,
             "Avg": 183.6,
-            "tournamentName": "GLBC IV"
+            "Tournament_name": "GLBC IV"
         },
         {
             "No": 4,
@@ -183,7 +183,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 943,
             "Gm": 5,
             "Avg": 188.6,
-            "tournamentName": "Viterbo Invitational"
+            "Tournament_name": "Viterbo Invitational"
         }
     ],
     "Nyla Duzon": [
@@ -195,7 +195,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 629,
             "Gm": 4,
             "Avg": 157.25,
-            "tournamentName": "GLBC I"
+            "Tournament_name": "GLBC I"
         },
         {
             "No": 22,
@@ -205,7 +205,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 783,
             "Gm": 5,
             "Avg": 156.6,
-            "tournamentName": "GLBC II"
+            "Tournament_name": "GLBC II"
         },
         {
             "No": 21,
@@ -215,7 +215,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 727,
             "Gm": 5,
             "Avg": 145.4,
-            "tournamentName": "Titan Invitational"
+            "Tournament_name": "Titan Invitational"
         },
         {
             "No": 28,
@@ -225,7 +225,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 761,
             "Gm": 5,
             "Avg": 152.2,
-            "tournamentName": "GLBC III"
+            "Tournament_name": "GLBC III"
         },
         {
             "No": 14,
@@ -235,7 +235,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 814,
             "Gm": 5,
             "Avg": 162.8,
-            "tournamentName": "Viterbo Invitational"
+            "Tournament_name": "Viterbo Invitational"
         }
     ],
     "Beverly Bloch": [
@@ -247,7 +247,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 577,
             "Gm": 4,
             "Avg": 144.25,
-            "tournamentName": "GLBC I"
+            "Tournament_name": "GLBC I"
         },
         {
             "No": 12,
@@ -257,7 +257,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 845,
             "Gm": 5,
             "Avg": 169,
-            "tournamentName": "GLBC II"
+            "Tournament_name": "GLBC II"
         },
         {
             "No": 7,
@@ -267,7 +267,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 852,
             "Gm": 5,
             "Avg": 170.4,
-            "tournamentName": "Titan Invitational"
+            "Tournament_name": "Titan Invitational"
         },
         {
             "No": 20,
@@ -277,7 +277,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 837,
             "Gm": 5,
             "Avg": 167.4,
-            "tournamentName": "GLBC IV"
+            "Tournament_name": "GLBC IV"
         },
         {
             "No": 6,
@@ -287,7 +287,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 901,
             "Gm": 5,
             "Avg": 180.2,
-            "tournamentName": "Viterbo Invitational"
+            "Tournament_name": "Viterbo Invitational"
         }
     ],
     "Emily Dobberfuhl": [
@@ -299,7 +299,7 @@ import type { resultsInterface } from "../Interfaces/resultsInterface.ts";
             "Total": 224,
             "Gm": 2,
             "Avg": 112,
-            "tournamentName": "GLBC I"
+            "Tournament_name": "GLBC I"
         }
     ]
 }

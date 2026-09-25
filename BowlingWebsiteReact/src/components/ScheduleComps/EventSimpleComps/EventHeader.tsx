@@ -11,8 +11,8 @@ function EventHeader(props: tournament) {
     if (props.gender == 0) {genderString = 'Men @ '}
     if (props.gender == 1) {genderString = 'Women @ '}
     return (
-        <h2 className='eventHeader' style={{textAlign: 'center', backgroundColor: 'white', position:"relative", zIndex: '2'}}>
-            {genderString}{props.name} <br /> {startMonth}/{startDay} - {endMonth}/{endDay}
+        <h2 className='eventHeader' style={{textAlign: 'center', backgroundColor: 'white'}}>
+            <span style={{position: 'relative', zIndex: '3'}}>{genderString}{props.name} <br /> {startMonth}/{startDay} - {endMonth}/{endDay}</span>
         </h2>
     )
 }

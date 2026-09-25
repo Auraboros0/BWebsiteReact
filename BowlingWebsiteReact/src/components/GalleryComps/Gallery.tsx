@@ -1,5 +1,6 @@
 import '../../css/gallery.scss'
 import GalleryEntry from './GalleryEntry';
+import GalleryModal from './GalleryModal';
 import { fetchWithRetry } from "../../Scripts/fetchWithRetry";
 import { useEffect, useState, useRef } from "react";
 const endpoint = `/api/gallery`
@@ -23,7 +24,7 @@ function MuteButton(props: { onMute: () => void }) {
 
 function GalleryColumn(props: { comps: React.ReactNode[] }) {
     return (
-        <div className='instaColumn' style={{ width: '30vw' }}>
+        <div className='instaColumn' style={{}}>
             {props.comps.map((item, index) => (
                 <div key={index}>
                     {item}
@@ -49,8 +50,6 @@ function Gallery() {
 
     // Pausing all other videos within the video set upon playing one
     const playOnePauseOthers = (video: HTMLVideoElement) => {
-        // if (video.paused) {
-            // video.play();
             for (const other of videoRefSet.current) {
                 if (other != video) {
                     other.pause();
@@ -58,12 +57,22 @@ function Gallery() {
             }
     }
 
+    const muteOrUnmuteAll = (video: HTMLVideoElement) => {
+            for (const other of videoRefSet.current) {
+                if (other != video) {
+                    other.volume = video.volume;
+                    other.muted = video.muted;
+                }
+            }
+    }
+
     const [mediaURLs, setMediaURLs] = useState<[string, boolean][]>([]);
     const columnComps: [React.ReactNode[], React.ReactNode[], React.ReactNode[]] = [[], [], []];
     const videoRefSet = useRef(new Set<HTMLVideoElement>());
+    const idx = useRef<number>(0);
 
     mediaURLs.map((i, index) => {
-        columnComps[index % 3].push(<GalleryEntry key={(index * 3) + index % 3} url={i} onPlay={playOnePauseOthers} registerVideo={registerVideo} unregisterVideo={unregisterVideo} />);
+        columnComps[index % 3].push(<GalleryEntry key={index} url={i} onPlay={playOnePauseOthers} onMute={muteOrUnmuteAll} registerVideo={registerVideo} unregisterVideo={unregisterVideo} />);
     })
 
     useEffect(() => {
@@ -74,14 +83,14 @@ function Gallery() {
             const images = await data.images;
             const videoArray = videos.map(vid => [vid, true]);
             const imageArray = images.map(img => [img, false]);
-            const allArray = [...imageArray, ...videoArray].toSorted((a, b) => a - b);
+            const allArray = [...imageArray, ...videoArray].toSorted((a, b) => parseInt(b[0].split("_")[1]) - parseInt(a[0].split("_")[1]));
             setMediaURLs(allArray);
-            console.log(data)
         }
         setData();
     }, [])
 
     return (
+        // ADD A MODAL
         <div className="insta photos">
             <GalleryColumn comps={columnComps[0]} />
             <GalleryColumn comps={columnComps[1]} />

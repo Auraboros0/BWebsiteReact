@@ -1,5 +1,7 @@
-import type { teamResultsInterface } from "../Interfaces/teamResultsInterface.ts";
-    export const mensTeamResultsObject: Record<string, teamResultsInterface[]> = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.tournamentSet = exports.mensTeamResultsObject = void 0;
+exports.mensTeamResultsObject = {
     "Pioneer Invite": [
         {
             "No": 1,
@@ -1094,5 +1096,5 @@ import type { teamResultsInterface } from "../Interfaces/teamResultsInterface.ts
             "tournamentName": "GLBC IV"
         }
     ]
-}
-    export const tournamentSet: [string, string][] = [["Pioneer Invite","2025-10-04T12:00:00"],["GLBC I","2025-10-11T12:00:00"],["GLBC II","2025-10-25T12:00:00"],["Titan Invitational","2025-11-15T12:00:00"],["Big Ten Championships","2025-12-06T12:00:00"],["GLBC III","2026-01-24T12:00:00"],["GLBC IV","2026-01-31T12:00:00"]]
+};
+exports.tournamentSet = [["Pioneer Invite", "2025-10-04T12:00:00"], ["GLBC I", "2025-10-11T12:00:00"], ["GLBC II", "2025-10-25T12:00:00"], ["Titan Invitational", "2025-11-15T12:00:00"], ["Big Ten Championships", "2025-12-06T12:00:00"], ["GLBC III", "2026-01-24T12:00:00"], ["GLBC IV", "2026-01-31T12:00:00"]];

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate, Link } from 'react-router';
+import type { tournamentEntry } from "./ResultsBoxContainer";
 
 async function getTourney() {
     const data = await fetch('/api/home/tournaments')
 }
 
-function ResultsBoxSelection(props: { gender: number, name: string, idx: number, entries: [string, [number, string]][] }) {
+function ResultsBoxSelection(props: { gender: number, name: string, idx: number, entries: tournamentEntry[] }) {
     const navigate = useNavigate()
     const toM = `/results/mens/${props.name}/${props.idx}`;
     const toF = `/results/womens/${props.name}/${props.idx}`
@@ -28,7 +29,7 @@ function ResultsBoxSelection(props: { gender: number, name: string, idx: number,
     )
 }
 
-function ResultsBox(props: { name: string, gender: number, idx: number, entries: [string, [number, string]][] }) {
+function ResultsBox(props: { name: string, gender: number, idx: number, entries: tournamentEntry[] }) {
     const [isHovering, setIsHovering] = useState(false);
     function stateMachine() {
         return isHovering ? 'gallerySquare resultsBox hovered' : 'gallerySquare resultsBox';
@@ -38,14 +39,6 @@ function ResultsBox(props: { name: string, gender: number, idx: number, entries:
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 setIsHovering(false);
-            })
-        })
-    }
-
-    function delayedExitForFirefox() {
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                setIsHovering(true);
             })
         })
     }

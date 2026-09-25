@@ -3,13 +3,13 @@ import NextTourney from "./NextTourney"
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { createNextTourneyString } from "./NextTourneyRewrite";
 import { scroll } from "../../Scripts/scroll";
+import useConditionalRender from "../../Scripts/useConditionalRender";
 async function getRecap() {
     const data = await fetch('/api/home/recap');
     const toReturn = await data.json();
     const status = data.status;
     return { toReturn, status };
 }
-
 function ordinal(n: number) {
     const suffix =
         n % 100 >= 11 && n % 100 <= 13
@@ -24,8 +24,6 @@ function ordinal(n: number) {
 
     return `${n}${suffix}`;
 }
-
-
 function generateString(place: [number, number], fieldSize: [number, number], tournamentName: [string, string]) {
     // [0] refers to men [1] refers to women
     const placeM = ordinal(place[0]);
@@ -48,11 +46,18 @@ function generateString(place: [number, number], fieldSize: [number, number], to
     }
 
 }
+function getOneImage() {
+    const URLs = import.meta.glob('/public/assets/TitleImageCollection/*.{png,jpg,jpeg,JPG}', { eager: true });
+    const keys = Object.keys(URLs);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
 function MainImage() {
     // The 0 index of every state is the mens data. The 1 index is the womens data
+    const { isMd } = useConditionalRender();
     const [placement, setPlacement] = useState<[number, number]>([0, 0]);
     const [outOf, setOutOf] = useState<[number, number]>([0, 0]);
     const [name, setName] = useState<[string, string]>(["", ""]);
+    const [imageURL, setImageURL] = useState("");
 
     const [repeatCount, setRepeatCount] = useState<number>(1);
     const textRef = useRef<HTMLDivElement>(null);
@@ -69,9 +74,11 @@ function MainImage() {
     // let stringLater = `${liveString}: ${nextTourney.strings}`;
 
     function scrollWrapper(scrollSpeed: number) {
-        scroll(scrollSpeed, animationId, position, containerRef, {xAxis: true, reverse: false, layer: 0});
+        if (isMd) {
+            scroll(scrollSpeed, animationId, position, containerRef, { xAxis: true, reverse: false, layer: 0 });
+        }
     }
-    scrollWrapper(1);
+
     useEffect(() => {
         const getData = async () => {
             try {
@@ -91,6 +98,8 @@ function MainImage() {
 
             }
         }
+        setImageURL(getOneImage())
+        scrollWrapper(1);
         getData();
     }, [])
 
@@ -103,7 +112,6 @@ function MainImage() {
                 let repeatCount = 2 * Math.floor((1 + (containerWidth! / textWidth)));
                 if (repeatCount < 2) { repeatCount = 2 };
                 setRepeatCount(repeatCount);
-                console.log("RESIZE");
             }
         }
 
@@ -113,30 +121,38 @@ function MainImage() {
     }, [])
 
     stringBefore = `${generateString(placement, outOf, name)}`;
-    // allString = `${stringLater} | ${stringBefore} | `;
-    // I'll use CSS to animate the text while using this to animate the background
-    return (
-        <div className='mainImage' style={{ position: 'relative', width: 'calc(100% + 8px)', overflowX: 'clip', overflowY: 'visible', fontSize: 'calc(100vw / 70)'}}>
 
+    return (
+        <div className='mainImage' style={{ position: 'relative', width: 'calc(100% + 8px)', overflowX: 'clip', overflowY: 'visible', fontSize: 'calc(100vw / 70)' }}>
+
+            {/* Hidden copy of one scrolling text element, used to determine how many times it needs to be repeated */}
             <div ref={textRef} style={{ position: "absolute", visibility: 'hidden', display: 'flex', flexShrink: '0', width: 'max-content', textWrap: 'nowrap' }}>
                 <h1 style={{ display: 'flex', margin: '0', flexShrink: '0', gap: '0', width: 'max-content' }}>
-                    <span style={{ margin: '0', marginLeft: '400px', backgroundColor: 'black' }}>{stringBefore}</span>
+                    <span style={{ margin: '0', marginLeft: '200px', backgroundColor: 'black' }}>{stringBefore}</span>
                     {laterStrings.map((item) => (
-                        <span style={{ margin: '0', marginLeft: '400px' }}>{liveString}: {item}</span>
+                        <span style={{ margin: '0', marginLeft: '200px' }}>{liveString}: {item}</span>
                     ))}
                 </h1>
             </div>
 
-            <img style={{ zIndex: '-1' }} src='/public/assets/Textures/grunge.jpg' />
+            <img src={imageURL} />
+            {/* <div className="fourPhotos">
+                <div className="fourPhotosImage"><img style={{ zIndex: '-1' }} src='/public/assets/GenderedTeamPhotos/WIDE_ZTHAOHER.JPG' /></div>
+                <div className="fourPhotosImage"><img style={{ zIndex: '-1' }} src='/public/assets/GenderedTeamPhotos/WIDE_MORLOW.JPG' /></div>
+                <div className="fourPhotosImage"><img style={{ zIndex: '-1' }} src='/public/assets/GenderedTeamPhotos/WIDE_VCISAR.JPG' /></div>
+                <div className="fourPhotosImage"><img style={{ zIndex: '-1' }} src='/public/assets/GenderedTeamPhotos/WIDE_JKILANDER.JPG' /></div>
+            </div> */}
+
             <div ref={containerRef} className='scrollingResults'>
                 {/* // This section will display high game and series of the most recent competition, scrolling */}
                 <div style={{ display: 'flex', flexShrink: '0', width: 'max-content', textWrap: 'nowrap', boxSizing: 'border-box' }} className='scrollingResultsText'>
                     {Array.from({ length: repeatCount }).map((_index) => (
 
+                        // Scrolling, repeating text
                         <h1 style={{ display: 'inline-block', flexShrink: '0', width: 'max-content' }}>
-                            <span style={{ margin: '0', marginLeft: '400px'}}>{stringBefore}</span>
+                            <span style={{ margin: '0', marginLeft: '200px' }}>{stringBefore}</span>
                             {laterStrings.map((item) => (
-                                <span style={{ margin: '0', marginLeft: '400px' }}>{liveString}: {item}</span>
+                                <span style={{ margin: '0', marginLeft: '200px' }}>{liveString}: {item}</span>
                             ))}
                         </h1>
 

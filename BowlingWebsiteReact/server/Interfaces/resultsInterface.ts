@@ -1,5 +1,5 @@
 ﻿export interface resultsInterface {
-    tournamentName: string
+    Tournament_name: string
     No: number
     Name: string
     School: string

@@ -91,7 +91,7 @@ function InstaFeed() {
                 {instaData.length == 0 &&
                     <div className='instaBoxBorder loading' style={{ display: 'block', position: 'relative', left: '0', width: '100vw', height: '500px' }}></div>
                 }
-                {!isMd && <InstaPostNew {...instaData[randomPostThree.current]} />}
+                {!isMd && <InstaPostNew {...instaData[0]} />}
                 {isMd && instaData.length != 0 && <>
                     <InstaColumn items={instaColumnData[0]} />
                     <InstaColumn items={instaColumnData[1]} />

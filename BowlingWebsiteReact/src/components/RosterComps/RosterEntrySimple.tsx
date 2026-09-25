@@ -16,7 +16,6 @@ export default function RosterEntrySimple(props: player) {
     const { gender, id } = useParams();
 
     function alreadyAtLink(name: string) {
-        console.log(id)
         if (id === name) { return true;}
         return false;
     }

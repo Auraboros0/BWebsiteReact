@@ -1,5 +1,7 @@
-import type { teamResultsInterface } from "../Interfaces/teamResultsInterface.ts";
-    export const womensTeamResultsObject: Record<string, teamResultsInterface[]> = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.tournamentSet = exports.womensTeamResultsObject = void 0;
+exports.womensTeamResultsObject = {
     "GLBC I": [
         {
             "No": 1,
@@ -532,5 +534,5 @@ import type { teamResultsInterface } from "../Interfaces/teamResultsInterface.ts
             "tournamentName": "Viterbo Invitational"
         }
     ]
-}
-    export const tournamentSet: [string, string][] = [["GLBC I","2025-10-11T12:00:00"],["GLBC II","2025-10-25T12:00:00"],["Titan Invitational","2025-11-15T12:00:00"],["GLBC III","2026-01-24T12:00:00"],["GLBC IV","2026-01-31T12:00:00"],["Viterbo Invitational","2026-02-14T12:00:00"]]
+};
+exports.tournamentSet = [["GLBC I", "2025-10-11T12:00:00"], ["GLBC II", "2025-10-25T12:00:00"], ["Titan Invitational", "2025-11-15T12:00:00"], ["GLBC III", "2026-01-24T12:00:00"], ["GLBC IV", "2026-01-31T12:00:00"], ["Viterbo Invitational", "2026-02-14T12:00:00"]];
