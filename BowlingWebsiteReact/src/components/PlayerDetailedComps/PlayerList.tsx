@@ -52,13 +52,13 @@ function PlayerList() {
         if (!element) return;
 
         const handleScroll = () => {
-            console.log(element.scrollTop)
+            console.log(element.scrollTop, itemHeight.current, scrollHeight.current)
             if (element.scrollTop <= 0) {
                 jump(itemHeight.current);
                 dragRef.current?.reactToJump(itemHeight.current, true);
             }
-            else if (element.scrollTop >= itemHeight.current * 2) {
-                jump(12 + itemHeight.current - (scrollHeight.current - itemHeight.current));
+            else if (element.scrollTop >= scrollHeight.current - scrollRef.current?.clientHeight!) {
+                jump(element.scrollTop - itemHeight.current);
                 dragRef.current?.reactToJump(itemHeight.current, false);
             }
         };

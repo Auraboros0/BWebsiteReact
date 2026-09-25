@@ -1,4 +1,5 @@
 import { useRef, useImperativeHandle, useEffect, forwardRef } from 'react'
+import useConditionalRender from './useConditionalRender';
 export interface ClickDragHandle {
     reactToJump: (itemHeight: number, up: boolean) => void
 }
@@ -14,6 +15,8 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
         useImperativeHandle(ref, () => ({
             reactToJump,
         }))
+
+        const { isMd } = useConditionalRender();
 
         // Whenever the parent jumps, this will be called via ref
         function reactToJump(itemHeight: number, up: boolean) {
@@ -111,10 +114,10 @@ const clickAndDrag = forwardRef<ClickDragHandle, ClickDragProps>(
         return (
             <div
                 ref={scrollRef}
-                onPointerDown={onHold}
-                onPointerUp={onRelease}
-                onPointerMove={onDrag}
-                onWheel={onWheel}
+                onPointerDown={isMd ? onHold : undefined}
+                onPointerUp={isMd ? onRelease : undefined}
+                onPointerMove={isMd ? onDrag : undefined}
+                onWheel={isMd ? onWheel : undefined}
                 className='detailedRosterView playerList scrollContainer'
             >
                 {children}
